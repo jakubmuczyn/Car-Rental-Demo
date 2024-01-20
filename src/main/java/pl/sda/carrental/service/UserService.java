@@ -1,6 +1,8 @@
 package pl.sda.carrental.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,20 +15,25 @@ import pl.sda.carrental.repository.UserRepository;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Service
-public class UserDetail implements UserDetailsService {
-    @Autowired
-    UserRepository userRepo;
+public class UserService implements UserDetailsService {
+    private final UserRepository userRepo;
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsernameOrEmail(username, username).get();
-        if(user==null){
-            new UsernameNotFoundException("User does not exist");
-        }
+        User user = findByUsernameOrEmail(username);
         Set<GrantedAuthority> authorities = user.getRoles().stream()
                 .map((role) -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toSet());
-        return new org.springframework.security.core.userdetails.User(username,user.getPassword(),authorities);
+        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), authorities);
+    }
+    
+    public User findByUsernameOrEmail(String username) {
+        return userRepo.findByUsernameOrEmail(username, username).orElseThrow(() ->
+                new IllegalArgumentException("Username does not exist")
+        );
     }
 }

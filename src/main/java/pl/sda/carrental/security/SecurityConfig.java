@@ -12,12 +12,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
     
     @Bean
-    public static PasswordEncoder passwordEncoder(){
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
     @Bean
     public SecurityFilterChain filterSecurity(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf(c -> c.disable())
+                .cors(c -> c.disable())
                 .authorizeHttpRequests((authorize) ->
                         authorize.anyRequest().authenticated()
                 ).formLogin(
