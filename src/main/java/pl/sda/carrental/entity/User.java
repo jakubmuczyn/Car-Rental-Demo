@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+// @RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
