@@ -23,11 +23,14 @@ public class Division {
     @PrimaryKeyJoinColumn
     @OneToOne
     private Address address;
-
-    @OneToMany(mappedBy = "division", cascade = CascadeType.ALL)
-    private ArrayList<Employee> employees = new ArrayList<>();
+    @ToString.Exclude
+    @OneToMany(mappedBy = "division", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Employee> employees = new ArrayList<>();
 
     public void addEmployee(Employee employee) {
+        if (this.employees == null) {
+            this.employees = new ArrayList<>();
+        }
         this.employees.add(employee);
     }
 

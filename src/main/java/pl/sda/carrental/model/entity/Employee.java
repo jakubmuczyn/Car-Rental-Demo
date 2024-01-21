@@ -20,7 +20,6 @@ public class Employee {
     private String name;
     private Position position;
     @ManyToOne
-    @JoinColumn()
     private Division division;
 
 }
