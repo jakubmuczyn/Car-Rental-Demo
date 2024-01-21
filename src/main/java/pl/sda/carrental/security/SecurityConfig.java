@@ -3,6 +3,7 @@ package pl.sda.carrental.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,7 +22,9 @@ public class SecurityConfig {
         http.csrf(c -> c.disable())
                 .cors(c -> c.disable())
                 .authorizeHttpRequests((authorize) ->
-                        authorize.anyRequest().authenticated()
+                        authorize
+                                .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
+                                .anyRequest().authenticated()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
@@ -32,7 +35,9 @@ public class SecurityConfig {
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .permitAll()
-                );
+                )
+                .headers(AbstractHttpConfigurer::disable)
+        ;
         return http.build();
     }
 }
