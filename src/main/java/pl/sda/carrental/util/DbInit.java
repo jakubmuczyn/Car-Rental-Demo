@@ -63,10 +63,6 @@ public class DbInit {
                 .build();
 
 
-//        List<Employee> employeeList = new ArrayList<>();
-//        employeeList.add(employee);
-//
-//        division.setEmployees(employeeList);
         division.addEmployee(employee);
 
         addressRepository.save(address);
