@@ -7,6 +7,6 @@ import pl.sda.carrental.model.entity.User;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository<T extends User> extends JpaRepository<T, Integer> {
     Optional<User> findByUsernameOrEmail(String username, String email);
 }

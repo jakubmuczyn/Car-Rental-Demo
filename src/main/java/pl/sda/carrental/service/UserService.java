@@ -3,6 +3,7 @@ package pl.sda.carrental.service;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.sda.carrental.model.entity.User;
+import pl.sda.carrental.model.repository.AdministratorRepository;
 import pl.sda.carrental.model.repository.UserRepository;
 
 import java.util.Set;
@@ -20,7 +22,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class UserService implements UserDetailsService {
-    private final UserRepository userRepo;
+
+    private final UserRepository<User> userRepo;
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

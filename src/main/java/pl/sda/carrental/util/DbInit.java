@@ -20,12 +20,14 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Component
 public class DbInit {
-    private final UserRepository userRepository;
+    private final UserRepository<User> userRepository;
+    private final UserRepository<Administrator> administratorRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final AddressRepository addressRepository;
     private final DivisionRepository divisionRepository;
     private final EmployeeRepository employeeRepository;
+
 
     @PostConstruct
     private void postConstruct() {
@@ -39,8 +41,8 @@ public class DbInit {
         Set<Role> adminRoles = new HashSet<>();
         adminRoles.add(adminRole);
 
-        User admin = User.builder().username("admin").email("admin@test.pl").password(passwordEncoder.encode("admin")).build();
-        userRepository.save(admin);
+        Administrator admin = Administrator.builder().name("admin").username("admin").email("admin@test.pl").password(passwordEncoder.encode("admin")).roles(adminRoles).build();
+        administratorRepository.save(admin);
 
         testDatabase();
     }
