@@ -1,4 +1,4 @@
-package pl.sda.carrental.entity;
+package pl.sda.carrental.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
