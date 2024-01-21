@@ -22,8 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class UserService implements UserDetailsService {
-
-    private final UserRepository<User> userRepo;
+    private final UserRepository userRepo;
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

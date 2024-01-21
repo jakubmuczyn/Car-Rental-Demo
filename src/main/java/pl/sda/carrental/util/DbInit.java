@@ -20,8 +20,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Component
 public class DbInit {
-    private final UserRepository<User> userRepository;
-    private final UserRepository<Administrator> administratorRepository;
+    private final UserRepository userRepository;
+    private final AdministratorRepository administratorRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final AddressRepository addressRepository;
