@@ -6,16 +6,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import pl.sda.carrental.model.entity.Address;
-import pl.sda.carrental.model.entity.Division;
-import pl.sda.carrental.model.entity.Role;
-import pl.sda.carrental.model.entity.User;
-import pl.sda.carrental.model.repository.AddressRepository;
-import pl.sda.carrental.model.repository.DivisionRepository;
-import pl.sda.carrental.model.repository.RoleRepository;
-import pl.sda.carrental.model.repository.UserRepository;
+import pl.sda.carrental.model.entity.*;
+import pl.sda.carrental.model.enums.Position;
+import pl.sda.carrental.model.repository.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -28,6 +25,7 @@ public class DbInit {
     private final PasswordEncoder passwordEncoder;
     private final AddressRepository addressRepository;
     private final DivisionRepository divisionRepository;
+    private final EmployeeRepository employeeRepository;
 
     @PostConstruct
     private void postConstruct() {
@@ -53,15 +51,31 @@ public class DbInit {
                 .state("Łódzkie")
                 .city("Łódź")
                 .build();
+
         Division division = Division.builder()
                 .address(address)
                 .build();
 
+        Employee employee = Employee.builder()
+                .division(division)
+                .name("Jan Kowalski")
+                .position(Position.EMPLOYEE)
+                .build();
+
+
+//        List<Employee> employeeList = new ArrayList<>();
+//        employeeList.add(employee);
+//
+//        division.setEmployees(employeeList);
+        division.addEmployee(employee);
+
         addressRepository.save(address);
         divisionRepository.save(division);
+        employeeRepository.save(employee);
 
         System.out.println("Address query: " + addressRepository.findAll().get(0).toString());
         System.out.println("Division query: " + divisionRepository.findAll().get(0).toString());
+        System.out.println("Employee query: " + employeeRepository.findAll().get(0).toString());
 
 
     }
