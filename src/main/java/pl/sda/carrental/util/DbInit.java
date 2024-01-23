@@ -62,6 +62,9 @@ public class DbInit {
                 .division(division)
                 .name("Jan Kowalski")
                 .position(Position.EMPLOYEE)
+                .email("jan.kowalski@company.com")
+                .password(passwordEncoder.encode("kowal"))
+                .username("kowal")
                 .build();
 
 
