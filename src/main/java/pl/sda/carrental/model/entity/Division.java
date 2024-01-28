@@ -20,12 +20,14 @@ public class Division {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long division_id;
 
-    @PrimaryKeyJoinColumn
     @OneToOne
     private Address address;
     @ToString.Exclude
     @OneToMany(mappedBy = "division", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Employee> employees = new ArrayList<>();
+    @OneToMany(mappedBy = "division")
+    @ToString.Exclude
+    private List<Car> cars = new ArrayList<>();
 
     public void addEmployee(Employee employee) {
         if (this.employees == null) {
@@ -34,4 +36,11 @@ public class Division {
         this.employees.add(employee);
     }
 
+    public void addCar(Car car) {
+        if (this.cars == null)
+            this.cars = new ArrayList<>();
+
+        this.cars.add(car);
+        car.setDivision(this);
+    }
 }
