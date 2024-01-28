@@ -7,9 +7,12 @@ import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.sda.carrental.model.entity.*;
+import pl.sda.carrental.model.entity.enums.RentStatus;
 import pl.sda.carrental.model.enums.Position;
 import pl.sda.carrental.model.repository.*;
 
+import java.math.BigDecimal;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -28,6 +31,7 @@ public class DbInit {
     private final DivisionRepository divisionRepository;
     private final EmployeeRepository employeeRepository;
     private final ClientRepository clientRepository;
+    private final CarRepository carRepository;
 
 
     @PostConstruct
@@ -75,18 +79,38 @@ public class DbInit {
                 .username("klient")
                 .build();
 
-
-        division.addEmployee(employee);
+        Car car = Car.builder()
+                .brand("Toyota")
+                .model("Corolla")
+                .production_year(Year.of(2020))
+                .body_type("Sedan")
+                .cost_per_day(new BigDecimal("200"))
+                .mileage(260000)
+                .color("Blue")
+                .status(RentStatus.AVAILABLE)
+                .division(division)
+                .build();
 
         addressRepository.save(address);
         divisionRepository.save(division);
+        carRepository.save(car);
+        division.addCar(car);
+        divisionRepository.save(division);
+
+
+        division.addEmployee(employee);
+
         employeeRepository.save(employee);
         clientRepository.save(client);
 
+
         System.out.println("Address query: " + addressRepository.findAll().get(0).toString());
-        System.out.println("Division query: " + divisionRepository.findAll().get(0).toString());
         System.out.println("Employee query: " + employeeRepository.findAll().get(0).toString());
         System.out.println("Client query: " + clientRepository.findAll().get(0).toString());
+        System.out.println("Car query: " + carRepository.findAll().get(0).toString());
+        System.out.println("Division query: " + divisionRepository.findAll().get(0).toString());
+
+        System.out.println(division.getCars());
 
 
     }
