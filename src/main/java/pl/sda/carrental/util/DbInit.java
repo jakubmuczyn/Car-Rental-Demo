@@ -27,6 +27,7 @@ public class DbInit {
     private final AddressRepository addressRepository;
     private final DivisionRepository divisionRepository;
     private final EmployeeRepository employeeRepository;
+    private final ClientRepository clientRepository;
 
 
     @PostConstruct
@@ -63,8 +64,15 @@ public class DbInit {
                 .name("Jan Kowalski")
                 .position(Position.EMPLOYEE)
                 .email("jan.kowalski@company.com")
-                .password(passwordEncoder.encode("kowal"))
-                .username("kowal")
+                .password(passwordEncoder.encode("pracownik"))
+                .username("pracownik")
+                .build();
+
+        Client client = Client.builder()
+                .name("Maciej Konsument")
+                .email("maciej.konsument@gmail.com")
+                .password(passwordEncoder.encode("klient"))
+                .username("klient")
                 .build();
 
 
@@ -73,10 +81,12 @@ public class DbInit {
         addressRepository.save(address);
         divisionRepository.save(division);
         employeeRepository.save(employee);
+        clientRepository.save(client);
 
         System.out.println("Address query: " + addressRepository.findAll().get(0).toString());
         System.out.println("Division query: " + divisionRepository.findAll().get(0).toString());
         System.out.println("Employee query: " + employeeRepository.findAll().get(0).toString());
+        System.out.println("Client query: " + clientRepository.findAll().get(0).toString());
 
 
     }
