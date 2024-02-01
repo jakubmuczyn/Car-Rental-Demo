@@ -29,6 +29,7 @@ public class Division {
     @ToString.Exclude
     private List<Car> cars = new ArrayList<>();
 
+
     public void addEmployee(Employee employee) {
         if (this.employees == null) {
             this.employees = new ArrayList<>();

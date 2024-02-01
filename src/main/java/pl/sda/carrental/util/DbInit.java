@@ -17,6 +17,8 @@ import pl.sda.carrental.model.repository.*;
 import pl.sda.carrental.model.repository.userRepositories.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +37,7 @@ public class DbInit {
     private final EmployeeRepository employeeRepository;
     private final ClientRepository clientRepository;
     private final CarRepository carRepository;
+    private final ReservationRepository reservationRepository;
 
 
     @PostConstruct
@@ -76,23 +79,23 @@ public class DbInit {
                 .build();
 
         Client client = Client.builder()
-                .name("Maciej Konsument")
-                .email("maciej.konsument@gmail.com")
-                .password(passwordEncoder.encode("klient"))
-                .username("klient")
-                .build();
+            .name("Maciej Konsument")
+            .email("maciej.konsument@gmail.com")
+            .password(passwordEncoder.encode("klient"))
+            .username("klient")
+            .build();
 
         Car car = Car.builder()
-                .brand("Toyota")
-                .model("Corolla")
-                .production_year(Year.of(2020))
-                .body_type("Sedan")
-                .cost_per_day(new BigDecimal("200"))
-                .mileage(260000)
-                .color("Blue")
-                .status(RentStatus.AVAILABLE)
-                .division(division)
-                .build();
+            .brand("Toyota")
+            .model("Corolla")
+            .production_year(Year.of(2020))
+            .body_type("Sedan")
+            .cost_per_day(new BigDecimal("200"))
+            .mileage(260000)
+            .color("Blue")
+            .status(RentStatus.AVAILABLE)
+            .division(division)
+            .build();
 
         addressRepository.save(address);
         divisionRepository.save(division);
@@ -107,11 +110,28 @@ public class DbInit {
         clientRepository.save(client);
 
 
+        Reservation reservation = Reservation.builder()
+            .rental_division(division)
+            .return_division(division)
+            .employee(employee)
+            .client(client)
+            .car(car)
+            .reservation_start(LocalDateTime.now())
+            .reservation_end(LocalDateTime.now().plusDays(7))
+            .cost(new BigDecimal("20.50"))
+            .reservation_date(LocalDate.now())
+            .build();
+
+        reservationRepository.save(reservation);
+        car.setReservation(reservation);
+        carRepository.save(car);
+
         System.out.println("Address query: " + addressRepository.findAll().get(0).toString());
         System.out.println("Employee query: " + employeeRepository.findAll().get(0).toString());
         System.out.println("Client query: " + clientRepository.findAll().get(0).toString());
         System.out.println("Car query: " + carRepository.findAll().get(0).toString());
         System.out.println("Division query: " + divisionRepository.findAll().get(0).toString());
+        System.out.println("Reservation query: " + reservationRepository.findAll().get(0).toString());
 
         System.out.println(division.getCars());
 

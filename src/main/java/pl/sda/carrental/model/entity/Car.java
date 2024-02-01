@@ -22,6 +22,9 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "DIVISION_ID")
     private Division division;
+    @OneToOne
+    @ToString.Exclude
+    private Reservation reservation;
 
     private String brand;
     private String model;
@@ -31,5 +34,4 @@ public class Car {
     private int mileage;
     private RentStatus status;
     private BigDecimal cost_per_day;
-
 }
