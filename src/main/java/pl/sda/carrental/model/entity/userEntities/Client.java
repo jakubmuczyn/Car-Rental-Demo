@@ -1,4 +1,4 @@
-package pl.sda.carrental.model.entity;
+package pl.sda.carrental.model.entity.userEntities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

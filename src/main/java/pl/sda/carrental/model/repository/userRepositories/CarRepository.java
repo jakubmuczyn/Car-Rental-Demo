@@ -1,4 +1,4 @@
-package pl.sda.carrental.model.repository;
+package pl.sda.carrental.model.repository.userRepositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

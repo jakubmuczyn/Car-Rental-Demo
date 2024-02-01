@@ -1,4 +1,4 @@
-package pl.sda.carrental.model.enums;
+package pl.sda.carrental.model.entity.enums;
 
 public enum Position {
     EMPLOYEE,MANAGER;

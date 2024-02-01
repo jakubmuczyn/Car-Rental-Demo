@@ -1,9 +1,10 @@
-package pl.sda.carrental.model.entity;
+package pl.sda.carrental.model.entity.userEntities;
 
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import pl.sda.carrental.model.enums.Position;
+import pl.sda.carrental.model.entity.Division;
+import pl.sda.carrental.model.entity.enums.Position;
 
 @Entity
 @Getter

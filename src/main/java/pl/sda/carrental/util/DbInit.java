@@ -8,14 +8,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.sda.carrental.model.entity.*;
 import pl.sda.carrental.model.entity.enums.RentStatus;
-import pl.sda.carrental.model.enums.Position;
+import pl.sda.carrental.model.entity.userEntities.Administrator;
+import pl.sda.carrental.model.entity.userEntities.Client;
+import pl.sda.carrental.model.entity.userEntities.Employee;
+import pl.sda.carrental.model.entity.userEntities.Role;
+import pl.sda.carrental.model.entity.enums.Position;
 import pl.sda.carrental.model.repository.*;
+import pl.sda.carrental.model.repository.userRepositories.*;
 
 import java.math.BigDecimal;
 import java.time.Year;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter

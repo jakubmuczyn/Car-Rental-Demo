@@ -2,13 +2,10 @@ package pl.sda.carrental.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import pl.sda.carrental.model.entity.enums.RentStatus;
 
 import java.math.BigDecimal;
 import java.time.Year;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor

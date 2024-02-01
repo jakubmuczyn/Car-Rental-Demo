@@ -1,12 +1,9 @@
-package pl.sda.carrental.model.entity;
+package pl.sda.carrental.model.entity.userEntities;
 
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-
-import java.util.Set;
 
 @Getter
 @Setter
