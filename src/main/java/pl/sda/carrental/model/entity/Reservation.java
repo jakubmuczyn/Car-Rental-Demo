@@ -2,11 +2,8 @@ package pl.sda.carrental.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.sda.carrental.model.entity.userEntities.Client;
-import pl.sda.carrental.model.entity.userEntities.Employee;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
