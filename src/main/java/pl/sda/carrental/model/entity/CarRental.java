@@ -6,28 +6,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Rentals")
-public class Rental {
+@Table(name = "Car_rentals")
+public class CarRental {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @Column(nullable = false)
-    private String nameOfRentalCompany;
+    private Employee employee;
     
-    private String domain;
+    private LocalDateTime rentalDate;
     
-    private Address address;
+    private Reservation reservation;
     
-    private String owner;
-    
-    private List<Division> divisions;
+    private String comment;
 }
