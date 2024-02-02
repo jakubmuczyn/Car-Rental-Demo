@@ -19,7 +19,7 @@ public class HomeController {
     @GetMapping("/")
     public String greeting(Model model) {
         User user = CustomUserDetailsService
-            .getAuthenticatedUser()
+            .getAuthenticatedUser() // TODO
             .orElseThrow(() -> new UsernameNotFoundException("Logged user not found."));
         model.addAttribute("currentUser", user);
         return "home";

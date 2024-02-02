@@ -1,6 +1,5 @@
 package pl.sda.carrental.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,7 +25,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         Optional<User> userOptional = Optional.ofNullable(userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("username " + username + " not found")));
         return new CustomUserDetails(userOptional.get());
-        ;
     }
     
     public User findByUsernameOrEmail(String username) {
