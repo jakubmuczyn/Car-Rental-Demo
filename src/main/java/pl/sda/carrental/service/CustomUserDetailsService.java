@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Setter
 @RequiredArgsConstructor
 @Service
-public class UserService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
