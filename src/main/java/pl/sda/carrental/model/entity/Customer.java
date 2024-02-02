@@ -12,18 +12,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "Customers")
-public class Customer {
+public class Customer extends User{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    private String customerName;
-    
-    private String customerSurname;
-    
-    private String email;
-    
-    private Address address;
-    
 }

@@ -25,13 +25,14 @@ public class User {
     
     private String name;
     
-    @Column(nullable = false, unique = true)
-    private String username;
+    private String surname;
     
-    @Column(nullable = false, unique = true)
+    private String login;
+    
     private String email;
     
-    @Column(nullable = false)
+    private Address address;
+    
     private String password;
     
     @Enumerated(EnumType.STRING)
