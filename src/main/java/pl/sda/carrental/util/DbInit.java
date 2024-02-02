@@ -8,7 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.sda.carrental.model.entity.*;
 import pl.sda.carrental.model.entity.enums.RentStatus;
-import pl.sda.carrental.model.entity.enums.Position;
 import pl.sda.carrental.model.repository.*;
 import pl.sda.carrental.model.repository.userRepositories.*;
 
