@@ -7,7 +7,7 @@ import pl.sda.carrental.model.entity.Address;
 import java.util.List;
 
 @Repository
-public interface AddressRepository extends JpaRepository<Address, Long> {
+public interface AddressRepository extends JpaRepository<Address, Integer> {
     @Override
     List<Address> findAll();
 }
