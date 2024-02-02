@@ -1,7 +1,8 @@
-package pl.sda.carrental.entity;
+package pl.sda.carrental.model.entity.userEntities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -11,8 +12,10 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type")
 @Table(name = "Users")
 public class User {
     @Id
@@ -25,8 +28,9 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
-    
+
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Role> roles;
+
 }
