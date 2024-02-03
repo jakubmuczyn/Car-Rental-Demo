@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Builder
 @Data
@@ -18,7 +18,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    private Date reservationDate;
+    private LocalDate reservationDate;
     
     private Customer customer;
     
