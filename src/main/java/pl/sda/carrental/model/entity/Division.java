@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "Divisions")
 public class Division {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long division_id;

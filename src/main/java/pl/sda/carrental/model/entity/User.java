@@ -15,7 +15,7 @@ import java.util.Set;
 @SuperBuilder
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "User_type")
+@DiscriminatorColumn(name = "user_type")
 @Table(name = "Users")
 public class User {
     
@@ -38,7 +38,8 @@ public class User {
     private Role role;
     
     public enum Role {
-        USER,
+        CUSTOMER,
+        EMPLOYEE,
         ADMINISTRATOR
     }
 }

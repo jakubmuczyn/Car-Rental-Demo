@@ -5,19 +5,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.sda.carrental.model.entity.User;
-import pl.sda.carrental.service.UserService;
+import pl.sda.carrental.service.CustomUserDetailsService;
 
 @Controller
 public class HomeController {
-    private final UserService userService;
+    private final CustomUserDetailsService customUserDetailsService;
 
-    public HomeController(UserService userService) {
-        this.userService = userService;
+    public HomeController(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     @GetMapping("/")
     public String greeting(Model model) {
-        User user = userService
+        User user = customUserDetailsService
             .getAuthenticatedUser()
             .orElseThrow(() -> new UsernameNotFoundException("Logged in user not found."));
         model.addAttribute("currentUser", user);
