@@ -13,24 +13,30 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reservation {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    
-    private LocalDate reservationDate;
-    
-    private Customer customer;
-    
+    private Long id;
+
+    @OneToOne
     private Car car;
-    
-    private LocalDateTime reservationDateFrom;
-    
-    private LocalDateTime reservationDateTo;
-    
-    private Division divisionOfRent;
-    
-    private Division divisionOfReturn;
-    
+    @OneToOne
+    //Employee shouldn't be nullable? Because you can just use the website
+    private Employee employee;
+    @ManyToOne
+    private Client client;
+    //TODO: Should this be double sided? I don't think division should have a list of reservations..
+    @ManyToOne
+    private Division rental_division;
+    @ManyToOne
+    private Division return_division;
+
+    @Column(nullable = false)
+    private LocalDate reservation_date;
+    @Column(nullable = false)
+    private LocalDateTime reservation_start;
+    @Column(nullable = false)
+    private LocalDateTime reservation_end;
+    @Column(nullable = false)
     private BigDecimal cost;
+
 }
