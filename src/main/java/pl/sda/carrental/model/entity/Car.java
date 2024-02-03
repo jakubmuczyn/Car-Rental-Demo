@@ -2,8 +2,6 @@ package pl.sda.carrental.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.sda.carrental.model.entity.enums.RentStatus;
-
 import java.math.BigDecimal;
 import java.time.Year;
 
@@ -32,6 +30,13 @@ public class Car {
     private Year production_year;
     private String color;
     private int mileage;
+    @Enumerated(EnumType.STRING)
     private RentStatus status;
     private BigDecimal cost_per_day;
+
+
+    public enum RentStatus {
+        RENTED, AVAILABLE, UNAVAILABLE;
+    }
+
 }

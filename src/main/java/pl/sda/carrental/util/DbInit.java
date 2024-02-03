@@ -7,12 +7,10 @@ import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.sda.carrental.model.entity.*;
-import pl.sda.carrental.model.entity.enums.RentStatus;
 import pl.sda.carrental.model.entity.userEntities.Administrator;
 import pl.sda.carrental.model.entity.userEntities.Client;
 import pl.sda.carrental.model.entity.userEntities.Employee;
 import pl.sda.carrental.model.entity.userEntities.Role;
-import pl.sda.carrental.model.entity.enums.Position;
 import pl.sda.carrental.model.repository.*;
 import pl.sda.carrental.model.repository.userRepositories.*;
 
@@ -72,7 +70,7 @@ public class DbInit {
         Employee employee = Employee.builder()
                 .division(division)
                 .name("Jan Kowalski")
-                .position(Position.EMPLOYEE)
+                .position(Employee.Position.EMPLOYEE)
                 .email("jan.kowalski@company.com")
                 .password(passwordEncoder.encode("pracownik"))
                 .username("pracownik")
@@ -93,7 +91,7 @@ public class DbInit {
             .cost_per_day(new BigDecimal("200"))
             .mileage(260000)
             .color("Blue")
-            .status(RentStatus.AVAILABLE)
+            .status(Car.RentStatus.AVAILABLE)
             .division(division)
             .build();
 
