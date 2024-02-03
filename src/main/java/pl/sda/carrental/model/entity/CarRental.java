@@ -1,10 +1,7 @@
 package pl.sda.carrental.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pl.sda.carrental.model.entity.userEntities.Employee;
 
 import java.time.LocalDate;
@@ -12,6 +9,8 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
+@Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Car_rentals")

@@ -37,6 +37,8 @@ public class DbInit {
     private final CustomerRepository customerRepository;
     private final CarRepository carRepository;
     private final ReservationRepository reservationRepository;
+    private final CarRentalRepository carRentalRepository;
+    private final TransactionRepository transactionRepository;
 
 
     @PostConstruct
@@ -108,7 +110,6 @@ public class DbInit {
         employeeRepository.save(employee);
         customerRepository.save(customer);
 
-
         Reservation reservation = Reservation.builder()
             .rental_division(division)
             .return_division(division)
@@ -125,15 +126,36 @@ public class DbInit {
         car.setReservation(reservation);
         carRepository.save(car);
 
+        CarRental carRental = CarRental.builder()
+            .rentalStatus(CarRental.RentalStatus.ONGOING)
+            .employee(employee)
+            .rentalDate(LocalDate.now())
+            .reservation(reservation)
+            .comment("Test comment")
+            .build();
+
+        carRentalRepository.save(carRental);
+
+        Transaction transaction = Transaction.builder()
+            .carRental(carRental)
+            .transactionDate(LocalDate.now())
+            .transactionAmount(carRental.getReservation().getCost())
+            .build();
+
+        transactionRepository.save(transaction);
+
+        testPrint();
+        System.out.println(division.getCars());
+    }
+
+    private void testPrint() {
         System.out.println("Address query: " + addressRepository.findAll().get(0).toString());
         System.out.println("Employee query: " + employeeRepository.findAll().get(0).toString());
         System.out.println("Client query: " + customerRepository.findAll().get(0).toString());
         System.out.println("Car query: " + carRepository.findAll().get(0).toString());
         System.out.println("Division query: " + divisionRepository.findAll().get(0).toString());
         System.out.println("Reservation query: " + reservationRepository.findAll().get(0).toString());
-
-        System.out.println(division.getCars());
-
-
+        System.out.println("CarRental query: " + carRentalRepository.findAll().get(0).toString());
+        System.out.println("Transaction query: " + transactionRepository.findAll().get(0).toString());
     }
 }
