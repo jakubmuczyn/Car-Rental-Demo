@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.sda.carrental.model.entity.*;
 import pl.sda.carrental.model.entity.userEntities.Administrator;
-import pl.sda.carrental.model.entity.userEntities.Client;
+import pl.sda.carrental.model.entity.userEntities.Customer;
 import pl.sda.carrental.model.entity.userEntities.Employee;
 import pl.sda.carrental.model.entity.userEntities.Role;
 import pl.sda.carrental.model.repository.*;
@@ -33,7 +33,7 @@ public class DbInit {
     private final AddressRepository addressRepository;
     private final DivisionRepository divisionRepository;
     private final EmployeeRepository employeeRepository;
-    private final ClientRepository clientRepository;
+    private final CustomerRepository customerRepository;
     private final CarRepository carRepository;
     private final ReservationRepository reservationRepository;
 
@@ -76,7 +76,7 @@ public class DbInit {
                 .username("pracownik")
                 .build();
 
-        Client client = Client.builder()
+        Customer customer = Customer.builder()
             .name("Maciej Konsument")
             .email("maciej.konsument@gmail.com")
             .password(passwordEncoder.encode("klient"))
@@ -105,14 +105,14 @@ public class DbInit {
         division.addEmployee(employee);
 
         employeeRepository.save(employee);
-        clientRepository.save(client);
+        customerRepository.save(customer);
 
 
         Reservation reservation = Reservation.builder()
             .rental_division(division)
             .return_division(division)
             .employee(employee)
-            .client(client)
+            .customer(customer)
             .car(car)
             .reservation_start(LocalDateTime.now())
             .reservation_end(LocalDateTime.now().plusDays(7))
@@ -126,7 +126,7 @@ public class DbInit {
 
         System.out.println("Address query: " + addressRepository.findAll().get(0).toString());
         System.out.println("Employee query: " + employeeRepository.findAll().get(0).toString());
-        System.out.println("Client query: " + clientRepository.findAll().get(0).toString());
+        System.out.println("Client query: " + customerRepository.findAll().get(0).toString());
         System.out.println("Car query: " + carRepository.findAll().get(0).toString());
         System.out.println("Division query: " + divisionRepository.findAll().get(0).toString());
         System.out.println("Reservation query: " + reservationRepository.findAll().get(0).toString());
