@@ -50,7 +50,7 @@ public class SecurityConfig {
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .successForwardUrl("/")
+                                .defaultSuccessUrl("/")
                                 .failureForwardUrl("/error")
                                 .permitAll())
                 .logout(
