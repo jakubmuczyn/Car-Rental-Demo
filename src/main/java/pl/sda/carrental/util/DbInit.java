@@ -42,9 +42,9 @@ public class DbInit {
 
     @PostConstruct
     private void postConstruct() {
-        Role adminRole = Role.builder().name("Admin").build();
-        Role employeeRole = Role.builder().name("Employee").build();
-        Role customerRole = Role.builder().name("Customer").build();
+        Role adminRole = Role.builder().name("ADMIN").build();
+        Role employeeRole = Role.builder().name("EMPLOYEE").build();
+        Role customerRole = Role.builder().name("CUSTOMER").build();
         roleRepository.save(adminRole);
         roleRepository.save(employeeRole);
         roleRepository.save(customerRole);
