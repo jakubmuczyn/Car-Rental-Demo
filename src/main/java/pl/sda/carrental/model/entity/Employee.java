@@ -12,17 +12,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Employees")
-public class Employee extends User{
+public class Employee {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @ManyToOne
-    private Division division;
+    private String employeeName;
+    
+    private String employeeSurname;
     
     @Enumerated(EnumType.STRING)
     private Position position;
+    
+    @ManyToOne
+    private Division division;
     
     public enum Position {
         EMPLOYEE,
