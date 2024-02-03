@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 import pl.sda.carrental.model.entity.CarRental;
 import pl.sda.carrental.model.entity.Division;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,8 +26,8 @@ public class Employee extends User {
     @ManyToOne
     private Division division;
     
-    @OneToMany(mappedBy = "employee")
-    private List<CarRental> carRental;
+//    @OneToMany(mappedBy = "employee")
+//    private List<CarRental> carRental = new ArrayList<>();
 
     public enum Position {
         EMPLOYEE,MANAGER;
