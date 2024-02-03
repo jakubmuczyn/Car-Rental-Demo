@@ -23,24 +23,6 @@ public class HomeController {
         model.addAttribute("currentUser", user);
         return "home";
     }
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-    @GetMapping("/admin")
-    public String admin() {
-        return "admin";
-    }
-    
-    @GetMapping("/manager")
-    public String manager() {
-        return "manager";
-    }
-    
-    @GetMapping("/employee")
-    public String employee() {
-        return "employee";
-    }
     
     @GetMapping("/logout")
     public String logout() {
