@@ -2,7 +2,6 @@ package pl.sda.carrental.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.sda.carrental.model.entity.userEntities.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,24 +9,24 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Builder
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Divisions")
 public class Division {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long division_id;
+    private int id;
 
     @OneToOne
     private Address address;
-    @ToString.Exclude
-    @OneToMany(mappedBy = "division", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Employee> employees = new ArrayList<>();
-    @OneToMany(mappedBy = "division")
-    @ToString.Exclude
-    private List<Car> cars = new ArrayList<>();
+    
+    // @OneToMany(mappedBy = "division", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Employee> employees;
+    
+    @OneToMany(mappedBy = "Division")
+    // @ToString.Exclude
+    private List<Car> cars;
 
 
     public void addEmployee(Employee employee) {
@@ -38,9 +37,9 @@ public class Division {
     }
 
     public void addCar(Car car) {
-        if (this.cars == null)
+        if (this.cars == null) {
             this.cars = new ArrayList<>();
-
+        }
         this.cars.add(car);
         car.setDivision(this);
     }
