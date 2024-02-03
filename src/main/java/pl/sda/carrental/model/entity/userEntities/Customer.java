@@ -11,6 +11,6 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @Entity
 @NoArgsConstructor
-@Table(name = "Clients")
-public class Client extends User {
+@Table(name = "Customers")
+public class Customer extends User {
 }
