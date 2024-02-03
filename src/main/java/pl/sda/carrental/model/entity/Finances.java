@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -20,5 +21,10 @@ public class Finances {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    private BigDecimal totalAmount;
+    @OneToOne
+    private CarRental carRental;
+    
+    private LocalDate transactionDate;
+    
+    private BigDecimal transactionAmount;
 }
