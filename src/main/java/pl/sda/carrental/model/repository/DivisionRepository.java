@@ -7,8 +7,7 @@ import pl.sda.carrental.model.entity.Division;
 import java.util.List;
 
 @Repository
-public interface DivisionRepository extends JpaRepository<Division, Integer> {
-    
+public interface DivisionRepository extends JpaRepository<Division, Long> {
     @Override
     List<Division> findAll();
 }
