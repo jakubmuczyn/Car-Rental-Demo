@@ -7,12 +7,10 @@ import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.sda.carrental.model.entity.*;
-import pl.sda.carrental.model.entity.enums.RentStatus;
 import pl.sda.carrental.model.entity.userEntities.Administrator;
-import pl.sda.carrental.model.entity.userEntities.Client;
+import pl.sda.carrental.model.entity.userEntities.Customer;
 import pl.sda.carrental.model.entity.userEntities.Employee;
 import pl.sda.carrental.model.entity.userEntities.Role;
-import pl.sda.carrental.model.entity.enums.Position;
 import pl.sda.carrental.model.repository.*;
 import pl.sda.carrental.model.repository.userRepositories.*;
 
@@ -36,16 +34,18 @@ public class DbInit {
     private final AddressRepository addressRepository;
     private final DivisionRepository divisionRepository;
     private final EmployeeRepository employeeRepository;
-    private final ClientRepository clientRepository;
+    private final CustomerRepository customerRepository;
     private final CarRepository carRepository;
     private final ReservationRepository reservationRepository;
+    private final CarRentalRepository carRentalRepository;
+    private final TransactionRepository transactionRepository;
 
 
     @PostConstruct
     private void postConstruct() {
-        Role adminRole = Role.builder().name("Admin").build();
-        Role employeeRole = Role.builder().name("Employee").build();
-        Role customerRole = Role.builder().name("Customer").build();
+        Role adminRole = Role.builder().name("ADMIN").build();
+        Role employeeRole = Role.builder().name("EMPLOYEE").build();
+        Role customerRole = Role.builder().name("CUSTOMER").build();
         roleRepository.save(adminRole);
         roleRepository.save(employeeRole);
         roleRepository.save(customerRole);
@@ -73,13 +73,13 @@ public class DbInit {
         Employee employee = Employee.builder()
                 .division(division)
                 .name("Jan Kowalski")
-                .position(Position.EMPLOYEE)
+                .position(Employee.Position.EMPLOYEE)
                 .email("jan.kowalski@company.com")
                 .password(passwordEncoder.encode("pracownik"))
                 .username("pracownik")
                 .build();
 
-        Client client = Client.builder()
+        Customer customer = Customer.builder()
             .name("Maciej Konsument")
             .email("maciej.konsument@gmail.com")
             .password(passwordEncoder.encode("klient"))
@@ -94,7 +94,7 @@ public class DbInit {
             .cost_per_day(new BigDecimal("200"))
             .mileage(260000)
             .color("Blue")
-            .status(RentStatus.AVAILABLE)
+            .status(Car.RentStatus.AVAILABLE)
             .division(division)
             .build();
 
@@ -108,14 +108,13 @@ public class DbInit {
         division.addEmployee(employee);
 
         employeeRepository.save(employee);
-        clientRepository.save(client);
-
+        customerRepository.save(customer);
 
         Reservation reservation = Reservation.builder()
             .rental_division(division)
             .return_division(division)
             .employee(employee)
-            .client(client)
+            .customer(customer)
             .car(car)
             .reservation_start(LocalDateTime.now())
             .reservation_end(LocalDateTime.now().plusDays(7))
@@ -127,15 +126,36 @@ public class DbInit {
         car.setReservation(reservation);
         carRepository.save(car);
 
+        CarRental carRental = CarRental.builder()
+            .rentalStatus(CarRental.RentalStatus.ONGOING)
+            .employee(employee)
+            .rentalDate(LocalDate.now())
+            .reservation(reservation)
+            .comment("Test comment")
+            .build();
+
+        carRentalRepository.save(carRental);
+
+        Transaction transaction = Transaction.builder()
+            .carRental(carRental)
+            .transactionDate(LocalDate.now())
+            .transactionAmount(carRental.getReservation().getCost())
+            .build();
+
+        transactionRepository.save(transaction);
+
+        testPrint();
+        System.out.println(division.getCars());
+    }
+
+    private void testPrint() {
         System.out.println("Address query: " + addressRepository.findAll().get(0).toString());
         System.out.println("Employee query: " + employeeRepository.findAll().get(0).toString());
-        System.out.println("Client query: " + clientRepository.findAll().get(0).toString());
+        System.out.println("Client query: " + customerRepository.findAll().get(0).toString());
         System.out.println("Car query: " + carRepository.findAll().get(0).toString());
         System.out.println("Division query: " + divisionRepository.findAll().get(0).toString());
         System.out.println("Reservation query: " + reservationRepository.findAll().get(0).toString());
-
-        System.out.println(division.getCars());
-
-
+        System.out.println("CarRental query: " + carRentalRepository.findAll().get(0).toString());
+        System.out.println("Transaction query: " + transactionRepository.findAll().get(0).toString());
     }
 }
