@@ -2,6 +2,7 @@ package pl.sda.carrental.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import pl.sda.carrental.model.entity.userEntities.Employee;
 
 import java.util.ArrayList;
 import java.util.List;

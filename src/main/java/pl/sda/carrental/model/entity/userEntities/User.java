@@ -1,4 +1,4 @@
-package pl.sda.carrental.model.entity;
+package pl.sda.carrental.model.entity.userEntities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,28 +18,19 @@ import java.util.Set;
 @DiscriminatorColumn(name = "user_type")
 @Table(name = "Users")
 public class User {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
     private String name;
-    
     @Column(nullable = false, unique = true)
     private String username;
-    
     @Column(nullable = false, unique = true)
     private String email;
-    
     @Column(nullable = false)
     private String password;
-    
-    @Enumerated(EnumType.STRING)
-    private Role role;
-    
-    public enum Role {
-        CUSTOMER,
-        EMPLOYEE,
-        ADMINISTRATOR
-    }
+
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<Role> roles;
+
 }
