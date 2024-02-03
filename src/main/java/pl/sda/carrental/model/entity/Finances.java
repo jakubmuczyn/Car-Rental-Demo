@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Revenues")
-public class Revenue {
+public class Finances {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
