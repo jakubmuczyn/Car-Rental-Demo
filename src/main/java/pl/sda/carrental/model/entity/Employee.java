@@ -29,7 +29,6 @@ public class Employee {
     private Division division;
     
     public enum Position {
-        EMPLOYEE,
-        MANAGER;
+        EMPLOYEE,MANAGER;
     }
 }
