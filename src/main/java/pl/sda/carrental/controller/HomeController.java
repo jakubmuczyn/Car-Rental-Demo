@@ -9,18 +9,14 @@ import pl.sda.carrental.service.CustomUserDetailsService;
 
 @Controller
 public class HomeController {
-    private final CustomUserDetailsService customUserDetailsService;
+    private final UserService userService;
 
-    public HomeController(CustomUserDetailsService customUserDetailsService) {
-        this.customUserDetailsService = customUserDetailsService;
+    public HomeController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/")
-    public String greeting(Model model) {
-        User user = customUserDetailsService
-            .getAuthenticatedUser()
-            .orElseThrow(() -> new UsernameNotFoundException("Logged in user not found."));
-        model.addAttribute("currentUser", user);
+    public String greeting() {
         return "home";
     }
     
