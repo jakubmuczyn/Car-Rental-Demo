@@ -1,4 +1,4 @@
-package pl.sda.carrental.security;
+package pl.sda.carrental.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
