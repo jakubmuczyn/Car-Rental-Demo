@@ -10,22 +10,12 @@ import pl.sda.carrental.service.UserService;
 
 @Controller
 public class HomeController {
-    private final UserService userService;
-
-    public HomeController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/")
     public String greeting() {
         return "home";
     }
 
-    @GetMapping("/users")
-    public String goToUserPanel(Model model) {
-        model.addAttribute("allUsers", userService.getAllUsers());
-        return "userPanel";
-    }
     @GetMapping("/logout")
     public String logout() {
         return "redirect:/login";

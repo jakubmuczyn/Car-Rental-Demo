@@ -24,12 +24,13 @@
         </tr>
         </thead>
         <tbody>
-            <tr th:if="${allUsers.isEmpty()}"><td colspan="3"> No users available. Which is impossible, so something went wrong dog.</td></tr>
-            <tr th:each="user : ${allUsers}" >
-                <td><span th:text="${user.getName()}"> Name </span> </td>
-                <td><span th:text="${user.getEmail()}"> Mail </span> </td>
-                <td><span th:text="${user.getUsername()}"> Username </span> </td>
-                <td><a th:href="@{/}">Edit</a></td>
+            <tr th:if="${allUsers.isEmpty()}"><td colspan="4"> No users available. Which is impossible, so something went wrong dog.</td></tr>
+            <tr th:each="employee : ${allEmployees}">
+                <td><span th:text="${employee.getName()}"> Name </span> </td>
+                <td><span th:text="${employee.getEmail()}"> Mail </span> </td>
+                <td><span th:text="${employee.getUsername()}"> Username </span> </td>
+                <td><a  th:href="@{/users/employee/} + ${employee.getId()}">Edit</a></td>
+                <td><a  th:href="@{/users/employee/delete/} + ${employee.getId()}">Delete</a></td>
             </tr>
         </tbody>
     </table>

@@ -13,6 +13,7 @@ import pl.sda.carrental.model.entity.userEntities.Employee;
 import pl.sda.carrental.model.entity.userEntities.Role;
 import pl.sda.carrental.model.repository.*;
 import pl.sda.carrental.model.repository.userRepositories.*;
+import pl.sda.carrental.security.PrincipalRole;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -27,7 +28,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Component
 public class DbInit {
-    private final UserRepository userRepository;
     private final AdministratorRepository administratorRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -43,9 +43,9 @@ public class DbInit {
 
     @PostConstruct
     private void postConstruct() {
-        Role adminRole = Role.builder().name("ADMIN").build();
-        Role employeeRole = Role.builder().name("EMPLOYEE").build();
-        Role customerRole = Role.builder().name("CUSTOMER").build();
+        Role adminRole = Role.builder().name(PrincipalRole.ADMIN.name()).build();
+        Role employeeRole = Role.builder().name(PrincipalRole.EMPLOYEE.name()).build();
+        Role customerRole = Role.builder().name(PrincipalRole.CUSTOMER.name()).build();
         roleRepository.save(adminRole);
         roleRepository.save(employeeRole);
         roleRepository.save(customerRole);

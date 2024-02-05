@@ -20,7 +20,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String name;
     @Column(nullable = false, unique = true)
     private String username;
@@ -28,6 +28,7 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
+    private boolean isActive = true;
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
