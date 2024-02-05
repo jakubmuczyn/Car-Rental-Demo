@@ -37,8 +37,6 @@ public class CarRental {
     
     public enum RentalStatus {
         ONGOING,
-        CLOSED;
+        CLOSED
     }
-    
-    
 }

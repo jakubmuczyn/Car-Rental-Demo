@@ -24,7 +24,7 @@ public class Reservation {
     private Car car;
     
     @OneToOne
-    // Employee shouldn't be nullable? Because you can just use the website
+    //Employee shouldn't be nullable? Because you can just use the website
     private Employee employee;
     
     @ManyToOne
@@ -36,7 +36,9 @@ public class Reservation {
     
     @ManyToOne
     private Division return_division;
-    
+
+
+    // Reservation date and reservation start will be the same day, this one is not needed
     @Column(nullable = false)
     private LocalDate reservation_date;
     
@@ -48,4 +50,6 @@ public class Reservation {
     
     @Column(nullable = false)
     private BigDecimal cost;
+
+    private Car.RentStatus bookCarStatus;
 }

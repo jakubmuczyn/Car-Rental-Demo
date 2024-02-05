@@ -40,7 +40,6 @@ public class DbInit {
     private final CarRentalRepository carRentalRepository;
     private final TransactionRepository transactionRepository;
 
-
     @PostConstruct
     private void postConstruct() {
         Role adminRole = Role.builder().name("ADMIN").build();
@@ -98,9 +97,22 @@ public class DbInit {
             .division(division)
             .build();
 
+        Car car1 = Car.builder()
+                .brand("Audi")
+                .model("A4")
+                .production_year(Year.of(2022))
+                .body_type("Sedan")
+                .cost_per_day(new BigDecimal("1000"))
+                .mileage(22000)
+                .color("Grey")
+                .status(Car.RentStatus.AVAILABLE)
+                .division(division)
+                .build();
+
         addressRepository.save(address);
         divisionRepository.save(division);
         carRepository.save(car);
+        carRepository.save(car1);
         division.addCar(car);
         divisionRepository.save(division);
 

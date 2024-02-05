@@ -14,7 +14,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
     <div class="container-fluid">
-        <a class="navbar-brand">Logowanie Spring Security z Autentykacją Bazy Danych</a>
+        <a class="navbar-brand">Spring Security Login With Database Authentication</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -30,10 +30,42 @@
     </div>
 </nav>
 <br /><br />
-<body>
 <div class="container">
     <div class="row">
-        <h1> Witaj w świecie Spring Security!</h1>
+        <h1>Zarezerwuj swój samochdów!</h1>
+        <h2>Dostępne samochody:</h2>
+            <div class="form-group mb-3">
+                <table class = "table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <td>Marka</td>
+                        <td>Model</td>
+                        <td>Rodzaj nadwozia</td>
+                        <td>Rok produkcji</td>
+                        <td>Kolor</td>
+                        <td>Przebieg</td>
+                        <td>Cena za dobe</td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="car: ${carList}">
+                        <td th:text="${car.getBrand()}"></td>
+                        <td th:text="${car.getModel()}"></td>
+                        <td th:text="${car.getBody_type}"></td>
+                        <td th:text="${car.getProduction_year}"></td>
+                        <td th:text="${car.getColor}"></td>
+                        <td th:text="${car.getMileage}"></td>
+                        <td th:text="${car.getCost_per_day}"></td>
+                        <td>
+                            <form method="post"  th:action="@{/home/reservation}">
+                                <button class="btn btn-primary" type="submit" th:name="carId" th:value="${car.getId()}">Rezerwuj</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
     </div>
 </div>
 </body>
