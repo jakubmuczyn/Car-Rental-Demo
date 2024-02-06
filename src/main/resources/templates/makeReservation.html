@@ -1,0 +1,90 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <style>
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <div class="container-fluid">
+        <a class="navbar-brand">Spring Security Login With Database Authentication</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li th:text="'Welcome, ' + ${currentUser.getName()}" class="navbar-text d-inline nowrap" >
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br /><br />
+<div class="container">
+    <div class="row">
+        <h1>Wybrany samochód</h1>
+        <div class="form-group mb-3">
+            <table class = "table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <td>Marka</td>
+                    <td>Model</td>
+                    <td>Rodzaj nadwozia</td>
+                    <td>Rok produkcji</td>
+                    <td>Kolor</td>
+                    <td>Przebieg</td>
+                    <td>Cena za dobe</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${carList.get(0).getBrand()}"></td>
+                    <td th:text="${carList.get(0).getModel()}"></td>
+                    <td th:text="${carList.get(0).getBody_type()}"></td>
+                    <td th:text="${carList.get(0).getProduction_year()}"></td>
+                    <td th:text="${carList.get(0).getColor()}"></td>
+                    <td th:text="${carList.get(0).getMileage()}"></td>
+                    <td th:text="${carList.get(0).getCost_per_day()}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <form method="post" role="form" th:action="@{/summary}" class="form-horizontal">
+                <div class="form-group mb-3">
+                    <label class="control-label">Oddział odebrania samochodu:</label>
+                    <select class="ui fluid search dropdown"> <!--th:field="*{rental_division}-->
+                        <option th:each="division : ${divisionList}" th:text="${division.getAddress().getCity()}"></option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Oddział zwrócenie samochodu:</label>
+                    <select class="ui fluid search dropdown"> <!--th:field="*{return_division}-->
+                        <option th:each="division : ${divisionList}" th:text="${division.getAddress().getCity()}"></option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Data rozpoczęcia rezerwacji:</label>
+                    <input type="date" id="reservation_start" name="reservation_start" class="form-control"/> <!--th:field="*{reservation_start}-->
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Data zakończenia rezerwacji:</label>
+                    <input type="date" id="reservation_end" name="reservation_end" class="form-control"/> <!--th:field="*{reservation_end}-->
+                </div>
+                <div class="form-group mb-3">
+                    <button type="submit" class="btn btn-primary">Podsumuj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

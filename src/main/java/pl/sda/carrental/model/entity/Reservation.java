@@ -3,10 +3,8 @@ package pl.sda.carrental.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import pl.sda.carrental.model.entity.userEntities.Customer;
-import pl.sda.carrental.model.entity.userEntities.Employee;
-
+import pl.sda.carrental.model.entity.userEntities.User;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
@@ -23,10 +21,6 @@ public class Reservation {
     @OneToOne
     private Car car;
     
-    @OneToOne
-    //Employee shouldn't be nullable? Because you can just use the website
-    private Employee employee;
-    
     @ManyToOne
     private Customer customer;
     
@@ -36,11 +30,6 @@ public class Reservation {
     
     @ManyToOne
     private Division return_division;
-
-
-    // Reservation date and reservation start will be the same day, this one is not needed
-    @Column(nullable = false)
-    private LocalDate reservation_date;
     
     @Column(nullable = false)
     private LocalDateTime reservation_start;
@@ -52,4 +41,8 @@ public class Reservation {
     private BigDecimal cost;
 
     private Car.RentStatus bookCarStatus;
+
+    public void setCustomer(User user) {
+        this.customer = customer;
+    }
 }

@@ -65,8 +65,18 @@ public class DbInit {
                 .city("Łódź")
                 .build();
 
+        Address address2 = Address.builder()
+                .address("Testowa 34")
+                .state("Małopolskie")
+                .city("Kraków")
+                .build();
+
         Division division = Division.builder()
                 .address(address)
+                .build();
+
+        Division division2 = Division.builder()
+                .address(address2)
                 .build();
 
         Employee employee = Employee.builder()
@@ -110,7 +120,9 @@ public class DbInit {
                 .build();
 
         addressRepository.save(address);
+        addressRepository.save(address2);
         divisionRepository.save(division);
+        divisionRepository.save(division2);
         carRepository.save(car);
         carRepository.save(car1);
         division.addCar(car);
@@ -125,13 +137,11 @@ public class DbInit {
         Reservation reservation = Reservation.builder()
             .rental_division(division)
             .return_division(division)
-            .employee(employee)
             .customer(customer)
             .car(car)
             .reservation_start(LocalDateTime.now())
             .reservation_end(LocalDateTime.now().plusDays(7))
             .cost(new BigDecimal("20.50"))
-            .reservation_date(LocalDate.now())
             .build();
 
         reservationRepository.save(reservation);

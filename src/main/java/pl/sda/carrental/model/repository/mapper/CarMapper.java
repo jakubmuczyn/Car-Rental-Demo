@@ -1,5 +1,6 @@
-package pl.sda.carrental.model.entity;
+package pl.sda.carrental.model.repository.mapper;
 
+import pl.sda.carrental.model.entity.Car;
 import pl.sda.carrental.model.repository.dto.CarDto;
 
 import java.util.ArrayList;

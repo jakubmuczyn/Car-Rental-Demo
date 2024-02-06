@@ -32,8 +32,7 @@
 <br /><br />
 <div class="container">
     <div class="row">
-        <h1>Zarezerwuj swój samochdów!</h1>
-        <h2>Dostępne samochody:</h2>
+        <h1>Wybrany samochód</h1>
         <div class="form-group mb-3">
             <table class = "table table-bordered table-striped">
                 <thead>
@@ -45,26 +44,41 @@
                     <td>Kolor</td>
                     <td>Przebieg</td>
                     <td>Cena za dobe</td>
-                    <td></td>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="car: ${carList}">
-                    <td th:text="${car.getBrand()}"></td>
-                    <td th:text="${car.getModel()}"></td>
-                    <td th:text="${car.getBody_type()}"></td>
-                    <td th:text="${car.getProduction_year()}"></td>
-                    <td th:text="${car.getColor()}"></td>
-                    <td th:text="${car.getMileage()}"></td>
-                    <td th:text="${car.getCost_per_day()}"></td>
-                    <td>
-                        <form method="post" th:action="@{makeReservation}" th:object="${newCardId}">
-                            <button class="btn btn-primary" th:field="${car.getId()-1}" name="id" type="submit">Rezerwuj</button>
-                        </form>
-                    </td>
+                <tr>
+                    <td th:text="${carList.get(0).getBrand()}"></td>
+                    <td th:text="${carList.get(0).getModel()}"></td>
+                    <td th:text="${carList.get(0).getBody_type()}"></td>
+                    <td th:text="${carList.get(0).getProduction_year()}"></td>
+                    <td th:text="${carList.get(0).getColor()}"></td>
+                    <td th:text="${carList.get(0).getMileage()}"></td>
+                    <td th:text="${carList.get(0).getCost_per_day()}"></td>
                 </tr>
                 </tbody>
             </table>
+                <div class="form-group mb-3">
+                    <label class="control-label">Oddział odebrania samochodu:</label>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Oddział zwrócenie samochodu:</label>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Data rozpoczęcia rezerwacji:</label>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Data zakończenia rezerwacji:</label>
+                </div>
+                 <div class="form-group mb-3">
+                    <label class="control-label">Suma kosztu rezerwacji:</label>
+                     <th:block th:with="var1 = ${carList.get(0).getCost_per_day()}, var2 = 12, var = ${var1 * var2}">
+                     <p th:text="${var}"></p>
+                     </th:block>
+                 </div>
+                <div class="form-group mb-3">
+                    <button type="submit" class="btn btn-primary">Rezerwuj!</button>
+                </div>
         </div>
     </div>
 </div>
