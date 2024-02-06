@@ -1,0 +1,39 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <style>
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<div id="head" th:replace="~{home :: header}"></div>
+<h1 class="display-8">User edit form</h1>
+<form method="post" th:action="@{/users/customer/save}" th:object="${customer}">
+
+   <input type="hidden"  name="id" th:value="${customer.getId()}">
+
+    <label for="name-input">Name: </label>
+    <input type="text"  id="name-input" name="name" th:value="${customer.getName()}">
+
+    <label for="name-input">Username: </label>
+    <input type="text"  id="username-input" name="username" th:value="${customer.getUsername()}">
+
+    <input type="hidden"  id="password-input" name="password" th:value="${customer.getPassword()}">
+
+    <label for="email-input">Email: </label>
+    <input type="text"  id="email-input" name="email" th:value="${customer.getEmail()}">
+
+    <select multiple="multiple" id="roles" name="roles" th:field="*{roles}">
+        <option th:each="role : ${allRoles}" th:value="${role}" th:text="${role.name}"></option>
+    </select>
+
+
+    <input type="submit" value="Save">
+</form>
+</body>

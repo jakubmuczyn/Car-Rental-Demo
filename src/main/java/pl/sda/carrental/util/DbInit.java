@@ -14,6 +14,7 @@ import pl.sda.carrental.model.entity.userEntities.Role;
 import pl.sda.carrental.model.repository.*;
 import pl.sda.carrental.model.repository.userRepositories.*;
 import pl.sda.carrental.security.PrincipalRole;
+import pl.sda.carrental.service.RoleService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -39,6 +40,7 @@ public class DbInit {
     private final ReservationRepository reservationRepository;
     private final CarRentalRepository carRentalRepository;
     private final TransactionRepository transactionRepository;
+    private final RoleService roleService;
 
 
     @PostConstruct
@@ -77,12 +79,14 @@ public class DbInit {
                 .email("jan.kowalski@company.com")
                 .password(passwordEncoder.encode("pracownik"))
                 .username("pracownik")
+                .roles(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.EMPLOYEE))))
                 .build();
 
         Customer customer = Customer.builder()
             .name("Maciej Konsument")
             .email("maciej.konsument@gmail.com")
             .password(passwordEncoder.encode("klient"))
+            .roles(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.CUSTOMER))))
             .username("klient")
             .build();
 

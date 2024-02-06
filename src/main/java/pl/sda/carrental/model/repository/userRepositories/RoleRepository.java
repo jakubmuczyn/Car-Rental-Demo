@@ -6,5 +6,5 @@ import pl.sda.carrental.model.entity.userEntities.Role;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
-
+    Role findRoleByName(String name);
 }

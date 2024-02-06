@@ -1,11 +1,13 @@
 package pl.sda.carrental.model.entity.userEntities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -32,6 +34,7 @@ public class User {
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
+    @NotNull
     private Set<Role> roles;
 
 }

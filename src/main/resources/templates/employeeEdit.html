@@ -14,7 +14,7 @@
 <body>
 <div id="head" th:replace="~{home :: header}"></div>
 <h1 class="display-8">User edit form</h1>
-<form method="post" th:action="@{/users/employee/edit}" th:object="${employee}">
+<form method="post" th:action="@{/users/employee/save}" th:object="${employee}">
 
    <input type="hidden"  name="id" th:value="${employee.getId()}">
 
@@ -27,7 +27,7 @@
     <input type="hidden"  id="password-input" name="password" th:value="${employee.getPassword()}">
 
     <label for="email-input">Email: </label>
-    <input type="text"  id="email-input" name="email" th:value="${employee.getEmail()}">
+    <input type="email"  id="email-input" name="email" th:value="${employee.getEmail()}">
 
     <label for="position-input">Position: </label>
     <select id="position-input" name="position" th:field="${employee.position}">
@@ -36,6 +36,8 @@
                 th:text="${position.name()}">
         </option>
     </select>
+
+    <input type="hidden" name="roles" id="roles" th:value="${#strings.join(employee.roles, ',')}" />
 
     <input type="submit" value="Save">
 </form>
