@@ -58,31 +58,68 @@
                 </tr>
                 </tbody>
             </table>
-            <form method="post" role="form" th:action="@{/summary}" class="form-horizontal">
+            <div th:with="insurance = ${79 * 12}, abroad = ${100}, cost = ${carList.get(0).getCost_per_day()}">
+            <form method="post" th:action="@{/summary}" th:object="${reservation}">
+                <input type="hidden" id="id" name="id" th:field="*{id}">
+                <input type="hidden" id="car" name="car" th:value="${carList.get(0)}" th:field="*{car}">
+                <input type="hidden" id="customer" name="customer" th:value="${currentUser}" th:field="*{customer}">
                 <div class="form-group mb-3">
                     <label class="control-label">Oddział odebrania samochodu:</label>
-                    <select class="ui fluid search dropdown"> <!--th:field="*{rental_division}-->
-                        <option th:each="division : ${divisionList}" th:text="${division.getAddress().getCity()}"></option>
+                    <select class="ui fluid search dropdown" id="rental_division" name="rental_division"  th:field="*{rental_division}">
+                        <option th:each="division : ${divisionList}" th:text="${division.getAddress().getCity()}" th:value="${division.getAddress().getCity()}"></option>
                     </select>
                 </div>
                 <div class="form-group mb-3">
                     <label class="control-label">Oddział zwrócenie samochodu:</label>
-                    <select class="ui fluid search dropdown"> <!--th:field="*{return_division}-->
-                        <option th:each="division : ${divisionList}" th:text="${division.getAddress().getCity()}"></option>
+                    <select class="ui fluid search dropdown" id="return_division" name="return_division"  th:field="*{return_division}">
+                        <option th:each="division : ${divisionList}" th:text="${division.getAddress().getCity()}" th:value="${division.getAddress().getCity()}"></option>
                     </select>
                 </div>
                 <div class="form-group mb-3">
                     <label class="control-label">Data rozpoczęcia rezerwacji:</label>
-                    <input type="date" id="reservation_start" name="reservation_start" class="form-control"/> <!--th:field="*{reservation_start}-->
+                    <input type="date" id="reservation_start" name="reservation_start" th:field="*{reservation_start}" class="form-control"/>
                 </div>
                 <div class="form-group mb-3">
                     <label class="control-label">Data zakończenia rezerwacji:</label>
-                    <input type="date" id="reservation_end" name="reservation_end" class="form-control"/> <!--th:field="*{reservation_end}-->
+                    <input type="date" id="reservation_end" name="reservation_end" th:field="*{reservation_end}" class="form-control"/>
                 </div>
                 <div class="form-group mb-3">
-                    <button type="submit" class="btn btn-primary">Podsumuj</button>
+                    <label class="control-label">Zaznacz dodatkowe ubezpieczenie jeśli potrzebne (79zł/dzień): </label>
+                    <input type="checkbox" th:checked="${flag1}" id="insurance" name="insurance" th:value="${flag1}" th:field="*{insurance}">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Zgoda na wyjazd za granice (100zł): </label>
+                    <input type="checkbox" th:checked="${flag2}" id="goind_abroad" name="goind_abroad" th:value="${flag2}" th:field="*{going_abroad}">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Suma kosztu rezerwacji:</label>
+                    <div th:if="${flag1 == true and flag2 == false}">
+                        <th:block th:with="totalcost1 = ${cost * 12 + insurance}"> <!-- change number of days (12) to a variable from reservation form -->
+                            <input type="text" readonly="readonly" th:text="${totalcost1}">
+                        </th:block>
+                    </div>
+                    <div th:if="${flag2 == true and flag1 == false}">
+                        <th:block th:with="totalcost2 = ${cost * 12 + abroad}"> <!-- change number of days (12) to a variable from reservation form -->
+                            <input type="text" readonly="readonly" th:text="${totalcost2}">
+                        </th:block>
+                    </div>
+                    <div th:if="${flag1 == true and flag2 == true}">
+                        <th:block th:with="totalcost3 = ${cost * 12 + insurance + abroad}"> <!-- change number of days (12) to a variable from reservation form -->
+                            <input type="text" readonly="readonly" th:text="${totalcost3}">
+                        </th:block>
+                    </div>
+                    <div th:if="${flag1 == false and flag2 == false}">
+                        <th:block th:with="totalcost4 = ${cost * 12}"> <!-- change number of days (12) to a variable from reservation form -->
+                            <input type="number" step="any" id="cost" name="cost" th:field="*{cost}">
+                            <p th:text="${totalcost4}"></p>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <button type="submit" class="btn btn-primary">Rezerwuj!</button>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 </div>

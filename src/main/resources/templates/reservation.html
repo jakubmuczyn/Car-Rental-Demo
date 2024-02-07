@@ -59,7 +59,8 @@
                     <td th:text="${car.getCost_per_day()}"></td>
                     <td>
                         <form method="post" th:action="@{makeReservation}" th:object="${newCardId}">
-                            <button class="btn btn-primary" th:field="${car.getId()-1}" name="id" type="submit">Rezerwuj</button>
+                            <input type="number" id="id" name="id" th:field="*{id}">
+                            <button class="btn btn-primary" type="submit">Rezerwuj</button>
                         </form>
                     </td>
                 </tr>

@@ -18,6 +18,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -134,14 +136,17 @@ public class DbInit {
         employeeRepository.save(employee);
         customerRepository.save(customer);
 
+        Date date = new Date();
         Reservation reservation = Reservation.builder()
-            .rental_division(division)
-            .return_division(division)
+            .rental_division("Kraków")
+            .return_division("Kraków")
             .customer(customer)
             .car(car)
-            .reservation_start(LocalDateTime.now())
-            .reservation_end(LocalDateTime.now().plusDays(7))
+            .reservation_start(date)
+            .reservation_end(date)
             .cost(new BigDecimal("20.50"))
+            .insurance(true)
+            .going_abroad(true)
             .build();
 
         reservationRepository.save(reservation);

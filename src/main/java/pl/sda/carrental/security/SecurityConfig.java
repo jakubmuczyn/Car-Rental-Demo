@@ -42,7 +42,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterSecurity(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/home","/h2-console/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                        .requestMatchers("/","/home","/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/home", "/home/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/home", "/home/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/reservation", "/reservation/**").permitAll()

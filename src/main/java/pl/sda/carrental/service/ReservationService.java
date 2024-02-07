@@ -32,13 +32,9 @@ public class ReservationService{
     private final UserRepository userRepository;
     private final DivisionRepository divisionRepository;
 
-    public Reservation makeReservation(ReservationDto dto){
+    public void makeReservation(ReservationDto dto){
         Reservation reservation = ReservationMapper.map(dto);
-        CustomUserDetails userDetails = getCurrentUser();
-        Optional<User> user = userRepository.findById(userDetails.getId());
-        user.ifPresent(reservation::setCustomer);
         reservationRepository.save(reservation);
-        return reservation;
     }
     public ReservationDto getById(Long id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
@@ -46,6 +42,10 @@ public class ReservationService{
             return ReservationMapper.map(reservationOptional.get());
         }
         throw new EntityNotFoundException();
+    }
+    public List<ReservationDto> getListOfReservations(){
+        List<Reservation> reservations = reservationRepository.findAll();
+        return ReservationMapper.mapEntityListToDtoList(reservations);
     }
     public List<CarDto> getListOfCars(){
         List<Car> cars = carRepository.findAll();
@@ -55,6 +55,7 @@ public class ReservationService{
         List<Division> divisions = divisionRepository.findAll();
         return DivisionMapper.mapEntityListToDtoList(divisions);
     }
+
     /*
     public List<ReservationDto> getListOfReservations(){
         CustomUserDetails userDetails = getCurrentUser();
@@ -62,10 +63,5 @@ public class ReservationService{
         List<Reservation> reservations = reservationRepository.findAllByCreatedBy(user.get());
         return ReservationMapper.mapEntityListToDtoList(reservations);
     }
-
-     */
-    private CustomUserDetails getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (CustomUserDetails) authentication.getPrincipal();
-    }
+    */
 }

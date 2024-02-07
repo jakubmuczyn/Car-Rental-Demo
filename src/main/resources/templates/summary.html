@@ -58,27 +58,39 @@
                 </tr>
                 </tbody>
             </table>
-                <div class="form-group mb-3">
-                    <label class="control-label">Oddział odebrania samochodu:</label>
-                </div>
-                <div class="form-group mb-3">
-                    <label class="control-label">Oddział zwrócenie samochodu:</label>
-                </div>
-                <div class="form-group mb-3">
-                    <label class="control-label">Data rozpoczęcia rezerwacji:</label>
-                </div>
-                <div class="form-group mb-3">
-                    <label class="control-label">Data zakończenia rezerwacji:</label>
-                </div>
-                 <div class="form-group mb-3">
-                    <label class="control-label">Suma kosztu rezerwacji:</label>
-                     <th:block th:with="var1 = ${carList.get(0).getCost_per_day()}, var2 = 12, var = ${var1 * var2}">
-                     <p th:text="${var}"></p>
-                     </th:block>
-                 </div>
-                <div class="form-group mb-3">
-                    <button type="submit" class="btn btn-primary">Rezerwuj!</button>
-                </div>
+        </div>
+        <div>
+            <div class="form-group mb-3">
+                <label class="control-label">Oddział odebrania samochodu:</label>
+                <p th:text="${reservationList.get(1).getRental_division()}"></p>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label">Oddział zwrócenie samochodu:</label>
+                <p th:text="${reservationList.get(1).getReturn_division()}"></p>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label">Data rozpoczęcia rezerwacji:</label>
+                <p th:text="${reservationList.get(1).getReservation_start()}"></p>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label">Data zakończenia rezerwacji:</label>
+                <p th:text="${reservationList.get(1).getReservation_end()}"></p>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label">Ubezpieczenie: </label>
+                <p th:text="${reservationList.get(1).isInsurance()}"></p>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label">Zgoda naw wyjazd za granice:</label>
+                <p th:text="${reservationList.get(1).isGoing_abroad()}"></p>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label">Całkowity koszt:</label>
+                <p th:text="${reservationList.get(1).getCost()}"></p>
+            </div>
+            <div class="form-group mb-3">
+                <a th:href="@{home}">Wróć do home!</a>
+            </div>
         </div>
     </div>
 </div>

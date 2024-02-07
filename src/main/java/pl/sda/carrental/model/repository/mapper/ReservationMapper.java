@@ -15,7 +15,8 @@ public class ReservationMapper {
         ReservationDto.setReservation_start(reservation.getReservation_start());
         ReservationDto.setReservation_end(reservation.getReservation_end());
         ReservationDto.setCost(reservation.getCost());
-        ReservationDto.setBookCarStatus(reservation.getBookCarStatus());
+        ReservationDto.setInsurance(reservation.isInsurance());
+        ReservationDto.setGoing_abroad(reservation.isGoing_abroad());
         return ReservationDto;
     }
     public static Reservation map(ReservationDto reservationdto){
@@ -28,7 +29,8 @@ public class ReservationMapper {
         Reservation.setReservation_start(reservationdto.getReservation_start());
         Reservation.setReservation_end(reservationdto.getReservation_end());
         Reservation.setCost(reservationdto.getCost());
-        Reservation.setBookCarStatus(reservationdto.getBookCarStatus());
+        Reservation.setInsurance(reservationdto.isInsurance());
+        Reservation.setGoing_abroad(reservationdto.isGoing_abroad());
         return Reservation;
     }
     public static List<ReservationDto> mapEntityListToDtoList(List<Reservation> reservations){
