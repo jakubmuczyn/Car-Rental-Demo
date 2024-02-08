@@ -3,11 +3,11 @@ package pl.sda.carrental.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.carrental.model.dto.UserMapper;
+import pl.sda.carrental.model.dataTransfer.CustomerDTO;
+import pl.sda.carrental.model.dataTransfer.CustomerMapper;
+import pl.sda.carrental.model.dataTransfer.UserMapper;
 import pl.sda.carrental.model.entity.userEntities.Customer;
 import pl.sda.carrental.model.entity.userEntities.Employee;
-import pl.sda.carrental.model.entity.userEntities.Role;
-import pl.sda.carrental.model.entity.userEntities.User;
 import pl.sda.carrental.model.repository.userRepositories.AdministratorRepository;
 import pl.sda.carrental.model.repository.userRepositories.CustomerRepository;
 import pl.sda.carrental.model.repository.userRepositories.EmployeeRepository;
@@ -22,13 +22,15 @@ public class UserController {
     private final CustomerRepository customerRepository;
     private final AdministratorRepository administratorRepository;
     private final UserMapper userMapper;
+    private final CustomerMapper customerMapper;
 
-    public UserController(UserService userService, EmployeeRepository employeeRepository, CustomerRepository customerRepository, AdministratorRepository administratorRepository, UserMapper userMapper) {
+    public UserController(UserService userService, EmployeeRepository employeeRepository, CustomerRepository customerRepository, AdministratorRepository administratorRepository, UserMapper userMapper, CustomerMapper customerMapper) {
         this.userService = userService;
         this.employeeRepository = employeeRepository;
         this.customerRepository = customerRepository;
         this.administratorRepository = administratorRepository;
         this.userMapper = userMapper;
+        this.customerMapper = customerMapper;
     }
     @GetMapping("/users")
     public String goToUserPanel(Model model) {
@@ -53,13 +55,15 @@ public class UserController {
     @GetMapping("/users/customer/{user_id}")
     public String editCustomer(Model model, @PathVariable() long user_id) {
         Customer customer = customerRepository.findById(user_id).get();
-        model.addAttribute("customer", customer);
+        CustomerDTO customerDTO = customerMapper.getDto(customer);
+        model.addAttribute("customer", customerDTO);
         return "customerEdit";
     }
 
     @PostMapping("/users/customer/save")
-    public  String submitEditedUser(Customer customer) {
-        userService.saveUser(customer);
+    public  String submitEditedUser(CustomerDTO customerDTO) {
+        System.out.println("Tak se pod breakpoint.");
+        userService.saveUser(customerMapper.getUserClass(customerDTO));
         return "home";
     }
     @PostMapping("/users/employee/save")

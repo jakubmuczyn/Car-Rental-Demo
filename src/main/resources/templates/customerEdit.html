@@ -24,15 +24,11 @@
     <label for="name-input">Username: </label>
     <input type="text"  id="username-input" name="username" th:value="${customer.getUsername()}">
 
-    <input type="hidden"  id="password-input" name="password" th:value="${customer.getPassword()}">
-
     <label for="email-input">Email: </label>
     <input type="text"  id="email-input" name="email" th:value="${customer.getEmail()}">
 
-    <select multiple="multiple" id="roles" name="roles" th:field="*{roles}">
-        <option th:each="role : ${allRoles}" th:value="${role}" th:text="${role.name}"></option>
-    </select>
-
+    <input type="hidden" th:value="${customer.isActive()}" name="isActive" id="input-isActive">
+    <input type="hidden" th:value="${customer.getRolesSerialized()}" name="rolesSerialized" id="input-roleSerialized">
 
     <input type="submit" value="Save">
 </form>

@@ -7,6 +7,7 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,6 +36,6 @@ public class User {
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @NotNull
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
 }
