@@ -30,7 +30,7 @@ public class CustomerMapper implements UserDtoMapper<Customer, CustomerDTO>{
             .email(dto.getEmail())
             .password(customer.getPassword())
             .isActive(dto.isActive())
-            .roles(new HashSet(dto.getRoles()))
+            .roles(dto.getRoles())
             .build();
     }
 
@@ -42,7 +42,7 @@ public class CustomerMapper implements UserDtoMapper<Customer, CustomerDTO>{
             .email(userClass.getEmail())
             .isActive(userClass.isActive())
             .id(userClass.getId())
-            .roles(userClass.getRoles().stream().toList())
+            .roles(userClass.getRoles())
             .build();
     }
 

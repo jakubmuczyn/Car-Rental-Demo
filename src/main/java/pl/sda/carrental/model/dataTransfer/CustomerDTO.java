@@ -6,6 +6,7 @@ import lombok.Setter;
 import pl.sda.carrental.model.entity.userEntities.Role;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,5 +17,5 @@ public class CustomerDTO {
     private String username;
     private String email;
     private boolean isActive;
-    private List<Role> roles;
+    private Set<Role> roles;
 }
