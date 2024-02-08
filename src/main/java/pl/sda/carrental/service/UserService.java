@@ -58,14 +58,6 @@ public class UserService {
         repository.save(editedUser);
     }
 
-    public <T extends User> void deactivate(T deactivatedUser) {
-//       JpaRepository<T, Long> repository = getRepository(deactivatedUser);
-//       T user = repository.findById(deactivatedUser.getId()).get();
-//       user.setActive(false);
-//       repository.save(user);
-        this.toggle(deactivatedUser.getId());
-
-    }
     public void toggle(Long userId) {
         User user = userRepository.findById(userId).get();
         user.setActive(!user.isActive());

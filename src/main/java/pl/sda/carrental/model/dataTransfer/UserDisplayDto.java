@@ -18,6 +18,7 @@ public class UserDisplayDto {
     private boolean isEmployee;
     private boolean isCustomer;
     private boolean isActive;
+    private boolean isCurrentlyLoggedIn;
       public static class UserDisplayDtoBuilder {
         public UserDisplayDtoBuilder principalRole(String principalRole) {
             this.principalRole = principalRole;
