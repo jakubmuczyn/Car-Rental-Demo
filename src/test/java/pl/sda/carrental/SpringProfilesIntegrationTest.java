@@ -8,7 +8,6 @@ import pl.sda.carrental.configuration.DatasourceConfig;
 @SpringBootTest
 public class SpringProfilesIntegrationTest {
     
-    @Autowired
     DatasourceConfig datasourceConfig;
     
     @Autowired
