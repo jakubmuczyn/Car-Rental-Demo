@@ -1,10 +1,11 @@
 package pl.sda.carrental.model.dataTransfer;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import pl.sda.carrental.model.entity.userEntities.Role;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,5 +16,5 @@ public class CustomerDTO {
     private String username;
     private String email;
     private boolean isActive;
-    private String rolesSerialized;
+    private List<Role> roles;
 }

@@ -6,6 +6,7 @@ import pl.sda.carrental.model.entity.userEntities.Role;
 import pl.sda.carrental.model.repository.userRepositories.CustomerRepository;
 import pl.sda.carrental.service.RoleService;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -20,7 +21,7 @@ public class CustomerMapper implements UserDtoMapper<Customer, CustomerDTO>{
 
     @Override
     public Customer getUserClass(CustomerDTO dto) {
-        Set<Role> roles = roleService.deserializeRoes(dto.getRolesSerialized());
+//        Set<Role> roles = roleService.deserializeRoes(dto.getRolesSerialized());
         Customer customer = customerRepository.getReferenceById(dto.getId());
         return Customer.builder()
             .id(dto.getId())
@@ -29,7 +30,7 @@ public class CustomerMapper implements UserDtoMapper<Customer, CustomerDTO>{
             .email(dto.getEmail())
             .password(customer.getPassword())
             .isActive(dto.isActive())
-            .roles(roles)
+            .roles(new HashSet(dto.getRoles()))
             .build();
     }
 
@@ -41,7 +42,7 @@ public class CustomerMapper implements UserDtoMapper<Customer, CustomerDTO>{
             .email(userClass.getEmail())
             .isActive(userClass.isActive())
             .id(userClass.getId())
-            .rolesSerialized(roleService.serializeRoles(userClass.getRoles()))
+            .roles(userClass.getRoles().stream().toList())
             .build();
     }
 
