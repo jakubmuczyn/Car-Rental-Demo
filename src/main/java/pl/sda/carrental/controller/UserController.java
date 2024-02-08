@@ -47,7 +47,7 @@ public class UserController {
     @GetMapping("/users/user/toggle/{user_id}")
     public String toggleUserActive(@PathVariable() Long user_id) {
         userService.toggle(user_id);
-        return "home";
+        return "redirect:/users";
     }
     @GetMapping("/users/administrator/{user_id}")
     public String editAdministrator(Model model, @PathVariable() long user_id) {
@@ -59,7 +59,7 @@ public class UserController {
     @PostMapping("/users/administrator/save")
     public  String submitEditedUser(AdminDTO adminDTO) {
         userService.saveUser(administratorMapper.getUserClass(adminDTO));
-        return "home";
+        return "redirect:/users";
     }
     @GetMapping("/users/customer/{user_id}")
     public String editCustomer(Model model, @PathVariable() long user_id) {
@@ -71,7 +71,7 @@ public class UserController {
     @PostMapping("/users/customer/save")
     public  String submitEditedUser(CustomerDTO customerDTO) {
         userService.saveUser(customerMapper.getUserClass(customerDTO));
-        return "home";
+        return "redirect:/users";
     }
     @GetMapping("/users/employee/{user_id}")
     public String editEmployee(Model model, @PathVariable() long user_id) {
@@ -84,6 +84,6 @@ public class UserController {
     @PostMapping("/users/employee/saves")
     public  String submitEditedEmployee(EmployeeDto employee) {
         userService.saveUser(employeeMapper.getUserClass(employee));
-        return "home";
+        return "redirect:/users";
     }
 }
