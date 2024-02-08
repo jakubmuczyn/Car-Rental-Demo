@@ -1,6 +1,7 @@
-package pl.sda.carrental.model.dataTransfer;
+package pl.sda.carrental.model.dataTransfer.mappers;
 
 import org.springframework.stereotype.Service;
+import pl.sda.carrental.model.dataTransfer.dtos.UserDisplayDto;
 import pl.sda.carrental.model.entity.userEntities.Administrator;
 import pl.sda.carrental.model.entity.userEntities.Customer;
 import pl.sda.carrental.model.entity.userEntities.Employee;

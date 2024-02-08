@@ -1,4 +1,4 @@
-package pl.sda.carrental.model.dataTransfer;
+package pl.sda.carrental.model.dataTransfer.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.sda.carrental.model.entity.userEntities.Role;

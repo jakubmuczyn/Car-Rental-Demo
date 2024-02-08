@@ -1,16 +1,14 @@
-package pl.sda.carrental.model.dataTransfer;
+package pl.sda.carrental.model.dataTransfer.mappers;
 
 import org.springframework.stereotype.Service;
+import pl.sda.carrental.model.dataTransfer.dtos.CustomerDTO;
+import pl.sda.carrental.model.dataTransfer.mappers.UserDtoMapper;
 import pl.sda.carrental.model.entity.userEntities.Customer;
-import pl.sda.carrental.model.entity.userEntities.Role;
 import pl.sda.carrental.model.repository.userRepositories.CustomerRepository;
 import pl.sda.carrental.service.RoleService;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Service
-public class CustomerMapper implements UserDtoMapper<Customer, CustomerDTO>{
+public class CustomerMapper implements UserDtoMapper<Customer, CustomerDTO> {
     private final RoleService roleService;
     private final CustomerRepository customerRepository;
 
