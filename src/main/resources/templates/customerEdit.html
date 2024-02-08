@@ -27,7 +27,7 @@
     <label for="email-input">Email: </label>
     <input type="text"  id="email-input" name="email" th:value="${customer.getEmail()}">
 
-    <input type="hidden" th:value="${customer.isActive()}" name="isActive" id="input-isActive">
+    <input type="text" th:value="${customer.isActive()}" name="isActive" id="input-isActive">
 <!--    <input type="hidden" th:value="${customer.getRolesSerialized()}" name="rolesSerialized" id="input-roleSerialized">-->
 <!--    <input type="hidden" th:value="*{roles}" name="roles" id="input-roles">-->
 
