@@ -28,14 +28,14 @@
         <tbody>
             <tr th:if="${users.isEmpty()}"><td colspan="4"> No users available. Which is impossible, so something went wrong dog.</td></tr>
             <tr th:each="user : ${users}">
-                <td><span th:text="${user.getName()}"> Name </span> </td>
-                <td><span th:text="${user.getEmail()}"> Mail </span> </td>
-                <td><span th:text="${user.getUsername()}"> Username </span> </td>
-                <td><span th:text="${user.getPrincipalRole()}"> Principal role </span> </td>
+                <td><span th:text="*{user.getName()}" th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}"> Name </span> </td>
+                <td><span th:text="${user.getEmail()}" th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}"> Mail </span> </td>
+                <td><span th:text="${user.getUsername()}" th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}"> Username </span> </td>
+                <td><span th:text="${user.getPrincipalRole()}" th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}"> Principal role </span> </td>
                 <td th:if="${user.isEmployee()}"><a  th:href="@{/users/employee/} + ${user.getId()}">Edit</a></td>
-                <td th:if="${user.isEmployee()}"><a  th:href="@{/users/user/delete/} + ${user.getId()}">Delete</a></td>
+                <td th:if="${user.isEmployee()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}"></a></td>
                 <td th:if="${user.isCustomer()}"><a  th:href="@{/users/customer/} + ${user.getId()}">Edit</a></td>
-                <td th:if="${user.isCustomer()}"><a  th:href="@{/users/user/delete/} + ${user.getId()}">Delete</a></td>
+                <td th:if="${user.isCustomer()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}">Delete</a></td>
             </tr>
         </tbody>
     </table>

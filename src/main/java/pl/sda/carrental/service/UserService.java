@@ -63,11 +63,13 @@ public class UserService {
 //       T user = repository.findById(deactivatedUser.getId()).get();
 //       user.setActive(false);
 //       repository.save(user);
-        this.deactivate(deactivatedUser.getId());
+        this.toggle(deactivatedUser.getId());
 
     }
-    public void deactivate(Long userId) {
+    public void toggle(Long userId) {
         User user = userRepository.findById(userId).get();
-        user.setActive(false);
+        user.setActive(!user.isActive());
+        userRepository.save(user);
     }
+
 }

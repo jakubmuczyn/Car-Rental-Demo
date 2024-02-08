@@ -1,4 +1,4 @@
-package pl.sda.carrental.model.dataTransfer.dtos;
+package pl.sda.carrental.model.dataTransfer;
 
 import lombok.Builder;
 import lombok.Getter;

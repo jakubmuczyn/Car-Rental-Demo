@@ -1,6 +1,7 @@
 package pl.sda.carrental.model.entity.userEntities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import pl.sda.carrental.model.entity.CarRental;
@@ -25,7 +26,7 @@ public class Employee extends User {
     
     @ManyToOne
     private Division division;
-    
+
 //    @OneToMany(mappedBy = "employee")
 //    private List<CarRental> carRental = new ArrayList<>();
 

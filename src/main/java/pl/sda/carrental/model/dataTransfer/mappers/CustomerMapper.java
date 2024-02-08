@@ -1,8 +1,7 @@
 package pl.sda.carrental.model.dataTransfer.mappers;
 
 import org.springframework.stereotype.Service;
-import pl.sda.carrental.model.dataTransfer.dtos.CustomerDTO;
-import pl.sda.carrental.model.dataTransfer.mappers.UserDtoMapper;
+import pl.sda.carrental.model.dataTransfer.CustomerDTO;
 import pl.sda.carrental.model.entity.userEntities.Customer;
 import pl.sda.carrental.model.repository.userRepositories.CustomerRepository;
 import pl.sda.carrental.service.RoleService;
