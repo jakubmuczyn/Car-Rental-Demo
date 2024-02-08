@@ -8,11 +8,9 @@ import pl.sda.carrental.service.RoleService;
 
 @Service
 public class CustomerMapper implements UserDtoMapper<Customer, CustomerDTO> {
-    private final RoleService roleService;
     private final CustomerRepository customerRepository;
 
-    public CustomerMapper(RoleService roleService, CustomerRepository customerRepository) {
-        this.roleService = roleService;
+    public CustomerMapper(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 

@@ -1,10 +1,8 @@
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <title>Employee Edit Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .nowrap {
             white-space: nowrap;
@@ -13,38 +11,47 @@
 </head>
 <body>
 <div id="head" th:replace="~{home :: header}"></div>
-<h1 class="display-8">Employee edit form</h1>
-<form method="post" th:action="@{/users/employee/saves}" th:object="${employee}">
+<div class="container mt-5">
+    <h1 class="display-8">Employee Edit Form</h1>
+    <form method="post" th:action="@{/users/employee/saves}" th:object="${employee}" class="needs-validation" novalidate>
 
-   <input type="hidden"  name="id" th:value="*{id}">
+        <input type="hidden" name="id" th:value="*{id}">
 
-    <label for="name-input">Name: </label>
-    <input type="text"  id="name-input" name="name" th:value="*{getName()}">
+        <div class="mb-3">
+            <label for="name-input" class="form-label">Name:</label>
+            <input type="text" id="name-input" name="name" class="form-control" th:value="*{getName()}" required>
+            <div class="invalid-feedback">Please enter a name.</div>
+        </div>
 
-    <label for="name-input">Username: </label>
-    <input type="text"  id="username-input" name="username" th:value="*{getUsername()}">
+        <div class="mb-3">
+            <label for="username-input" class="form-label">Username:</label>
+            <input type="text" id="username-input" name="username" class="form-control" th:value="*{getUsername()}" required>
+            <div class="invalid-feedback">Please enter a username.</div>
+        </div>
 
+        <div class="mb-3">
+            <label for="email-input" class="form-label">Email:</label>
+            <input type="email" id="email-input" name="email" class="form-control" th:value="*{getEmail()}" required>
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+        </div>
 
-    <label for="email-input">Email: </label>
-    <input type="email"  id="email-input" name="email" th:value="*{getEmail()}">
-<!--    <input type="hidden" id="division-input" name="divisionDto" th:field="*{divisionDTO.getDivisionId()}" th:value="*{divisionDTO.getDivisionString()}">-->
-    <input type="hidden" id="isActive-input" name="isActive" th:value="*{isActive}">
+        <input type="hidden" id="isActive-input" name="isActive" th:value="*{isActive}">
 
-    <input type="hidden" id="divisionId-input" name="divisionDTO.divisionId" th:field="*{divisionDTO.divisionId}" th:value="*{divisionDTO.divisionId}" />
+        <input type="hidden" id="divisionId-input" name="divisionDTO.divisionId" th:field="*{divisionDTO.divisionId}" th:value="*{divisionDTO.divisionId}" />
 
-    <input type="hidden" id="divisionString-input" name="divisionDTO.divisionString" th:field="*{divisionDTO.divisionString}" th:value="*{divisionDTO.divisionString}" />
+        <input type="hidden" id="divisionString-input" name="divisionDTO.divisionString" th:field="*{divisionDTO.divisionString}" th:value="*{divisionDTO.divisionString}" />
 
+        <div class="mb-3">
+            <label for="position-input" class="form-label">Position:</label>
+            <select id="position-input" name="position" class="form-select" th:field="*{position}" required>
+                <option th:each="p : ${positions}" th:value="${p}" th:text="${p.name()}"></option>
+            </select>
+        </div>
 
-    <label for="position-input">Position: </label>
-    <select id="position-input" name="position" th:field="*{position}">
-        <option th:each="p : ${positions}"
-                th:value="${p}"
-                th:text="${p.name()}">
-        </option>
-    </select>
+        <input type="hidden" th:each="role : *{roles}" th:value="${role.id}" name="roles" id="input-role-${role.id}">
 
-    <input type="hidden" th:each="role : *{roles}" th:value="${role.id}" name="roles" id="input-role-${role.id}">
-
-    <input type="submit" value="Save">
-</form>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
 </body>
+</html>
