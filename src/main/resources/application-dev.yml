@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: 'jdbc:h2:file:./carrental-db'
+    url: 'jdbc:h2:file:./carrental-db;AUTO_SERVER=TRUE' #mixed mode
     username: root
     password: example
   jpa:
