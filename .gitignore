@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/carrental-db.mv.db
+/carrental-db.trace.db
