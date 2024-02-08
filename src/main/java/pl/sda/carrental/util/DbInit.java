@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.sda.carrental.model.entity.*;
@@ -26,6 +27,7 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 @Component
+@Profile("dev")
 public class DbInit {
     private final UserRepository userRepository;
     private final AdministratorRepository administratorRepository;
