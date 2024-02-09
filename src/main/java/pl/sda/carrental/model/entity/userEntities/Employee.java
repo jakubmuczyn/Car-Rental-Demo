@@ -33,5 +33,4 @@ public class Employee extends User {
     public enum Position {
         EMPLOYEE,MANAGER;
     }
-
 }
