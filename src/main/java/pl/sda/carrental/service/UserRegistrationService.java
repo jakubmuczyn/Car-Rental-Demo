@@ -16,26 +16,14 @@ public class UserRegistrationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     
-    public void registerCustomer(UserRegistrationDTO userRegistrationDto) {
-        Customer customer = new Customer();
-        customer.setUsername(userRegistrationDto.getUsername());
-        customer.setName(userRegistrationDto.getFirstName() + " " + userRegistrationDto.getLastName());
-        customer.setEmail(userRegistrationDto.getEmail());
-        customer.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
-        customer.setRole((userRegistrationDto.getRole()));
-        
-        userRepository.save(customer);
-    }
-    
-    public void registerEmployee(UserRegistrationDTO userRegistrationDto) {
-        Employee employee = new Employee();
-        employee.setUsername(userRegistrationDto.getUsername());
-        employee.setName(userRegistrationDto.getFirstName() + " " + userRegistrationDto.getLastName());
-        employee.setEmail(userRegistrationDto.getEmail());
-        employee.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
-        employee.setPosition(Employee.Position.EMPLOYEE);
-        
-        userRepository.save(employee);
+    public void registerAdmin(UserRegistrationDTO userRegistrationDto) {
+        Administrator admin = new Administrator();
+        admin.setUsername(userRegistrationDto.getUsername());
+        admin.setName(userRegistrationDto.getFirstName() + " " + userRegistrationDto.getLastName());
+        admin.setEmail(userRegistrationDto.getEmail());
+        admin.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
+        admin.setRole(userRegistrationDto.getRole());
+        userRepository.save(admin);
     }
     
     public void registerManager(UserRegistrationDTO userRegistrationDto) {
@@ -45,17 +33,35 @@ public class UserRegistrationService {
         manager.setEmail(userRegistrationDto.getEmail());
         manager.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
         manager.setPosition(Employee.Position.MANAGER);
-        
+        manager.setRole(userRegistrationDto.getRole());
         userRepository.save(manager);
     }
     
-    public void registerAdmin(UserRegistrationDTO userRegistrationDto) {
-        Administrator admin = new Administrator();
-        admin.setUsername(userRegistrationDto.getUsername());
-        admin.setName(userRegistrationDto.getFirstName() + " " + userRegistrationDto.getLastName());
-        admin.setEmail(userRegistrationDto.getEmail());
-        admin.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
-        
-        userRepository.save(admin);
+    public void registerEmployee(UserRegistrationDTO userRegistrationDto) {
+        Employee employee = new Employee();
+        employee.setUsername(userRegistrationDto.getUsername());
+        employee.setName(userRegistrationDto.getFirstName() + " " + userRegistrationDto.getLastName());
+        employee.setEmail(userRegistrationDto.getEmail());
+        employee.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
+        employee.setPosition(Employee.Position.EMPLOYEE);
+        employee.setRole(userRegistrationDto.getRole());
+        userRepository.save(employee);
     }
+    
+    public void registerCustomer(UserRegistrationDTO userRegistrationDto) {
+        Customer customer = new Customer();
+        customer.setUsername(userRegistrationDto.getUsername());
+        customer.setName(userRegistrationDto.getFirstName() + " " + userRegistrationDto.getLastName());
+        customer.setEmail(userRegistrationDto.getEmail());
+        customer.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
+        customer.setRole(userRegistrationDto.getRole());
+        customer.setRole(userRegistrationDto.getRole());
+        userRepository.save(customer);
+    }
+    
+
+    
+
+    
+
 }

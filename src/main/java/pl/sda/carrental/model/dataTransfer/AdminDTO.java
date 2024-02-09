@@ -16,5 +16,5 @@ public class AdminDTO {
     private String username;
     private String email;
     private boolean isActive;
-    private Set<Role> roles;
+    private Role role;
 }

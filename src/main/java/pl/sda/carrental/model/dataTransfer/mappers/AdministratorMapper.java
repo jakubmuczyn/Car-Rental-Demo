@@ -29,7 +29,7 @@ public class AdministratorMapper implements UserDtoMapper<Administrator, AdminDT
             .email(dto.getEmail())
             .password(customer.getPassword())
             .isActive(dto.isActive())
-            .roles(dto.getRoles())
+            .role(dto.getRole())
             .build();
     }
 
@@ -41,7 +41,7 @@ public class AdministratorMapper implements UserDtoMapper<Administrator, AdminDT
             .email(administrator.getEmail())
             .isActive(administrator.isActive())
             .id(administrator.getId())
-            .roles(administrator.getRoles())
+            .role(administrator.getRole())
             .build();
     }
 

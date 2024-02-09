@@ -52,14 +52,19 @@ public class DbInit {
                 .state("Łódzkie")
                 .city("Łódź")
                 .build();
+        addressRepository.save(dbTestAddress);
         
         Division dbTestDivision = Division.builder()
                 .address(dbTestAddress)
                 .build();
+        divisionRepository.save(dbTestDivision);
         
         Role adminRole = Role.builder().roleName(PrincipalRole.ADMIN.name()).build();
         Role employeeRole = Role.builder().roleName(PrincipalRole.EMPLOYEE.name()).build();
         Role customerRole = Role.builder().roleName(PrincipalRole.CUSTOMER.name()).build();
+        roleRepository.save(adminRole);
+        roleRepository.save(employeeRole);
+        roleRepository.save(customerRole);
         
         Administrator dbTestAdmin = Administrator.builder()
                 .name("Admin Adminowy")
@@ -69,6 +74,7 @@ public class DbInit {
                         .encode("admin"))
                 .role(adminRole)
                 .build();
+        administratorRepository.save(dbTestAdmin);
         
         Employee dbTestManager = Employee.builder()
                 .division(dbTestDivision)
@@ -79,6 +85,7 @@ public class DbInit {
                 .username("manager")
                 .role(employeeRole)
                 .build();
+        employeeRepository.save(dbTestManager);
         
         Employee dbTestEmployee = Employee.builder()
                 .division(dbTestDivision)
@@ -89,6 +96,7 @@ public class DbInit {
                 .username("employee")
                 .role(employeeRole)
                 .build();
+        employeeRepository.save(dbTestEmployee);
         
         Customer dbTestCustomer = Customer.builder()
                 .name("Maciej Konsument")
@@ -97,6 +105,7 @@ public class DbInit {
                 .role(customerRole)
                 .username("customer")
                 .build();
+        customerRepository.save(dbTestCustomer);
         
         Car dbTestCar = Car.builder()
                 .brand("Toyota")
@@ -109,6 +118,7 @@ public class DbInit {
                 .status(Car.RentStatus.AVAILABLE)
                 .division(dbTestDivision)
                 .build();
+        carRepository.save(dbTestCar);
         
         Reservation dbTestReservation = Reservation.builder()
                 .rental_division(dbTestDivision)
@@ -121,6 +131,7 @@ public class DbInit {
                 .cost(new BigDecimal("20.50"))
                 .reservation_date(LocalDate.now())
                 .build();
+        reservationRepository.save(dbTestReservation);
         
         CarRental dbTestCarRental = CarRental.builder()
                 .rentalStatus(CarRental.RentalStatus.ONGOING)
@@ -129,36 +140,21 @@ public class DbInit {
                 .reservation(dbTestReservation)
                 .comment("Test comment")
                 .build();
+        carRentalRepository.save(dbTestCarRental);
         
         Transaction dbTestTransaction = Transaction.builder()
                 .carRental(dbTestCarRental)
                 .transactionDate(LocalDate.now())
                 .transactionAmount(dbTestCarRental.getReservation().getCost())
                 .build();
-        
-        addressRepository.save(dbTestAddress);
+        transactionRepository.save(dbTestTransaction);
         
         dbTestDivision.addEmployee(dbTestEmployee);
         dbTestDivision.addCar(dbTestCar);
         divisionRepository.save(dbTestDivision);
         
-        roleRepository.save(adminRole);
-        roleRepository.save(employeeRole);
-        roleRepository.save(customerRole);
-        
-        administratorRepository.save(dbTestAdmin);
-        employeeRepository.save(dbTestManager);
-        employeeRepository.save(dbTestEmployee);
-        customerRepository.save(dbTestCustomer);
-        
         dbTestCar.setReservation(dbTestReservation);
         carRepository.save(dbTestCar);
-        
-        reservationRepository.save(dbTestReservation);
-        
-        carRentalRepository.save(dbTestCarRental);
-        
-        transactionRepository.save(dbTestTransaction);
 
         testPrint();
         System.out.println(dbTestDivision.getCars());

@@ -17,14 +17,5 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
-    public Role getRoleByEnum(PrincipalRole principalRole) {
-       return roleRepository.findRoleByName(principalRole.name());
-    }
-
-    public Set<Role> deserializeRoes(String roleNames) {
-        return Arrays.stream(roleNames.split(";")).map(roleRepository::findRoleByName).collect(Collectors.toSet());
-    }
-    public String serializeRoles(Set<Role> roles) {
-        return roles.stream().map((Role::getName)).collect(Collectors.joining(";"));
-    }
+    
 }

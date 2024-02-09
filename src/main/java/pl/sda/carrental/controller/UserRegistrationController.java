@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.sda.carrental.model.dataTransfer.UserRegistrationDTO;
 import pl.sda.carrental.model.entity.userEntities.Role;
-import pl.sda.carrental.model.entity.userEntities.User;
 import pl.sda.carrental.model.repository.userRepositories.RoleRepository;
+import pl.sda.carrental.security.PrincipalRole;
 import pl.sda.carrental.service.UserRegistrationService;
 import pl.sda.carrental.service.UserService;
 
@@ -21,17 +21,13 @@ import pl.sda.carrental.service.UserService;
 @AllArgsConstructor
 public class UserRegistrationController {
     
-    @Autowired
     private final UserService userService;
     
-    @Autowired
     private final UserRegistrationService userRegistrationService;
     
-    @Autowired
     private final RoleRepository roleRepository;
     
-    
-    // GET /register/employee
+    // GET /register
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new UserRegistrationDTO());
@@ -39,14 +35,9 @@ public class UserRegistrationController {
         return "registration";
     }
     
-    
-    
-    
-    
-    
-    // POST /register/employee
+    // POST /register
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDTO userDTO, BindingResult bindingResult, @RequestParam("roleId") Integer roleId) {
+    public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDTO userDTO, @RequestParam("roleId") Integer roleId, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
@@ -54,86 +45,15 @@ public class UserRegistrationController {
         Role selectedRole = roleRepository.findById(roleId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid role ID: " + roleId));
         userDTO.setRole(selectedRole);
-        userRegistrationService.register(userDTO);
         
-        
-        
-        
-        if (selectedRole.getRoleName().equals("Customer")) {
-            userRegistrationService.registerCustomer(user);
-        } else if (selectedRole.getRoleName().equals("Employee")) {
-            userRegistrationService.registerEmployee(user);
-        } else if (selectedRole.getRoleName().equals("Administrator")) {
-            userRegistrationService.registerAdmin(user);
+        if (selectedRole.getRoleName().equals(PrincipalRole.ADMIN.name())) {
+            userRegistrationService.registerAdmin(userDTO);
+        } else if (selectedRole.getRoleName().equals(PrincipalRole.EMPLOYEE.name())) {
+            userRegistrationService.registerEmployee(userDTO);
         } else {
-            // Obsługa innych ról, jeśli jest to konieczne
+            userRegistrationService.registerCustomer(userDTO);
         }
         
-        
-        
-        
-        
-        
-        
-        return "redirect:/login";
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // GET /register/customer
-    @GetMapping("/register/customer")
-    public String registerCustomer(Model model) {
-        model.addAttribute("customer", new UserRegistrationDTO());
-        return "registerCustomer";
-    }
-    
-    // POST /register/customer
-    @PostMapping("/register/customer")
-    public String registerCustomer(UserRegistrationDTO userRegistrationDto) {
-        userRegistrationService.registerCustomer(userRegistrationDto);
-        return "redirect:/login";
-    }
-    
-    // GET /register/manager
-    @GetMapping("/register/manager")
-    public String registerManager(Model model) {
-        model.addAttribute("manager", new UserRegistrationDTO());
-        return "registerManager";
-    }
-    
-    // POST /register/manager
-    @PostMapping("/register/manager")
-    public String registerManager(UserRegistrationDTO userRegistrationDto) {
-        userRegistrationService.registerManager(userRegistrationDto);
-        return "redirect:/login";
-    }
-    
-    // GET /register/admin
-    @GetMapping("/register/admin")
-    public String registerAdmin(Model model) {
-        model.addAttribute("admin", new UserRegistrationDTO());
-        return "registerAdmin";
-    }
-    
-    // POST /register/admin
-    @PostMapping("/register/admin")
-    public String registerAdmin(UserRegistrationDTO userRegistrationDto) {
-        userRegistrationService.registerAdmin(userRegistrationDto);
-        return "redirect:/login";
+        return "registrationSuccess";
     }
 }

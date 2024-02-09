@@ -17,8 +17,7 @@ public class EmployeeMapper implements UserDtoMapper<Employee, EmployeeDTO> {
         this.employeeRepository = employeeRepository;
         this.divisionRepository = divisionRepository;
     }
-
-
+    
     @Override
     public Employee getUserClass(EmployeeDTO dto) {
         Employee employee = employeeRepository.getReferenceById(dto.getId());
@@ -26,7 +25,7 @@ public class EmployeeMapper implements UserDtoMapper<Employee, EmployeeDTO> {
 
         return Employee.builder()
                 .id(dto.getId())
-                .roles(dto.getRoles())
+                .role(dto.getRole())
                 .name(dto.getName())
                 .password(employee.getPassword())
                 .isActive(dto.isActive())
@@ -46,7 +45,7 @@ public class EmployeeMapper implements UserDtoMapper<Employee, EmployeeDTO> {
             .username(u.getUsername())
             .email(u.getEmail())
             .isActive(u.isActive())
-            .roles(u.getRoles())
+            .role(u.getRole())
             .position(u.getPosition())
             .divisionDTO(divisionDTO)
             .build();
