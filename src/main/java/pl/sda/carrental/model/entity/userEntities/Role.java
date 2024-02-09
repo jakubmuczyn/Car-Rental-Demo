@@ -1,11 +1,9 @@
 package pl.sda.carrental.model.entity.userEntities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,8 +12,13 @@ import lombok.*;
 @Data
 @Table(name = "Roles")
 public class Role {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roleId;
+    
     private String roleName;
+    
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
 }
