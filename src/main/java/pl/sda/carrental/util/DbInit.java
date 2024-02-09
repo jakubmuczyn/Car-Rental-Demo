@@ -67,43 +67,43 @@ public class DbInit {
         roleRepository.save(customerRole);
         
         Administrator dbTestAdmin = Administrator.builder()
-                .name("Admin Adminowy")
                 .username("admin")
+                .name("Admin Adminowy")
                 .email("admin@test.pl")
+                .role(adminRole)
                 .password(passwordEncoder
                         .encode("admin"))
-                .role(adminRole)
                 .build();
         administratorRepository.save(dbTestAdmin);
         
         Employee dbTestManager = Employee.builder()
-                .division(dbTestDivision)
-                .name("Wiktor Traktor")
-                .position(Employee.Position.MANAGER)
-                .email("wiktor.traktor@company.com")
-                .password(passwordEncoder.encode("manager"))
                 .username("manager")
+                .name("Wiktor Traktor")
+                .email("wiktor.traktor@company.com")
+                .position(Employee.Position.MANAGER)
                 .role(employeeRole)
+                .division(dbTestDivision)
+                .password(passwordEncoder.encode("manager"))
                 .build();
         employeeRepository.save(dbTestManager);
         
         Employee dbTestEmployee = Employee.builder()
-                .division(dbTestDivision)
-                .name("Jan Kowalski")
-                .position(Employee.Position.EMPLOYEE)
-                .email("jan.kowalski@company.com")
-                .password(passwordEncoder.encode("employee"))
                 .username("employee")
+                .name("Jan Kowalski")
+                .email("jan.kowalski@company.com")
+                .position(Employee.Position.EMPLOYEE)
                 .role(employeeRole)
+                .division(dbTestDivision)
+                .password(passwordEncoder.encode("employee"))
                 .build();
         employeeRepository.save(dbTestEmployee);
         
         Customer dbTestCustomer = Customer.builder()
+                .username("customer")
                 .name("Maciej Konsument")
                 .email("maciej.konsument@gmail.com")
-                .password(passwordEncoder.encode("customer"))
                 .role(customerRole)
-                .username("customer")
+                .password(passwordEncoder.encode("customer"))
                 .build();
         customerRepository.save(dbTestCustomer);
         

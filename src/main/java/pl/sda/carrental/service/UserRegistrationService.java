@@ -21,8 +21,8 @@ public class UserRegistrationService {
         admin.setUsername(userRegistrationDto.getUsername());
         admin.setName(userRegistrationDto.getFirstName() + " " + userRegistrationDto.getLastName());
         admin.setEmail(userRegistrationDto.getEmail());
-        admin.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
         admin.setRole(userRegistrationDto.getRole());
+        admin.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
         userRepository.save(admin);
     }
     
@@ -31,9 +31,9 @@ public class UserRegistrationService {
         manager.setUsername(userRegistrationDto.getUsername());
         manager.setName(userRegistrationDto.getFirstName() + " " + userRegistrationDto.getLastName());
         manager.setEmail(userRegistrationDto.getEmail());
-        manager.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
         manager.setPosition(Employee.Position.MANAGER);
         manager.setRole(userRegistrationDto.getRole());
+        manager.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
         userRepository.save(manager);
     }
     
@@ -42,9 +42,9 @@ public class UserRegistrationService {
         employee.setUsername(userRegistrationDto.getUsername());
         employee.setName(userRegistrationDto.getFirstName() + " " + userRegistrationDto.getLastName());
         employee.setEmail(userRegistrationDto.getEmail());
-        employee.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
         employee.setPosition(Employee.Position.EMPLOYEE);
         employee.setRole(userRegistrationDto.getRole());
+        employee.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
         userRepository.save(employee);
     }
     
@@ -53,9 +53,8 @@ public class UserRegistrationService {
         customer.setUsername(userRegistrationDto.getUsername());
         customer.setName(userRegistrationDto.getFirstName() + " " + userRegistrationDto.getLastName());
         customer.setEmail(userRegistrationDto.getEmail());
+        customer.setRole(userRegistrationDto.getRole());
         customer.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
-        customer.setRole(userRegistrationDto.getRole());
-        customer.setRole(userRegistrationDto.getRole());
         userRepository.save(customer);
     }
     

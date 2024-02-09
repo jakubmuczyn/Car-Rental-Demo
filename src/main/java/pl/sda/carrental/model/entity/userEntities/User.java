@@ -20,21 +20,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(nullable = false, unique = true)
+    private String username;
+    
     private String name;
     
     @Column(nullable = false, unique = true)
     private String email;
     
-    @Column(nullable = false)
-    private String password;
-    
-    // @Column(nullable = false, unique = true)
-    // private String rank;
-    
     @ManyToOne
     @JoinColumn(name = "roleId")
     @NotNull
     private Role role;
+    
+    @Column(nullable = false)
+    private String password;
 
     @Builder.Default
     private boolean isActive = true;

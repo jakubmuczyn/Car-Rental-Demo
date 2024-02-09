@@ -25,7 +25,7 @@ public class AdministratorMapper implements UserDtoMapper<Administrator, AdminDT
         return Administrator.builder()
             .id(dto.getId())
             .name(dto.getName())
-            .username(dto.getUsername())
+            .role(dto.getRole())
             .email(dto.getEmail())
             .password(customer.getPassword())
             .isActive(dto.isActive())
@@ -34,14 +34,14 @@ public class AdministratorMapper implements UserDtoMapper<Administrator, AdminDT
     }
 
     @Override
-    public AdminDTO getDto(Administrator administrator) {
+    public AdminDTO getDto(Administrator userClass) {
         return AdminDTO.builder()
-            .name(administrator.getName())
-            .username(administrator.getUsername())
-            .email(administrator.getEmail())
-            .isActive(administrator.isActive())
-            .id(administrator.getId())
-            .role(administrator.getRole())
+            .name(userClass.getName())
+            .role(userClass.getRole())
+            .email(userClass.getEmail())
+            .isActive(userClass.isActive())
+            .id(userClass.getId())
+            .role(userClass.getRole())
             .build();
     }
 
