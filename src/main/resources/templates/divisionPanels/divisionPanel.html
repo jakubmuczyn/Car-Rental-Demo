@@ -1,0 +1,45 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Edit Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<div id="head" th:replace="~{home :: header}"></div>
+<ul class="actions mb-3 mt-3 justify-content-end">
+    <a th:href="@{/divisions/new}" class="btn btn-success">Nowy oddział</a>
+</ul>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Management</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${divisions.isEmpty()}"><td colspan="3"> No divisions available. Which is impossible, so something went wrong dog.</td></tr>
+    <tr th:each="division : ${divisions}">
+        <td><span th:text="${division.toString()}"></span> </td>
+        <td><span th:text="${division.getAddress()}"></span> </td>
+        <td><a th:text="Manage" th:href="${'/divisions/' + division.getDivision_id()}"></a> </td>
+<!--        <div th:if="${user.getId() ne currentUser.getId()}">-->
+<!--            <td th:if="${user.isEmployee()}"><a  th:href="@{/users/employee/} + ${user.getId()}">Edit</a></td>-->
+<!--            <td th:if="${user.isCustomer()}"><a  th:href="@{/users/customer/} + ${user.getId()}">Edit</a></td>-->
+<!--            <td th:if="${user.isAdministrator()}"><a  th:href="@{/users/administrator/} + ${user.getId()}">Edit</a></td>-->
+<!--            <td th:if="${user.isEmployee()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}"></a></td>-->
+<!--            <td th:if="${user.isCustomer()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}">Delete</a></td>-->
+<!--            <td th:if="${user.isAdministrator()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}">Delete</a></td>-->
+<!--        </div>-->
+<!--        <div th:if="${!(user.getId() ne currentUser.getId())}">-->
+<!--            <td colspan="2">Cannot edit current user</td>-->
+<!--        </div>-->
+    </tr>
+    </tbody>
+</table>
+</body>

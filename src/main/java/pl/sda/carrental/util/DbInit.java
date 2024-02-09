@@ -69,6 +69,11 @@ public class DbInit {
                 .state("Łódzkie")
                 .city("Łódź")
                 .build();
+        Address address_2 = Address.builder()
+                .address("Pod testami 18")
+                .state("Wielkopolskie")
+                .city("Poznań")
+                .build();
 
         Division division = Division.builder()
                 .address(address)
@@ -105,6 +110,7 @@ public class DbInit {
             .build();
 
         addressRepository.save(address);
+        addressRepository.save(address_2);
         divisionRepository.save(division);
         carRepository.save(car);
         division.addCar(car);
