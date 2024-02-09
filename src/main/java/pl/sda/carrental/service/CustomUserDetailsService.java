@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import pl.sda.carrental.model.entity.userEntities.User;
 import pl.sda.carrental.model.repository.userRepositories.UserRepository;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,24 +27,21 @@ import java.util.stream.Collectors;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository<User> userRepository;
-
+    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsernameOrEmail(username);
-        Set<GrantedAuthority> authorities = user.getRole().stream()
-                .map((role) -> new SimpleGrantedAuthority(role.getRoleName()))
-                .collect(Collectors.toSet());
-        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), authorities);
+        
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRoleName());
+        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), Collections.singleton(authority));
     }
-
+    
     public Optional<User> getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof AnonymousAuthenticationToken)
-            return Optional.empty();
-
+        if (authentication instanceof AnonymousAuthenticationToken) return Optional.empty();
         return Optional.of(findByUsernameOrEmail(authentication.getName()));
     }
-
+    
     public User findByUsernameOrEmail(String username) {
         return userRepository.findByUsernameOrEmail(username, username).orElseThrow(() ->
                 new IllegalArgumentException("Username does not exist")
