@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Data
 @Builder
-public class EmployeeDto {
+public class EmployeeDTO {
     private Long id;
     private String name;
     private String username;

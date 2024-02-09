@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.carrental.model.dataTransfer.AdminDTO;
 import pl.sda.carrental.model.dataTransfer.CustomerDTO;
-import pl.sda.carrental.model.dataTransfer.EmployeeDto;
+import pl.sda.carrental.model.dataTransfer.EmployeeDTO;
 import pl.sda.carrental.model.dataTransfer.mappers.AdministratorMapper;
 import pl.sda.carrental.model.dataTransfer.mappers.CustomerMapper;
 import pl.sda.carrental.model.dataTransfer.mappers.EmployeeMapper;
@@ -76,13 +76,13 @@ public class UserController {
     @GetMapping("/users/employee/{user_id}")
     public String editEmployee(Model model, @PathVariable() long user_id) {
         Employee employee = employeeRepository.findById(user_id).get();
-        EmployeeDto employeeDto = employeeMapper.getDto(employee);
+        EmployeeDTO employeeDto = employeeMapper.getDto(employee);
         model.addAttribute("employee", employeeDto);
         model.addAttribute("positions", Employee.Position.values());
         return "userPanels/employeeEdit";
     }
     @PostMapping("/users/employee/saves")
-    public  String submitEditedEmployee(EmployeeDto employee) {
+    public  String submitEditedEmployee(EmployeeDTO employee) {
         userService.saveUser(employeeMapper.getUserClass(employee));
         return "redirect:/users";
     }

@@ -1,16 +1,14 @@
 package pl.sda.carrental.model.dataTransfer.mappers;
 
 import org.springframework.stereotype.Service;
-import pl.sda.carrental.model.dataTransfer.EmployeeDto;
+import pl.sda.carrental.model.dataTransfer.EmployeeDTO;
 import pl.sda.carrental.model.entity.Division;
 import pl.sda.carrental.model.entity.userEntities.Employee;
 import pl.sda.carrental.model.repository.DivisionRepository;
 import pl.sda.carrental.model.repository.userRepositories.EmployeeRepository;
 
-import java.util.List;
-
 @Service
-public class EmployeeMapper implements UserDtoMapper<Employee, EmployeeDto> {
+public class EmployeeMapper implements UserDtoMapper<Employee, EmployeeDTO> {
 
     private final EmployeeRepository employeeRepository;
     private final DivisionRepository divisionRepository;
@@ -22,7 +20,7 @@ public class EmployeeMapper implements UserDtoMapper<Employee, EmployeeDto> {
 
 
     @Override
-    public Employee getUserClass(EmployeeDto dto) {
+    public Employee getUserClass(EmployeeDTO dto) {
         Employee employee = employeeRepository.getReferenceById(dto.getId());
         Division division = divisionRepository.findById(dto.getDivisionDTO().getDivisionId()).get();
 
@@ -40,9 +38,9 @@ public class EmployeeMapper implements UserDtoMapper<Employee, EmployeeDto> {
     }
 
     @Override
-    public EmployeeDto getDto(Employee u) {
-        EmployeeDto.DivisionDTO divisionDTO = new EmployeeDto.DivisionDTO(u.getDivision().getDivision_id(), u.getDivision().getAddress().toString());
-        return EmployeeDto.builder()
+    public EmployeeDTO getDto(Employee u) {
+        EmployeeDTO.DivisionDTO divisionDTO = new EmployeeDTO.DivisionDTO(u.getDivision().getDivision_id(), u.getDivision().getAddress().toString());
+        return EmployeeDTO.builder()
             .id(u.getId())
             .name(u.getName())
             .username(u.getUsername())

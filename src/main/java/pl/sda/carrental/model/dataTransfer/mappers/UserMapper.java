@@ -1,7 +1,7 @@
 package pl.sda.carrental.model.dataTransfer.mappers;
 
 import org.springframework.stereotype.Service;
-import pl.sda.carrental.model.dataTransfer.UserDisplayDto;
+import pl.sda.carrental.model.dataTransfer.UserDisplayDTO;
 import pl.sda.carrental.model.entity.userEntities.User;
 import pl.sda.carrental.service.UserService;
 
@@ -15,8 +15,8 @@ public class UserMapper {
         this.userService = userService;
     }
 
-    public <T extends User> UserDisplayDto getUserDisplayDto(T user){
-       return UserDisplayDto.builder()
+    public <T extends User> UserDisplayDTO getUserDisplayDto(T user){
+       return UserDisplayDTO.builder()
                .name(user.getName())
                .email(user.getEmail())
                .username(user.getUsername())
@@ -26,7 +26,7 @@ public class UserMapper {
                .build();
     }
 
-    public <T extends User> List<UserDisplayDto> getUserDisplayDtos(List<T> users) {
+    public <T extends User> List<UserDisplayDTO> getUserDisplayDtos(List<T> users) {
         return users.stream().map(this::getUserDisplayDto).toList();
     }
 
