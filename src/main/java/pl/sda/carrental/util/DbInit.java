@@ -14,6 +14,8 @@ import pl.sda.carrental.model.entity.userEntities.Employee;
 import pl.sda.carrental.model.entity.userEntities.Role;
 import pl.sda.carrental.model.repository.*;
 import pl.sda.carrental.model.repository.userRepositories.*;
+import pl.sda.carrental.security.PrincipalRole;
+import pl.sda.carrental.service.RoleService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -29,7 +31,6 @@ import java.util.Set;
 @Component
 @Profile("dev")
 public class DbInit {
-    private final UserRepository userRepository;
     private final AdministratorRepository administratorRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -41,13 +42,14 @@ public class DbInit {
     private final ReservationRepository reservationRepository;
     private final CarRentalRepository carRentalRepository;
     private final TransactionRepository transactionRepository;
+    private final RoleService roleService;
 
 
     @PostConstruct
     private void postConstruct() {
-        Role adminRole = Role.builder().name("ADMIN").build();
-        Role employeeRole = Role.builder().name("EMPLOYEE").build();
-        Role customerRole = Role.builder().name("CUSTOMER").build();
+        Role adminRole = Role.builder().name(PrincipalRole.ADMIN.name()).build();
+        Role employeeRole = Role.builder().name(PrincipalRole.EMPLOYEE.name()).build();
+        Role customerRole = Role.builder().name(PrincipalRole.CUSTOMER.name()).build();
         roleRepository.save(adminRole);
         roleRepository.save(employeeRole);
         roleRepository.save(customerRole);
@@ -79,12 +81,14 @@ public class DbInit {
                 .email("jan.kowalski@company.com")
                 .password(passwordEncoder.encode("pracownik"))
                 .username("pracownik")
+                .roles(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.EMPLOYEE))))
                 .build();
 
         Customer customer = Customer.builder()
             .name("Maciej Konsument")
             .email("maciej.konsument@gmail.com")
             .password(passwordEncoder.encode("klient"))
+            .roles(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.CUSTOMER))))
             .username("klient")
             .build();
 
