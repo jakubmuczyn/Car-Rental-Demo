@@ -12,7 +12,7 @@
 <body>
 <div id="head" th:replace="~{home :: header}"></div>
 <div class="container mt-5">
-    <h1 class="display-8">User Edit Form</h1>
+    <h1 class="display-8">Customer edit Form</h1>
     <form method="post" th:action="@{/users/customer/save}" th:object="${customer}" class="needs-validation" novalidate>
 
         <input type="hidden" name="id" th:value="${customer.getId()}">
