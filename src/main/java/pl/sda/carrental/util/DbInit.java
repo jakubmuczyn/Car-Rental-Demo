@@ -47,17 +47,24 @@ public class DbInit {
 
     @PostConstruct
     private void postConstruct() {
-        Role adminRole = Role.builder().name(PrincipalRole.ADMIN.name()).build();
-        Role employeeRole = Role.builder().name(PrincipalRole.EMPLOYEE.name()).build();
-        Role customerRole = Role.builder().name(PrincipalRole.CUSTOMER.name()).build();
+        Role adminRole = Role.builder().roleName(PrincipalRole.ADMIN.name()).build();
+        Role managerRole = Role.builder().roleName(PrincipalRole.MANAGER.name()).build();
+        Role employeeRole = Role.builder().roleName(PrincipalRole.EMPLOYEE.name()).build();
+        Role customerRole = Role.builder().roleName(PrincipalRole.CUSTOMER.name()).build();
         roleRepository.save(adminRole);
+        roleRepository.save(managerRole);
         roleRepository.save(employeeRole);
         roleRepository.save(customerRole);
 
-        Set<Role> adminRoles = new HashSet<>();
-        adminRoles.add(adminRole);
-
-        Administrator admin = Administrator.builder().name("admin").username("admin").email("admin@test.pl").password(passwordEncoder.encode("admin")).roles(adminRoles).build();
+        Administrator admin = Administrator.builder()
+                .name("Admin Adminowy")
+                .username("admin")
+                .email("admin@test.pl")
+                .password(passwordEncoder
+                        .encode("admin"))
+                .role(adminRole)
+                .build();
+        
         administratorRepository.save(admin);
 
         testDatabase();
@@ -81,14 +88,14 @@ public class DbInit {
                 .email("jan.kowalski@company.com")
                 .password(passwordEncoder.encode("pracownik"))
                 .username("pracownik")
-                .roles(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.EMPLOYEE))))
+                .role(new Role(roleService.getRoleByEnum(PrincipalRole.EMPLOYEE)))
                 .build();
 
         Customer customer = Customer.builder()
             .name("Maciej Konsument")
             .email("maciej.konsument@gmail.com")
             .password(passwordEncoder.encode("klient"))
-            .roles(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.CUSTOMER))))
+            .role(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.CUSTOMER))))
             .username("klient")
             .build();
 

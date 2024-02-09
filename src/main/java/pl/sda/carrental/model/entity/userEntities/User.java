@@ -34,9 +34,8 @@ public class User {
     @Builder.Default
     private boolean isActive = true;
 
-    @ManyToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToOne
     @NotNull
-    private Set<Role> roles = new HashSet<>();
+    private Role role;
 
 }

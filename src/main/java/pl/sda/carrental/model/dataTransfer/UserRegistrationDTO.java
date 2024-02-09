@@ -2,10 +2,11 @@ package pl.sda.carrental.model.dataTransfer;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.sda.carrental.model.entity.userEntities.Role;
 
 @Getter
 @Setter
-public class CreateUserDTO {
+public class UserRegistrationDTO {
     
     private String username;
     
@@ -14,6 +15,8 @@ public class CreateUserDTO {
     private String lastName;
     
     private String email;
+    
+    private Role role;
     
     private String password;
     
