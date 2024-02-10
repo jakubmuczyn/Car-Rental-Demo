@@ -6,9 +6,11 @@ import pl.sda.carrental.model.dataTransfer.mappers.EmployeeMapper;
 import pl.sda.carrental.model.entity.Address;
 import pl.sda.carrental.model.entity.Division;
 import pl.sda.carrental.model.entity.userEntities.Employee;
+import pl.sda.carrental.model.entity.userEntities.User;
 import pl.sda.carrental.model.repository.AddressRepository;
 import pl.sda.carrental.model.repository.DivisionRepository;
 import pl.sda.carrental.model.repository.userRepositories.EmployeeRepository;
+import pl.sda.carrental.model.repository.userRepositories.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,18 +49,17 @@ public class DivisionService {
                 .address(newDivision.getAddress())
                 .city(newDivision.getCity())
                 .state(newDivision.getState()).build();
-        Employee employee = employeeRepository.getReferenceById(newDivision.getManager().getId());
-        List<Employee> employees = new ArrayList<>();
-        employees.add(employee);
+        Employee employee = employeeRepository.findById(newDivision.getManager().getId()).get();
 
         addressRepository.save(address);
 
         Division division = Division.builder()
                 .address(address)
-                .employees(employees)
                 .manager(employee)
                 .build();
 
+        divisionRepository.save(division);
+        division.addEmployee(employee);
         divisionRepository.save(division);
     }
 }
