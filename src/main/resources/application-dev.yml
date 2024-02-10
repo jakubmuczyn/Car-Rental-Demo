@@ -5,7 +5,6 @@ spring:
     username: root
     password: example
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
   h2:

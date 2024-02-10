@@ -48,7 +48,7 @@
             </select>
         </div>
 
-        <input type="hidden" th:each="role : *{roles}" th:value="${role.id}" name="roles" id="input-role-${role.id}">
+        <input type="hidden"  th:value="*{role.roleId}" name="role" id="input-role-${role.roleId}">
 
         <button type="submit" class="btn btn-primary">Save</button>
     </form>

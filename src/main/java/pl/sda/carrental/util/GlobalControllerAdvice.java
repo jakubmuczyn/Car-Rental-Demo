@@ -1,7 +1,5 @@
 package pl.sda.carrental.util;
 
-import org.springframework.data.auditing.AuditingHandler;
-import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,5 +22,4 @@ public class GlobalControllerAdvice {
                 }
         );
     }
-
 }

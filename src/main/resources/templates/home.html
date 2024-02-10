@@ -21,12 +21,12 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li th:text="'Welcome, ' + ${currentUser.getName()}" class="navbar-text d-inline nowrap" > </li>
+            <li th:text="'Witaj, ' + ${currentUser != null ? currentUser.getName() : 'Gościu'}" class="navbar-text d-inline nowrap" > </li>
             <li class="nav-item d-inline nowrap" >
-                <a class="nav-link active" aria-current="page" th:href="@{/users}">Users</a>
+                <a class="nav-link active" aria-current="page" th:href="@{/users}">Użytkownicy</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
+                <a class="nav-link active" aria-current="page" th:href="@{/logout}">Wyloguj</a>
             </li>
         </ul>
     </div>
@@ -35,7 +35,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <h1> Witaj w świecie Spring Security!</h1>
+        <img th:src="@{https://gifsec.com/wp-content/uploads/2022/09/welcome-gif-2.gif}" style="width: 50%; height: auto;">
     </div>
 </div>
 </body>

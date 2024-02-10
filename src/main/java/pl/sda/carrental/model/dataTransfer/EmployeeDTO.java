@@ -14,7 +14,7 @@ public class EmployeeDTO {
     private String username;
     private String email;
     private boolean isActive;
-    private Set<Role> roles;
+    private Role role;
     private DivisionDTO divisionDTO;
     private Employee.Position position;
 

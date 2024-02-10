@@ -17,33 +17,37 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Mail</th>
-            <th scope="col">Username</th>
-            <th scope="col">Principal role</th>
-            <th scope="col">Edit user</th>
-            <th scope="col">Deactivate user</th>
+            <th scope="col">Login</th>
+            <th scope="col">Imię i nazwisko</th>
+            <th scope="col">Adres e-mail</th>
+            <th scope="col">Stanowisko</th>
+            <th scope="col">Uprawnienia</th>
+            <th scope="col">Edytuj użytkownika</th>
+            <th scope="col">Deaktywuj użytkownika</th>
         </tr>
         </thead>
         <tbody>
-            <tr th:if="${users.isEmpty()}"><td colspan="6"> No users available. Which is impossible, so something went wrong dog.</td></tr>
+            <tr th:if="${users.isEmpty()}"><td colspan="6"> No users available. Which is impossible, so something went wrong dog. xD</td></tr>
             <tr th:each="user : ${users}">
-                <td><span th:text="*{user.getName()}" th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}"> Name </span> </td>
-                <td><span th:text="${user.getEmail()}" th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}"> Mail </span> </td>
-                <td><span th:text="${user.getUsername()}" th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}"> Username </span> </td>
-                <td><span th:text="${user.getPrincipalRole()}" th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}"> Principal role </span> </td>
+                <td><span th:text="${user.getUsername()}" th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}" /></td>
+                <td><span th:text="${user.getName()}" th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}" /></td>
+                <td><span th:text="${user.getEmail()}" th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}" /></td>
+                <td th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}" >
+                    <span th:if="${user.isPositionManager()}">Manager</span>
+                    <span th:if="${user.isPositionEmployee()}">Employee</span>
+                </td>
+                <td><span th:text="${user.getPrincipalRole()}" th:classappend="${user.isActive() ? '' : 'text-decoration-line-through'}" /></td>
                 <div th:if="${user.getId() ne currentUser.getId()}">
-                    <td th:if="${user.isEmployee()}"><a  th:href="@{/users/employee/} + ${user.getId()}">Edit</a></td>
-                    <td th:if="${user.isCustomer()}"><a  th:href="@{/users/customer/} + ${user.getId()}">Edit</a></td>
-                    <td th:if="${user.isAdministrator()}"><a  th:href="@{/users/administrator/} + ${user.getId()}">Edit</a></td>
-                    <td th:if="${user.isEmployee()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}"></a></td>
-                    <td th:if="${user.isCustomer()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}">Delete</a></td>
-                    <td th:if="${user.isAdministrator()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}">Delete</a></td>
+                    <td th:if="${user.isRoleEmployee()}"><a th:href="@{/users/employee/} + ${user.getId()}">Edytuj</a></td>
+                    <td th:if="${user.isRoleCustomer()}"><a th:href="@{/users/customer/} + ${user.getId()}">Edytuj</a></td>
+                    <td th:if="${user.isRoleAdministrator()}"><a th:href="@{/users/administrator/} + ${user.getId()}">Edytuj</a></td>
+                    <td th:if="${user.isRoleEmployee()}"><a th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deaktywuj' : 'Aktywuj'}"></a></td>
+                    <td th:if="${user.isRoleCustomer()}"><a th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deaktywuj' : 'Aktywuj'}">Delete</a></td>
+                    <td th:if="${user.isRoleAdministrator()}"><a th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deaktywuj' : 'Aktywuj'}">Delete</a></td>
                 </div>
                 <div th:if="${!(user.getId() ne currentUser.getId())}">
-                    <td colspan="2">Cannot edit current user</td>
+                    <td colspan="2">Nie można edytować tego użytkownika</td>
                 </div>
-
             </tr>
         </tbody>
     </table>

@@ -44,6 +44,7 @@ public class SecurityConfig {
                 .cors(c -> c.disable())
                 .authorizeHttpRequests((authorize) ->
                         authorize
+                                .requestMatchers("/register/**").permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                                 .anyRequest().authenticated())
                 .formLogin(

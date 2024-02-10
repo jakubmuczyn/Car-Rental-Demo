@@ -21,10 +21,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
-import java.util.HashSet;
-import java.util.Set;
 
-//test
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -44,122 +41,133 @@ public class DbInit {
     private final TransactionRepository transactionRepository;
     private final RoleService roleService;
 
-
     @PostConstruct
     private void postConstruct() {
-        Role adminRole = Role.builder().name(PrincipalRole.ADMIN.name()).build();
-        Role employeeRole = Role.builder().name(PrincipalRole.EMPLOYEE.name()).build();
-        Role customerRole = Role.builder().name(PrincipalRole.CUSTOMER.name()).build();
-        roleRepository.save(adminRole);
-        roleRepository.save(employeeRole);
-        roleRepository.save(customerRole);
-
-        Set<Role> adminRoles = new HashSet<>();
-        adminRoles.add(adminRole);
-
-        Administrator admin = Administrator.builder().name("admin").username("admin").email("admin@test.pl").password(passwordEncoder.encode("admin")).roles(adminRoles).build();
-        administratorRepository.save(admin);
-
         testDatabase();
     }
 
     private void testDatabase() {
-        Address address = Address.builder()
+        Address dbTestAddress = Address.builder()
                 .address("Testowa 12")
                 .state("Łódzkie")
                 .city("Łódź")
                 .build();
-
-        Division division = Division.builder()
-                .address(address)
+        addressRepository.save(dbTestAddress);
+        
+        Division dbTestDivision = Division.builder()
+                .address(dbTestAddress)
                 .build();
-
-        Employee employee = Employee.builder()
-                .division(division)
+        divisionRepository.save(dbTestDivision);
+        
+        Role adminRole = Role.builder().roleName(PrincipalRole.ADMIN.name()).build();
+        Role employeeRole = Role.builder().roleName(PrincipalRole.EMPLOYEE.name()).build();
+        Role customerRole = Role.builder().roleName(PrincipalRole.CUSTOMER.name()).build();
+        roleRepository.save(adminRole);
+        roleRepository.save(employeeRole);
+        roleRepository.save(customerRole);
+        
+        Administrator dbTestAdmin = Administrator.builder()
+                .username("admin")
+                .name("Admin Adminowy")
+                .email("admin@test.pl")
+                .role(adminRole)
+                .password(passwordEncoder
+                        .encode("admin"))
+                .build();
+        administratorRepository.save(dbTestAdmin);
+        
+        Employee dbTestManager = Employee.builder()
+                .username("manager")
+                .name("Wiktor Traktor")
+                .email("wiktor.traktor@company.com")
+                .position(Employee.Position.MANAGER)
+                .role(employeeRole)
+                .division(dbTestDivision)
+                .password(passwordEncoder.encode("manager"))
+                .build();
+        employeeRepository.save(dbTestManager);
+        
+        Employee dbTestEmployee = Employee.builder()
+                .username("employee")
                 .name("Jan Kowalski")
-                .position(Employee.Position.EMPLOYEE)
                 .email("jan.kowalski@company.com")
-                .password(passwordEncoder.encode("pracownik"))
-                .username("pracownik")
-                .roles(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.EMPLOYEE))))
+                .position(Employee.Position.EMPLOYEE)
+                .role(employeeRole)
+                .division(dbTestDivision)
+                .password(passwordEncoder.encode("employee"))
                 .build();
-
-        Customer customer = Customer.builder()
-            .name("Maciej Konsument")
-            .email("maciej.konsument@gmail.com")
-            .password(passwordEncoder.encode("klient"))
-            .roles(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.CUSTOMER))))
-            .username("klient")
-            .build();
-
-        Car car = Car.builder()
-            .brand("Toyota")
-            .model("Corolla")
-            .production_year(Year.of(2020))
-            .body_type("Sedan")
-            .cost_per_day(new BigDecimal("200"))
-            .mileage(260000)
-            .color("Blue")
-            .status(Car.RentStatus.AVAILABLE)
-            .division(division)
-            .build();
-
-        addressRepository.save(address);
-        divisionRepository.save(division);
-        carRepository.save(car);
-        division.addCar(car);
-        divisionRepository.save(division);
-
-
-        division.addEmployee(employee);
-
-        employeeRepository.save(employee);
-        customerRepository.save(customer);
-
-        Reservation reservation = Reservation.builder()
-            .rental_division(division)
-            .return_division(division)
-            .employee(employee)
-            .customer(customer)
-            .car(car)
-            .reservation_start(LocalDateTime.now())
-            .reservation_end(LocalDateTime.now().plusDays(7))
-            .cost(new BigDecimal("20.50"))
-            .reservation_date(LocalDate.now())
-            .build();
-
-        reservationRepository.save(reservation);
-        car.setReservation(reservation);
-        carRepository.save(car);
-
-        CarRental carRental = CarRental.builder()
-            .rentalStatus(CarRental.RentalStatus.ONGOING)
-            .employee(employee)
-            .rentalDate(LocalDate.now())
-            .reservation(reservation)
-            .comment("Test comment")
-            .build();
-
-        carRentalRepository.save(carRental);
-
-        Transaction transaction = Transaction.builder()
-            .carRental(carRental)
-            .transactionDate(LocalDate.now())
-            .transactionAmount(carRental.getReservation().getCost())
-            .build();
-
-        transactionRepository.save(transaction);
+        employeeRepository.save(dbTestEmployee);
+        
+        Customer dbTestCustomer = Customer.builder()
+                .username("customer")
+                .name("Maciej Konsument")
+                .email("maciej.konsument@gmail.com")
+                .role(customerRole)
+                .password(passwordEncoder.encode("customer"))
+                .build();
+        customerRepository.save(dbTestCustomer);
+        
+        Car dbTestCar = Car.builder()
+                .brand("Toyota")
+                .model("Corolla")
+                .production_year(Year.of(2020))
+                .body_type("Sedan")
+                .cost_per_day(new BigDecimal("200"))
+                .mileage(260000)
+                .color("Blue")
+                .status(Car.RentStatus.AVAILABLE)
+                .division(dbTestDivision)
+                .build();
+        carRepository.save(dbTestCar);
+        
+        Reservation dbTestReservation = Reservation.builder()
+                .rental_division(dbTestDivision)
+                .return_division(dbTestDivision)
+                .employee(dbTestEmployee)
+                .customer(dbTestCustomer)
+                .car(dbTestCar)
+                .reservation_start(LocalDateTime.now())
+                .reservation_end(LocalDateTime.now().plusDays(7))
+                .cost(new BigDecimal("20.50"))
+                .reservation_date(LocalDate.now())
+                .build();
+        reservationRepository.save(dbTestReservation);
+        
+        CarRental dbTestCarRental = CarRental.builder()
+                .rentalStatus(CarRental.RentalStatus.ONGOING)
+                .employee(dbTestEmployee)
+                .rentalDate(LocalDate.now())
+                .reservation(dbTestReservation)
+                .comment("Test comment")
+                .build();
+        carRentalRepository.save(dbTestCarRental);
+        
+        Transaction dbTestTransaction = Transaction.builder()
+                .carRental(dbTestCarRental)
+                .transactionDate(LocalDate.now())
+                .transactionAmount(dbTestCarRental.getReservation().getCost())
+                .build();
+        transactionRepository.save(dbTestTransaction);
+        
+        dbTestDivision.addEmployee(dbTestEmployee);
+        dbTestDivision.addCar(dbTestCar);
+        divisionRepository.save(dbTestDivision);
+        
+        dbTestCar.setReservation(dbTestReservation);
+        carRepository.save(dbTestCar);
 
         testPrint();
-        System.out.println(division.getCars());
+        System.out.println(dbTestDivision.getCars());
     }
 
     private void testPrint() {
         System.out.println("Address query: " + addressRepository.findAll().get(0).toString());
-        System.out.println("Employee query: " + employeeRepository.findAll().get(0).toString());
-        System.out.println("Client query: " + customerRepository.findAll().get(0).toString());
-        System.out.println("Car query: " + carRepository.findAll().get(0).toString());
         System.out.println("Division query: " + divisionRepository.findAll().get(0).toString());
+        System.out.println("Admin query: " + administratorRepository.findAll().get(0).toString());
+        System.out.println("Manager query: " + employeeRepository.findAll().get(0).toString());
+        System.out.println("Employee query: " + employeeRepository.findAll().get(1).toString());
+        System.out.println("Customer query: " + customerRepository.findAll().get(0).toString());
+        System.out.println("Car query: " + carRepository.findAll().get(0).toString());
         System.out.println("Reservation query: " + reservationRepository.findAll().get(0).toString());
         System.out.println("CarRental query: " + carRentalRepository.findAll().get(0).toString());
         System.out.println("Transaction query: " + transactionRepository.findAll().get(0).toString());

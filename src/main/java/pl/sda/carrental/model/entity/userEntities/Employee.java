@@ -1,14 +1,9 @@
 package pl.sda.carrental.model.entity.userEntities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import pl.sda.carrental.model.entity.CarRental;
 import pl.sda.carrental.model.entity.Division;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -31,7 +26,7 @@ public class Employee extends User {
 //    private List<CarRental> carRental = new ArrayList<>();
 
     public enum Position {
-        EMPLOYEE,MANAGER;
+        EMPLOYEE,
+        MANAGER
     }
-
 }

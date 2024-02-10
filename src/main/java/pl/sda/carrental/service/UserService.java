@@ -34,13 +34,12 @@ public class UserService {
     }
 
     public <T extends User> Role getPrincipalRole(T user) {
-        Set<Role> roles = user.getRoles();
-        return (Role) roles.toArray()[0];
+        return user.getRole();
     }
 
     public <T extends User> JpaRepository<T, Long> getRepository(T user) {
         JpaRepository<T, Long>  repository;
-        String roleName = getPrincipalRole(user).getName();
+        String roleName = getPrincipalRole(user).getRoleName();
 
         if (roleName.equals(PrincipalRole.ADMIN.name())) {
             return (JpaRepository<T, Long>) administratorRepository;
@@ -54,7 +53,7 @@ public class UserService {
     public <T extends User> void saveUser(T editedUser) {
         JpaRepository<T, Long>  repository = getRepository(editedUser);
         T user = repository.findById(editedUser.getId()).get();
-        editedUser.setRoles(user.getRoles());
+        editedUser.setRole(user.getRole());
         repository.save(editedUser);
     }
 
@@ -63,5 +62,4 @@ public class UserService {
         user.setActive(!user.isActive());
         userRepository.save(user);
     }
-
 }
