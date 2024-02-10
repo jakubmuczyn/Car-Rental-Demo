@@ -12,6 +12,7 @@ import pl.sda.carrental.model.entity.Division;
 @AllArgsConstructor
 @SuperBuilder
 @NoArgsConstructor
+@Table(name = "Employees")
 public class Employee extends User {
 
     //TODO: Why this works with enum but Car doesn't
@@ -20,12 +21,12 @@ public class Employee extends User {
     
     @ManyToOne
     private Division division;
-    
+
 //    @OneToMany(mappedBy = "employee")
 //    private List<CarRental> carRental = new ArrayList<>();
 
     public enum Position {
-        EMPLOYEE,MANAGER
+        EMPLOYEE,
+        MANAGER
     }
-
 }

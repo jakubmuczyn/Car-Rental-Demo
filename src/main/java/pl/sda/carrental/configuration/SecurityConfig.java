@@ -1,4 +1,4 @@
-package pl.sda.carrental.security;
+package pl.sda.carrental.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,6 +44,7 @@ public class SecurityConfig {
                 .cors(c -> c.disable())
                 .authorizeHttpRequests((authorize) ->
                         authorize
+                                .requestMatchers("/register/**").permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                                 .anyRequest().authenticated())
                 .formLogin(
