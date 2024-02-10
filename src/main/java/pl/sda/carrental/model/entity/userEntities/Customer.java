@@ -1,9 +1,11 @@
 package pl.sda.carrental.model.entity.userEntities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import pl.sda.carrental.model.entity.Reservation;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -11,6 +13,20 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @Entity
 @NoArgsConstructor
-@Table(name = "Customers")
 public class Customer extends User {
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ToString.Exclude
+    private List<Reservation> reservations = new ArrayList<>();
+
+    private Long reservation_id;
+    public void addReservation(Reservation reservation) {
+        if (this.reservations == null) {
+            this.reservations = new ArrayList<>();
+        }
+        this.reservations.add(reservation);
+        this.reservation_id = reservation.getId();
+    }
+    public Long getReservationIdFromUser(){
+        return this.reservation_id;
+    }
 }

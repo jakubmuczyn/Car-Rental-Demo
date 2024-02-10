@@ -48,21 +48,18 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td th:text="${carList.get(0).getBrand()}"></td>
-                    <td th:text="${carList.get(0).getModel()}"></td>
-                    <td th:text="${carList.get(0).getBody_type()}"></td>
-                    <td th:text="${carList.get(0).getProduction_year()}"></td>
-                    <td th:text="${carList.get(0).getColor()}"></td>
-                    <td th:text="${carList.get(0).getMileage()}"></td>
-                    <td th:text="${carList.get(0).getCost_per_day()}"></td>
+                    <td th:text="${car.getBrand()}"></td>
+                    <td th:text="${car.getModel()}"></td>
+                    <td th:text="${car.getBody_type()}"></td>
+                    <td th:text="${car.getProduction_year()}"></td>
+                    <td th:text="${car.getColor()}"></td>
+                    <td th:text="${car.getMileage()}"></td>
+                    <td th:text="${car.getCost_per_day()}"></td>
                 </tr>
                 </tbody>
             </table>
-            <div th:with="insurance = ${79 * 12}, abroad = ${100}, cost = ${carList.get(0).getCost_per_day()}">
-            <form method="post" th:action="@{/summary}" th:object="${reservation}">
-                <input type="hidden" id="id" name="id" th:field="*{id}">
-                <input type="hidden" id="car" name="car" th:value="${carList.get(0)}" th:field="*{car}">
-                <input type="hidden" id="customer" name="customer" th:value="${currentUser}" th:field="*{customer}">
+            <div th:with="insurance = ${79}, abroad = ${100}, cost = ${car.getCost_per_day()}">
+            <form method="post" th:action="@{/summary/__${car.getId()}__}" th:object="${reservation}">
                 <div class="form-group mb-3">
                     <label class="control-label">Oddział odebrania samochodu:</label>
                     <select class="ui fluid search dropdown" id="rental_division" name="rental_division"  th:field="*{rental_division}">
@@ -85,35 +82,14 @@
                 </div>
                 <div class="form-group mb-3">
                     <label class="control-label">Zaznacz dodatkowe ubezpieczenie jeśli potrzebne (79zł/dzień): </label>
-                    <input type="checkbox" th:checked="${flag1}" id="insurance" name="insurance" th:value="${flag1}" th:field="*{insurance}">
+                    <input type="checkbox" id="insurance" name="insurance" th:field="*{insurance}">
                 </div>
                 <div class="form-group mb-3">
                     <label class="control-label">Zgoda na wyjazd za granice (100zł): </label>
-                    <input type="checkbox" th:checked="${flag2}" id="goind_abroad" name="goind_abroad" th:value="${flag2}" th:field="*{going_abroad}">
+                    <input type="checkbox" id="goind_abroad" name="goind_abroad" th:field="*{going_abroad}">
                 </div>
-                <div class="form-group mb-3">
-                    <label class="control-label">Suma kosztu rezerwacji:</label>
-                    <div th:if="${flag1 == true and flag2 == false}">
-                        <th:block th:with="totalcost1 = ${cost * 12 + insurance}"> <!-- change number of days (12) to a variable from reservation form -->
-                            <input type="text" readonly="readonly" th:text="${totalcost1}">
-                        </th:block>
-                    </div>
-                    <div th:if="${flag2 == true and flag1 == false}">
-                        <th:block th:with="totalcost2 = ${cost * 12 + abroad}"> <!-- change number of days (12) to a variable from reservation form -->
-                            <input type="text" readonly="readonly" th:text="${totalcost2}">
-                        </th:block>
-                    </div>
-                    <div th:if="${flag1 == true and flag2 == true}">
-                        <th:block th:with="totalcost3 = ${cost * 12 + insurance + abroad}"> <!-- change number of days (12) to a variable from reservation form -->
-                            <input type="text" readonly="readonly" th:text="${totalcost3}">
-                        </th:block>
-                    </div>
-                    <div th:if="${flag1 == false and flag2 == false}">
-                        <th:block th:with="totalcost4 = ${cost * 12}"> <!-- change number of days (12) to a variable from reservation form -->
-                            <input type="number" step="any" id="cost" name="cost" th:field="*{cost}">
-                            <p th:text="${totalcost4}"></p>
-                        </th:block>
-                    </div>
+                <div>
+                    <input type="hidden" id="cost" name="cost" th:value="${#numbers.formatDecimal(1,1,2, 'POINT')}">
                 </div>
                 <div class="form-group mb-3">
                     <button type="submit" class="btn btn-primary">Rezerwuj!</button>

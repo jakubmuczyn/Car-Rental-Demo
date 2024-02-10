@@ -1,13 +1,11 @@
 package pl.sda.carrental.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.sda.carrental.model.entity.userEntities.Customer;
-import pl.sda.carrental.model.entity.userEntities.User;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Builder
@@ -17,15 +15,17 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "Reservations")
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @OneToOne
     private Car car;
     
     @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Customer customer;
     
     // TODO: Should this be double sided? I don't think division should have a list of reservations..
@@ -50,9 +50,6 @@ public class Reservation {
     @Column(nullable = false)
     private boolean going_abroad;
 
-    public void setCustomer(User user) {
-        this.customer = customer;
-    }
     public boolean isInsurance() {
         return insurance;
     }

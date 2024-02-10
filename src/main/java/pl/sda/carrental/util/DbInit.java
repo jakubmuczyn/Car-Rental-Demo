@@ -13,12 +13,9 @@ import pl.sda.carrental.model.entity.userEntities.Employee;
 import pl.sda.carrental.model.entity.userEntities.Role;
 import pl.sda.carrental.model.repository.*;
 import pl.sda.carrental.model.repository.userRepositories.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Year;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -97,6 +94,13 @@ public class DbInit {
             .username("klient")
             .build();
 
+        Customer customer2 = Customer.builder()
+                .name("Mariusz Konsument")
+                .email("mariusz.konsument@gmail.com")
+                .password(passwordEncoder.encode("klient2"))
+                .username("klient2")
+                .build();
+
         Car car = Car.builder()
             .brand("Toyota")
             .model("Corolla")
@@ -135,6 +139,7 @@ public class DbInit {
 
         employeeRepository.save(employee);
         customerRepository.save(customer);
+        customerRepository.save(customer2);
 
         Date date = new Date();
         Reservation reservation = Reservation.builder()

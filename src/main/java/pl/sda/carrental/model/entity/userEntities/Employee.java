@@ -3,11 +3,7 @@ package pl.sda.carrental.model.entity.userEntities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import pl.sda.carrental.model.entity.CarRental;
 import pl.sda.carrental.model.entity.Division;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -16,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @SuperBuilder
 @NoArgsConstructor
-@Table(name = "Employees")
 public class Employee extends User {
 
     //TODO: Why this works with enum but Car doesn't
@@ -30,7 +25,7 @@ public class Employee extends User {
 //    private List<CarRental> carRental = new ArrayList<>();
 
     public enum Position {
-        EMPLOYEE,MANAGER;
+        EMPLOYEE,MANAGER
     }
 
 }

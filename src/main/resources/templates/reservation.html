@@ -58,10 +58,7 @@
                     <td th:text="${car.getMileage()}"></td>
                     <td th:text="${car.getCost_per_day()}"></td>
                     <td>
-                        <form method="post" th:action="@{makeReservation}" th:object="${newCardId}">
-                            <input type="number" id="id" name="id" th:field="*{id}">
-                            <button class="btn btn-primary" type="submit">Rezerwuj</button>
-                        </form>
+                        <a href="makeReservation.html" th:href="@{/makeReservation/__${car.getId()}__}">Rezerwuj!</a>
                     </td>
                 </tr>
                 </tbody>

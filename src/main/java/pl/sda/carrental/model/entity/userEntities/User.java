@@ -5,7 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
+import pl.sda.carrental.model.entity.Reservation;
 import java.util.Set;
 
 @Getter
@@ -33,4 +33,8 @@ public class User {
     @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Role> roles;
 
+    public void addReservation(Reservation reservation){}
+    public Long getReservationIdFromUser(){
+        return getReservationIdFromUser();
+    }
 }

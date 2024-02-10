@@ -22,7 +22,7 @@ public class Car {
     @JoinColumn(name = "DIVISION_ID")
     private Division division;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @ToString.Exclude
     private Reservation reservation;
 
@@ -38,5 +38,8 @@ public class Car {
 
     public enum RentStatus {
         RENTED, AVAILABLE, UNAVAILABLE
+    }
+    public void addReservationId(Reservation reservation) {
+        this.reservation = reservation;
     }
 }
