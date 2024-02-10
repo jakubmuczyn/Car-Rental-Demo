@@ -10,4 +10,6 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Override
     List<Employee> findAll();
+
+    List<Employee> findAllByIsActiveIsTrue();
 }

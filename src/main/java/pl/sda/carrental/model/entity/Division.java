@@ -35,6 +35,7 @@ public class Division {
             this.employees = new ArrayList<>();
         }
         this.employees.add(employee);
+        employee.setDivision(this);
     }
 
     public void addCar(Car car) {
