@@ -74,9 +74,18 @@ public class DbInit {
                 .state("Wielkopolskie")
                 .city("Poznań")
                 .build();
+        Address address_3 = Address.builder()
+                .address("Dj'a tiestio 15")
+                .state("Kujawsko-Pomorskie")
+                .city("Bydgoszcz")
+                .build();
 
         Division division = Division.builder()
                 .address(address)
+                .build();
+
+        Division division2 = Division.builder()
+                .address(address_2)
                 .build();
 
         Employee employee = Employee.builder()
@@ -96,6 +105,16 @@ public class DbInit {
                 .email("maciej.nowak@company.com")
                 .password(passwordEncoder.encode("nowak"))
                 .username("nowak")
+                .roles(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.EMPLOYEE))))
+                .build();
+
+        Employee employee3 = Employee.builder()
+                .division(division2)
+                .name("Adam Nawałka")
+                .position(Employee.Position.EMPLOYEE)
+                .email("adam.nawalka@company.com")
+                .password(passwordEncoder.encode("nawalka"))
+                .username("nawalka")
                 .roles(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.EMPLOYEE))))
                 .build();
 
@@ -121,20 +140,27 @@ public class DbInit {
 
         addressRepository.save(address);
         addressRepository.save(address_2);
+        addressRepository.save(address_3);
         divisionRepository.save(division);
+        divisionRepository.save(division2);
         carRepository.save(car);
         division.addCar(car);
         divisionRepository.save(division);
 
 
         division.addEmployee(employee);
+        division.addEmployee(employee2);
+        division2.addEmployee(employee3);
 
         employeeRepository.save(employee);
         employeeRepository.save(employee2);
+        employeeRepository.save(employee3);
         customerRepository.save(customer);
 
         division.setManager(employee);
+        division2.setManager(employee3);
         divisionRepository.save(division);
+        divisionRepository.save(division2);
 
         Reservation reservation = Reservation.builder()
             .rental_division(division)

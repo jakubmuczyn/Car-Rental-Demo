@@ -10,6 +10,7 @@ import pl.sda.carrental.model.dataTransfer.DivisionDTO;
 import pl.sda.carrental.model.dataTransfer.EmployeeDTO;
 import pl.sda.carrental.model.dataTransfer.mappers.DivisionMapper;
 import pl.sda.carrental.model.dataTransfer.mappers.EmployeeMapper;
+import pl.sda.carrental.model.entity.Address;
 import pl.sda.carrental.model.entity.Division;
 import pl.sda.carrental.model.entity.userEntities.Employee;
 import pl.sda.carrental.model.repository.AddressRepository;
@@ -17,7 +18,10 @@ import pl.sda.carrental.model.repository.DivisionRepository;
 import pl.sda.carrental.model.repository.userRepositories.EmployeeRepository;
 import pl.sda.carrental.service.DivisionService;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class DivisionController {
@@ -44,15 +48,19 @@ public class DivisionController {
     @GetMapping("/divisions/{division_id}")
     public String editDivision(Model model, @PathVariable long division_id) {
         DivisionDTO divisionDTO = divisionMapper.getDivisionDTO(divisionRepository.findById(division_id).get());
+//        List<Address> addresses = new ArrayList<>();
+        List<Address> addresses = new ArrayList<>();
+        addresses.add(divisionDTO.getAddress());
+        addresses.addAll(addressRepository.findAllUnusedAddresses());
+
 
         model.addAttribute("division", divisionDTO);
-        model.addAttribute("addresses", addressRepository.findAll());
+        model.addAttribute("addresses", addresses);
         model.addAttribute("positions", Employee.Position.values());
         return "divisionPanels/divisionEdit";
     }
     @PostMapping("/divisions/edit/save")
     public String saveDivision(DivisionDTO divisionDTO) {
-        Employee manager = employeeRepository.getReferenceById(divisionDTO.getManager().getId());
         divisionRepository.save(divisionMapper.getDivisionObject(divisionDTO));
         return "redirect:/divisions";
     }
@@ -74,6 +82,7 @@ public class DivisionController {
     @GetMapping("/employeeSelection/{division_id}")
     public String selectEmployees(Model model, @PathVariable Long division_id) {
         List<Employee> activeEmployees = employeeRepository.findAllByIsActiveIsTrue();
+        activeEmployees = activeEmployees.stream().filter(e -> e.getDivision() == null || !Objects.equals(e.getDivision().getDivision_id(), division_id)).toList();
         model.addAttribute("users", activeEmployees.stream().map(employeeMapper::getDto).toList());
         model.addAttribute("division_id", division_id);
         return "divisionPanels/addEmployee";
