@@ -3,7 +3,6 @@ package pl.sda.carrental.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -41,30 +40,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterSecurity(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
-                        .requestMatchers("/","/home","/h2-console/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/home", "/home/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/home", "/home/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/reservation", "/reservation/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/reservation", "/reservation/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/makeReservation", "/makeReservation/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/makeReservation", "/makeReservation/**").permitAll()
-                        .requestMatchers("/error").permitAll()
-                        .anyRequest().authenticated())
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/home")
-                        .failureForwardUrl("/error")
-                        .permitAll())
-                .logout((logout) -> logout
-                        .logoutUrl("/logout")
-                        .permitAll())
+                .csrf(c -> c.disable())
+                .cors(c -> c.disable())
+                .authorizeHttpRequests((authorize) ->
+                        authorize
+                                .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
+                                .anyRequest().authenticated())
+                .formLogin(
+                        form -> form
+                                .loginPage("/login")
+                                .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/")
+                                .failureForwardUrl("/error")
+                                .permitAll())
+                .logout(
+                        logout -> logout
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .permitAll())
+                .logout(logout -> logout.permitAll())
                 .httpBasic(Customizer.withDefaults())
-                .csrf((csrf) -> csrf.disable())
-                .cors((cors) -> cors.disable())
-                .headers((headers) -> headers.frameOptions((frameOptions) -> frameOptions.disable()));
+                .headers(AbstractHttpConfigurer::disable)
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
         return http.build();
     }
 }

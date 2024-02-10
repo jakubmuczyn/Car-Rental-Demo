@@ -84,6 +84,17 @@ public class ReservationService{
         userRepository.save(customer);
         carRepository.save(car);
     }
+
+    public void deleteReservation(){
+        List<ReservationDto> reservationsList = getListOfReservations();
+        Date todayDate = new Date();
+        for(int i = 0; i < reservationsList.size(); i++){
+            if(todayDate == reservationsList.get(i).getReservation_end()){
+                reservationsList.get(i).getCar().setStatus(Car.RentStatus.AVAILABLE);
+                reservationRepository.deleteById(reservationsList.get(i).getId());
+            }
+        }
+    }
     public CarDto getCarById(Long id) {
         Optional<Car> carOptional = carRepository.findById(id);
         if (carOptional.isPresent()) {

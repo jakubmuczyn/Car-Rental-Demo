@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 public class Customer extends User {
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @ToString.Exclude
     private List<Reservation> reservations = new ArrayList<>();
 

@@ -22,7 +22,7 @@ public class Car {
     @JoinColumn(name = "DIVISION_ID")
     private Division division;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Reservation reservation;
 

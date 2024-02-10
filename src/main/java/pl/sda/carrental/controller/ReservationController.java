@@ -62,8 +62,16 @@ public class ReservationController {
                 .getAuthenticatedUser()
                 .orElseThrow(() -> new UsernameNotFoundException("Logged in user not found."));
         ReservationDto reservation = reservationService.getReservationById(user.getReservationIdFromUser());
-
         model.addAttribute("reservation", reservation);
+        model.addAttribute("currentUser", user);
+    }
+    @GetMapping("/myReservations")
+    public void myReservations(Model model){
+        User user = customUserDetailsService
+                .getAuthenticatedUser()
+                .orElseThrow(() -> new UsernameNotFoundException("Logged in user not found."));
+        List<ReservationDto> reservationsList = reservationService.getListOfReservations();
+        model.addAttribute("reservationsList", reservationsList);
         model.addAttribute("currentUser", user);
     }
 }

@@ -27,12 +27,9 @@ public class Reservation {
     @ManyToOne
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Customer customer;
-    
-    // TODO: Should this be double sided? I don't think division should have a list of reservations..
-    //@ManyToOne
+
     private String rental_division;
-    
-    //@ManyToOne
+
     private String return_division;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false)
