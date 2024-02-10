@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,6 +32,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsernameOrEmail(username);
+        
+        if (!user.isActive()) {
+            throw new DisabledException("User is not active.");
+        }
         
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRoleName());
         return new org.springframework.security.core.userdetails.User(username, user.getPassword(), Collections.singleton(authority));
