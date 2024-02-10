@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.sda.carrental.model.dataTransfer.CreateDivisionDTO;
 import pl.sda.carrental.model.dataTransfer.DivisionDTOForPanel;
-import pl.sda.carrental.model.dataTransfer.mappers.DivisionMapper;
+import pl.sda.carrental.model.dataTransfer.mappers.DivisionMapperForPanel;
 import pl.sda.carrental.model.dataTransfer.mappers.EmployeeMapper;
 import pl.sda.carrental.model.entity.Address;
 import pl.sda.carrental.model.entity.Division;
@@ -25,13 +25,13 @@ import java.util.Objects;
 @Controller
 public class DivisionController {
     private final DivisionRepository divisionRepository;
-    private final DivisionMapper divisionMapper;
+    private final DivisionMapperForPanel divisionMapper;
     private final AddressRepository addressRepository;
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
     private final DivisionService divisionService;
 
-    public DivisionController(DivisionRepository divisionRepository, DivisionMapper divisionMapper, AddressRepository addressRepository, EmployeeRepository employeeRepository, EmployeeMapper employeeMapper, DivisionService divisionService) {
+    public DivisionController(DivisionRepository divisionRepository, DivisionMapperForPanel divisionMapper, AddressRepository addressRepository, EmployeeRepository employeeRepository, EmployeeMapper employeeMapper, DivisionService divisionService) {
         this.divisionRepository = divisionRepository;
         this.divisionMapper = divisionMapper;
         this.addressRepository = addressRepository;

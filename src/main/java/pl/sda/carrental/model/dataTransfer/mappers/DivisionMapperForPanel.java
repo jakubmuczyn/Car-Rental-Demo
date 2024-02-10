@@ -9,11 +9,11 @@ import pl.sda.carrental.model.repository.DivisionRepository;
 import java.util.List;
 
 @Service
-public class DivisionMapper {
+public class DivisionMapperForPanel {
     private final DivisionRepository divisionRepository;
     private final EmployeeMapper employeeMapper;
 
-    public DivisionMapper(DivisionRepository divisionRepository, EmployeeMapper employeeMapper) {
+    public DivisionMapperForPanel(DivisionRepository divisionRepository, EmployeeMapper employeeMapper) {
         this.divisionRepository = divisionRepository;
         this.employeeMapper = employeeMapper;
     }
