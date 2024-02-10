@@ -2,8 +2,12 @@ package pl.sda.carrental.model.dataTransfer.mappers;
 
 import org.springframework.stereotype.Service;
 import pl.sda.carrental.model.dataTransfer.DivisionDTO;
+import pl.sda.carrental.model.dataTransfer.EmployeeDTO;
 import pl.sda.carrental.model.entity.Division;
+import pl.sda.carrental.model.entity.userEntities.Employee;
 import pl.sda.carrental.model.repository.DivisionRepository;
+
+import java.util.List;
 
 @Service
 public class DivisionMapper {
@@ -16,10 +20,11 @@ public class DivisionMapper {
     }
 
     public DivisionDTO getDivisionDTO(Division division) {
+        List<EmployeeDTO> employees = division.getEmployees().stream().map(employeeMapper::getDto).toList();
         return DivisionDTO.builder()
                 .division_id(division.getDivision_id())
                 .address(division.getAddress())
-                .employees(division.getEmployees().stream().map(employeeMapper::getDto).toList())
+                .employees(employees)
                 .build();
     }
 

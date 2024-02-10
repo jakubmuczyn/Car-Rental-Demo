@@ -52,6 +52,7 @@ public class DivisionController {
     }
     @PostMapping("/divisions/edit/save")
     public String saveDivision(DivisionDTO divisionDTO) {
+        Employee manager = employeeRepository.getReferenceById(divisionDTO.getManager().getId());
         divisionRepository.save(divisionMapper.getDivisionObject(divisionDTO));
         return "redirect:/divisions";
     }
@@ -63,17 +64,18 @@ public class DivisionController {
        return "divisionPanels/divisionPanel";
     }
     @PostMapping("/employeeSelection")
-    public String addEmployeesToDivision(Model model, @RequestParam(value = "selectedUsers", required = false) List<Long> selectedUserIds) {
+    public String addEmployeesToDivision(@RequestParam(value = "selectedUsers", required = false) List<Long> selectedUserIds, @RequestParam Long division_id) {
+        Division division = divisionRepository.getReferenceById(division_id);
         List<Employee> employees = employeeRepository.findAllById(selectedUserIds);
-        divisionService.addEmployees(employees);
-        model.addAttribute("users", activeEmployees.stream().map(employeeMapper::getDto).toList());
-        return "divisionPanels/addEmployee";
+        divisionService.addEmployees(division,employees);
+        return "redirect:/divisions";
     }
 
-    @GetMapping("/employeeSelection")
-    public String selectEmployees(Model model, DivisionDTO divisionDTO) {
+    @GetMapping("/employeeSelection/{division_id}")
+    public String selectEmployees(Model model, @PathVariable Long division_id) {
         List<Employee> activeEmployees = employeeRepository.findAllByIsActiveIsTrue();
         model.addAttribute("users", activeEmployees.stream().map(employeeMapper::getDto).toList());
+        model.addAttribute("division_id", division_id);
         return "divisionPanels/addEmployee";
     }
 
