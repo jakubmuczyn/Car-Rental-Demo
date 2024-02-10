@@ -19,11 +19,8 @@ import pl.sda.carrental.service.RoleService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 //test
 @Getter
@@ -68,6 +65,11 @@ public class DbInit {
                 .city("Bydgoszcz")
                 .build();
 
+        addressRepository.save(address);
+        addressRepository.save(address_2);
+        addressRepository.save(address_3);
+
+
         Division division = Division.builder()
                 .address(address)
                 .build();
@@ -76,9 +78,13 @@ public class DbInit {
                 .address(address_2)
                 .build();
 
+        divisionRepository.save(division);
+        divisionRepository.save(division2);
+
         Role adminRole = Role.builder().roleName(PrincipalRole.ADMIN.name()).build();
         Role employeeRole = Role.builder().roleName(PrincipalRole.EMPLOYEE.name()).build();
         Role customerRole = Role.builder().roleName(PrincipalRole.CUSTOMER.name()).build();
+
         roleRepository.save(adminRole);
         roleRepository.save(employeeRole);
         roleRepository.save(customerRole);
@@ -89,8 +95,9 @@ public class DbInit {
                 .email("admin@test.pl")
                 .role(adminRole)
                 .password(passwordEncoder
-                        .encode("admin"))
+                .encode("admin"))
                 .build();
+
         administratorRepository.save(dbTestAdmin);
 
         Employee dbTestManager = Employee.builder()
@@ -122,6 +129,7 @@ public class DbInit {
                 .password(passwordEncoder.encode("customer"))
                 .build();
         customerRepository.save(dbTestCustomer);
+
         Employee employee2 = Employee.builder()
                 .division(division)
                 .name("Maciej Nowak")
@@ -152,13 +160,13 @@ public class DbInit {
                 .role(employeeRole)
                 .build();
 
-        Customer customer = Customer.builder()
-            .name("Maciej Konsument")
-            .email("maciej.konsument@gmail.com")
-            .password(passwordEncoder.encode("klient"))
-            .role(customerRole)
-            .username("klient")
-            .build();
+//        Customer customer = Customer.builder()
+//            .name("Maciej Konsument")
+//            .email("maciej.konsument@gmail.com")
+//            .password(passwordEncoder.encode("klient"))
+//            .role(customerRole)
+//            .username("klient")
+//            .build();
 
         Car car = Car.builder()
             .brand("Toyota")
@@ -172,11 +180,7 @@ public class DbInit {
             .division(division)
             .build();
 
-        addressRepository.save(address);
-        addressRepository.save(address_2);
-        addressRepository.save(address_3);
-        divisionRepository.save(division);
-        divisionRepository.save(division2);
+
         carRepository.save(car);
         division.addCar(car);
         divisionRepository.save(division);
@@ -241,26 +245,26 @@ public class DbInit {
         employeeRepository.save(employee2);
         employeeRepository.save(employee3);
         employeeRepository.save(employee4);
-        customerRepository.save(customer);
+        customerRepository.save(dbTestCustomer);
 
         division.setManager(employee2);
         division2.setManager(employee3);
         divisionRepository.save(division);
         divisionRepository.save(division2);
 
-        Reservation reservation = Reservation.builder()
-            .rental_division(division.getAddress().getCity())
-            .return_division(division.getAddress().getCity())
-            .employee(dbTestEmployee)
-            .customer(customer)
-            .car(car)
-            .reservation_start(LocalDateTime.now())
-            .reservation_end(LocalDateTime.now().plusDays(7))
-            .cost(new BigDecimal("20.50"))
-            .reservation_date(LocalDate.now())
-            .build();
         Date date1 = new Date();
         Date date2 = new Date();
+
+//        Reservation reservation = Reservation.builder()
+//            .rental_division(division.getAddress().getCity())
+//            .return_division(division.getAddress().getCity())
+//            .customer(customer)
+//            .car(car)
+//            .reservation_start(date1)
+//            .reservation_end(date2)
+//            .cost(new BigDecimal("20.50"))
+//            .build();
+
         Reservation dbTestReservation = Reservation.builder()
                 .rental_division(division.getAddress().getCity())
                 .return_division(division.getAddress().getCity())
@@ -270,6 +274,7 @@ public class DbInit {
                 .reservation_end(date2)
                 .cost(new BigDecimal("20.50"))
                 .build();
+
         reservationRepository.save(dbTestReservation);
         dbTestCustomer.addReservation(dbTestReservation);
         dbTestCar.addReservationId(dbTestReservation);

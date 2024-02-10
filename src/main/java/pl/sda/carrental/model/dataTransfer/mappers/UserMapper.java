@@ -21,7 +21,6 @@ public class UserMapper {
                 .username(user.getUsername())
                 .name(user.getName())
                 .email(user.getEmail())
-                .position("no idea") // TODO
                 .principalRole(user.getRole().getRoleName())
                 .isActive(user.isActive())
                 .build();

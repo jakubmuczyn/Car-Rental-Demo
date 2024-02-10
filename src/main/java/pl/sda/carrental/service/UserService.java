@@ -38,7 +38,7 @@ public class UserService {
 
     public <T extends User> JpaRepository<T, Long> getRepository(T user) {
         JpaRepository<T, Long>  repository;
-        String roleName = getPrincipalRole(user).getRoleName();
+        String roleName = user.getRole().getRoleName();
 
         if (roleName.equals(PrincipalRole.ADMIN.name())) {
             return (JpaRepository<T, Long>) administratorRepository;

@@ -39,7 +39,10 @@ public class EmployeeMapper implements UserDtoMapper<Employee, EmployeeDTO> {
 
     @Override
     public EmployeeDTO getDto(Employee userClass) {
-        EmployeeDTO.DivisionDTO divisionDTO = userClass.getDivision() == null ? null : new EmployeeDTO.DivisionDTO(u.getDivision().getDivision_id(), u.getDivision().getAddress().toString());
+        EmployeeDTO.DivisionDTO divisionDTO = userClass.getDivision() ==
+                null ?
+                null :
+                new EmployeeDTO.DivisionDTO(userClass.getDivision().getDivision_id(), userClass.getDivision().getAddress().toString());
 
         return EmployeeDTO.builder()
                 .id(userClass.getId())
