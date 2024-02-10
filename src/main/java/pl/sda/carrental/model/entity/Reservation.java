@@ -30,7 +30,6 @@ public class Reservation {
     @ManyToOne
     private Customer customer;
     
-    // TODO: Should this be double sided? I don't think division should have a list of reservations..
     @ManyToOne
     private Division rental_division;
     

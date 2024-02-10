@@ -39,14 +39,18 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Mail</th>
-<!--                    <th scope="col">Position</th>-->
+                    <th scope="col">Remove</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:if="${division.employees.isEmpty()}"><td colspan="2"> No users available. Which is impossible, so something went wrong dog.</td></tr>
-                <tr th:each="user : ${division.getEmployees()}">
-                    <td><span th:text="${user.getName()}" > Name </span> </td>
+                <tr th:each="user : ${division.getEmployees()}" th:with="isManager=${user.getId() == division.getManager().getId()}">
+                    <td><span th:text="${user.getName()}" > Name </span> <span th:if="${isManager}"> 💼</span> </td>
                     <td><span th:text="${user.getEmail()}" > Mail </span> </td>
+                    <td>
+                        <a th:href="'/divisions/' + ${division.getDivision_id()} + '/edit/removeEmployee/' + ${user.getId()}" th:unless="${isManager}">Remove employee</a>
+                        <span th:if="${isManager}"> Can't remove manager</span>
+                    </td>
 <!--                    <td><span th:text="${user.getPosition()}"> Position </span> </td>-->
                 </tr>
                 <tr></tr>

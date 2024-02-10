@@ -19,6 +19,7 @@
     <tr>
         <th scope="col">Name</th>
         <th scope="col">Address</th>
+        <th scope="col">Manager</th>
         <th scope="col">Management</th>
     </tr>
     </thead>
@@ -27,7 +28,9 @@
     <tr th:each="division : ${divisions}">
         <td><span th:text="${division.toString()}"></span> </td>
         <td><span th:text="${division.getAddress()}"></span> </td>
+        <td><span th:text="${division.getManager().getName()}"></span> </td>
         <td><a th:text="Manage" th:href="${'/divisions/' + division.getDivision_id()}"></a> </td>
+        <!--        TODO: Add a button to deactivate division - frees up all the workers in it and changes isActive flag on division -->
 <!--        <div th:if="${user.getId() ne currentUser.getId()}">-->
 <!--            <td th:if="${user.isEmployee()}"><a  th:href="@{/users/employee/} + ${user.getId()}">Edit</a></td>-->
 <!--            <td th:if="${user.isCustomer()}"><a  th:href="@{/users/customer/} + ${user.getId()}">Edit</a></td>-->

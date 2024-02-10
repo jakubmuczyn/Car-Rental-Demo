@@ -118,6 +118,16 @@ public class DbInit {
                 .roles(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.EMPLOYEE))))
                 .build();
 
+        Employee employee4 = Employee.builder()
+                .division(division2)
+                .name("Konrad Paczko")
+                .position(Employee.Position.EMPLOYEE)
+                .email("konrad.paczko@company.com")
+                .password(passwordEncoder.encode("konrad"))
+                .username("konrad")
+                .roles(new HashSet<>(Set.of(roleService.getRoleByEnum(PrincipalRole.EMPLOYEE))))
+                .build();
+
         Customer customer = Customer.builder()
             .name("Maciej Konsument")
             .email("maciej.konsument@gmail.com")
@@ -151,10 +161,12 @@ public class DbInit {
         division.addEmployee(employee);
         division.addEmployee(employee2);
         division2.addEmployee(employee3);
+        division2.addEmployee(employee4);
 
         employeeRepository.save(employee);
         employeeRepository.save(employee2);
         employeeRepository.save(employee3);
+        employeeRepository.save(employee4);
         customerRepository.save(customer);
 
         division.setManager(employee);

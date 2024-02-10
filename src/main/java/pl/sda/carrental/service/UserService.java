@@ -19,7 +19,6 @@ public class UserService {
     private final CustomerRepository customerRepository;
     private final EmployeeRepository employeeRepository;
     private final AdministratorRepository administratorRepository;
-    //TODO: Forgot about that, that would actually be much simpler probably
     private final UserRepository<User> userRepository;
 
     public UserService(UserRepository<User> userRepository, AdministratorRepository adminRepository, EmployeeRepository employeeRepository, CustomerRepository customerRepository, EmployeeRepository employeeRepository1, AdministratorRepository administratorRepository, UserRepository userRepository1) {
