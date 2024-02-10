@@ -6,6 +6,7 @@ import pl.sda.carrental.model.entity.Reservation;
 import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+    @Override
     List<Reservation> findAll();
-    List<Reservation> findAllByCustomer_Id(int i);
+    List<Reservation> findAllByCustomer_Id(long i);
 }

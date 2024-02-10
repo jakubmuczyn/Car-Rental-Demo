@@ -1,12 +1,12 @@
-package pl.sda.carrental.model.repository.mapper;
+package pl.sda.carrental.model.dataTransfer.mappers;
 
 import pl.sda.carrental.model.entity.Reservation;
-import pl.sda.carrental.model.repository.dto.ReservationDto;
+import pl.sda.carrental.model.dataTransfer.ReservationDTO;
 import java.util.ArrayList;
 import java.util.List;
 public class ReservationMapper {
-    public static ReservationDto map(Reservation reservation){
-        ReservationDto  ReservationDto = new ReservationDto();
+    public static ReservationDTO map(Reservation reservation){
+        ReservationDTO ReservationDto = new ReservationDTO();
         ReservationDto.setId(reservation.getId());
         ReservationDto.setCar(reservation.getCar());
         ReservationDto.setCustomer(reservation.getCustomer());
@@ -19,7 +19,7 @@ public class ReservationMapper {
         ReservationDto.setGoing_abroad(reservation.isGoing_abroad());
         return ReservationDto;
     }
-    public static Reservation map(ReservationDto reservationdto){
+    public static Reservation map(ReservationDTO reservationdto){
         Reservation  Reservation = new Reservation();
         Reservation.setId(reservationdto.getId());
         Reservation.setCar(reservationdto.getCar());
@@ -33,18 +33,18 @@ public class ReservationMapper {
         Reservation.setGoing_abroad(reservationdto.isGoing_abroad());
         return Reservation;
     }
-    public static List<ReservationDto> mapEntityListToDtoList(List<Reservation> reservations){
+    public static List<ReservationDTO> mapEntityListToDtoList(List<Reservation> reservations){
 
-        List<ReservationDto> result = new ArrayList<>();
+        List<ReservationDTO> result = new ArrayList<>();
         for (Reservation reservation: reservations) {
             result.add(map(reservation));
         }
         return result;
     }
-    public static List<Reservation> mapDtoListToEntityList(List<ReservationDto> dtos){
+    public static List<Reservation> mapDtoListToEntityList(List<ReservationDTO> dtos){
 
         List<Reservation> result = new ArrayList<>();
-        for (ReservationDto dto: dtos) {
+        for (ReservationDTO dto: dtos) {
             result.add(map(dto));
         }
         return result;

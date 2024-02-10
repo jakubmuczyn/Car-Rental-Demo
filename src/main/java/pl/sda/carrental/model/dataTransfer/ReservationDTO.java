@@ -1,22 +1,18 @@
-package pl.sda.carrental.model.repository.dto;
+package pl.sda.carrental.model.dataTransfer;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.sda.carrental.model.entity.Car;
-import pl.sda.carrental.model.entity.Division;
 import pl.sda.carrental.model.entity.userEntities.Customer;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Setter
 @Getter
 @Data
-public class ReservationDto {
+public class ReservationDTO {
     private Long id;
     private Car car;
     private Customer customer;

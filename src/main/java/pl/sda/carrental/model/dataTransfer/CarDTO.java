@@ -1,4 +1,4 @@
-package pl.sda.carrental.model.repository.dto;
+package pl.sda.carrental.model.dataTransfer;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +9,7 @@ import pl.sda.carrental.model.entity.Reservation;
 import java.math.BigDecimal;
 import java.time.Year;
 @Data
-public class CarDto {
+public class CarDTO {
 
     private Long id;
 

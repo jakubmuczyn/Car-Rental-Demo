@@ -10,15 +10,18 @@ import pl.sda.carrental.model.entity.userEntities.Customer;
 import pl.sda.carrental.model.entity.userEntities.User;
 import pl.sda.carrental.model.repository.DivisionRepository;
 import pl.sda.carrental.model.repository.ReservationRepository;
-import pl.sda.carrental.model.repository.dto.CarDto;
-import pl.sda.carrental.model.repository.dto.DivisionDto;
-import pl.sda.carrental.model.repository.dto.ReservationDto;
-import pl.sda.carrental.model.repository.mapper.CarMapper;
+import pl.sda.carrental.model.dataTransfer.CarDTO;
+import pl.sda.carrental.model.dataTransfer.DivisionDTO;
+import pl.sda.carrental.model.dataTransfer.ReservationDTO;
+import pl.sda.carrental.model.dataTransfer.mappers.CarMapper;
 import pl.sda.carrental.model.repository.CarRepository;
-import pl.sda.carrental.model.repository.mapper.DivisionMapper;
-import pl.sda.carrental.model.repository.mapper.ReservationMapper;
+import pl.sda.carrental.model.dataTransfer.mappers.DivisionMapper;
+import pl.sda.carrental.model.dataTransfer.mappers.ReservationMapper;
 import pl.sda.carrental.model.repository.userRepositories.CustomerRepository;
+import pl.sda.carrental.model.repository.userRepositories.RoleRepository;
 import pl.sda.carrental.model.repository.userRepositories.UserRepository;
+import pl.sda.carrental.security.PrincipalRole;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -33,9 +36,8 @@ public class ReservationService{
     private final ReservationRepository reservationRepository;
     private final DivisionRepository divisionRepository;
     private final UserRepository userRepository;
-    private final CustomerRepository customerRepository;
-
-    public void makeReservation(ReservationDto dto, User user, CarDto carDto){
+    private final RoleRepository roleRepository;
+    public void makeReservation(ReservationDTO dto, User user, CarDTO carDto){
 
         Customer customer = UserToCustomer(user);
         Car car = new Car();
@@ -63,13 +65,13 @@ public class ReservationService{
         if(reservation.isInsurance() && reservation.isGoing_abroad()){
             reservation.setCost(totalCost.add(insurance).add(going_abroad));
         }
-        else if (reservation.isInsurance() == true && reservation.isGoing_abroad() == false) {
+        else if (reservation.isInsurance() && !reservation.isGoing_abroad()) {
             reservation.setCost(totalCost.add(insurance));
         }
-        else if (reservation.isInsurance() == false && reservation.isGoing_abroad() == true) {
+        else if (!reservation.isInsurance() && reservation.isGoing_abroad()) {
             reservation.setCost(totalCost.add(going_abroad));
         }
-        else if (reservation.isInsurance() == false && reservation.isGoing_abroad() == false) {
+        else if (!reservation.isInsurance() && !reservation.isGoing_abroad()) {
             reservation.setCost(totalCost);
         }
 
@@ -87,11 +89,12 @@ public class ReservationService{
         customer.setUsername(user.getUsername());
         customer.setEmail(user.getEmail());
         customer.setPassword(user.getPassword());
+        customer.setRole(roleRepository.getById(3));
         return customer;
     }
 
     public void deleteReservation(){
-        List<ReservationDto> reservationsList = getListOfReservations();
+        List<ReservationDTO> reservationsList = getListOfReservations();
         Date todayDate = new Date();
         for(int i = 0; i < reservationsList.size(); i++){
             if(todayDate == reservationsList.get(i).getReservation_end()){
@@ -100,29 +103,29 @@ public class ReservationService{
             }
         }
     }
-    public CarDto getCarById(Long id) {
+    public CarDTO getCarById(Long id) {
         Optional<Car> carOptional = carRepository.findById(id);
         if (carOptional.isPresent()) {
             return CarMapper.map(carOptional.get());
         }
         throw new EntityNotFoundException();
     }
-    public ReservationDto getReservationById(Long id) {
+    public ReservationDTO getReservationById(Long id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
         if (reservationOptional.isPresent()) {
             return ReservationMapper.map(reservationOptional.get());
         }
         throw new EntityNotFoundException();
     }
-    public List<ReservationDto> getListOfReservations(){
+    public List<ReservationDTO> getListOfReservations(){
         List<Reservation> reservations = reservationRepository.findAll();
         return ReservationMapper.mapEntityListToDtoList(reservations);
     }
-    public List<CarDto> getListOfCars(){
+    public List<CarDTO> getListOfCars(){
         List<Car> cars = carRepository.findAll();
         return CarMapper.mapEntityListToDtoList(cars);
     }
-    public List<DivisionDto> getListOfDivision(){
+    public List<DivisionDTO> getListOfDivision(){
         List<Division> divisions = divisionRepository.findAll();
         return DivisionMapper.mapEntityListToDtoList(divisions);
     }

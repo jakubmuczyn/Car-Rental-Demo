@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import pl.sda.carrental.model.entity.Reservation;
+
+import java.util.List;
 
 @Getter
 @Setter

@@ -12,25 +12,24 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+<nav th:fragment="header" class="navbar navbar-expand-lg navbar-dark bg-dark ">
     <div class="container-fluid">
-        <a class="navbar-brand">Wypożyczalnia samochodów</a>
+        <a class="navbar-brand" th:href="@{/}">CAR RENTAL INC</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" th:href="@{/myReservations}">Reservations</a>
+            <li th:text="'Witaj, ' + ${currentUser != null ? currentUser.getName() : 'Gościu'}" class="navbar-text d-inline nowrap" > </li>
+            <li class="nav-item d-inline nowrap" >
+                <a class="nav-link active" aria-current="page" th:href="@{/myReservations}">Moje rezerwacje</a>
+            </li>
+            <li class="nav-item d-inline nowrap" >
+                <a class="nav-link active" aria-current="page" th:href="@{/users}">Użytkownicy</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
-            </li>
-            <li th:text="'Welcome, ' + ${currentUser.getName()}" class="navbar-text d-inline nowrap" >
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
+                <a class="nav-link active" aria-current="page" th:href="@{/logout}">Wyloguj</a>
             </li>
         </ul>
     </div>

@@ -1,15 +1,15 @@
-package pl.sda.carrental.model.repository.mapper;
+package pl.sda.carrental.model.dataTransfer.mappers;
 
 import pl.sda.carrental.model.entity.Car;
-import pl.sda.carrental.model.repository.dto.CarDto;
+import pl.sda.carrental.model.dataTransfer.CarDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarMapper {
 
-    public static CarDto map(Car car){
-        CarDto carDto = new CarDto();
+    public static CarDTO map(Car car){
+        CarDTO carDto = new CarDTO();
         carDto.setId(car.getId());
         carDto.setDivision(car.getDivision());
         carDto.setReservation(car.getReservation());
@@ -24,7 +24,7 @@ public class CarMapper {
         return carDto;
     }
 
-    public static Car map(CarDto carDto){
+    public static Car map(CarDTO carDto){
         Car car = new Car();
         car.setId(carDto.getId());
         car.setDivision(carDto.getDivision());
@@ -40,19 +40,19 @@ public class CarMapper {
         return car;
     }
 
-    public static List<CarDto> mapEntityListToDtoList(List<Car> cars){
+    public static List<CarDTO> mapEntityListToDtoList(List<Car> cars){
 
-        List<CarDto> result = new ArrayList<>();
+        List<CarDTO> result = new ArrayList<>();
         for (Car car: cars) {
             result.add(map(car));
         }
         return result;
     }
 
-    public static List<Car> mapDtoListToEntityList(List<CarDto> dtos){
+    public static List<Car> mapDtoListToEntityList(List<CarDTO> dtos){
 
         List<Car> result = new ArrayList<>();
-        for (CarDto dto: dtos) {
+        for (CarDTO dto: dtos) {
             result.add(map(dto));
         }
         return result;

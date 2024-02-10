@@ -19,6 +19,7 @@ import pl.sda.carrental.service.RoleService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.Date;
 import java.util.HashSet;
@@ -124,18 +125,62 @@ public class DbInit {
                 .build();
         carRepository.save(dbTestCar);
 
+        Car dbTestCar1 = Car.builder()
+                .brand("Audi")
+                .model("A4")
+                .production_year(Year.of(2023))
+                .body_type("Sedan")
+                .cost_per_day(new BigDecimal("1000"))
+                .mileage(12000)
+                .color("Grey")
+                .status(Car.RentStatus.AVAILABLE)
+                .division(dbTestDivision)
+                .build();
+        carRepository.save(dbTestCar1);
+
+        Car dbTestCar2 = Car.builder()
+                .brand("Renault")
+                .model("Clio")
+                .production_year(Year.of(2019))
+                .body_type("Hatchback")
+                .cost_per_day(new BigDecimal("150"))
+                .mileage(340000)
+                .color("Silver")
+                .status(Car.RentStatus.AVAILABLE)
+                .division(dbTestDivision)
+                .build();
+        carRepository.save(dbTestCar2);
+
+        Car dbTestCar3 = Car.builder()
+                .brand("Hyundai")
+                .model("i30")
+                .production_year(Year.of(2020))
+                .body_type("Sedan")
+                .cost_per_day(new BigDecimal("200"))
+                .mileage(220000)
+                .color("Brown")
+                .status(Car.RentStatus.AVAILABLE)
+                .division(dbTestDivision)
+                .build();
+        carRepository.save(dbTestCar3);
+
+        Date date1 = new Date();
+        Date date2 = new Date();
         Reservation dbTestReservation = Reservation.builder()
-                .rental_division(dbTestDivision)
-                .return_division(dbTestDivision)
-                .employee(dbTestEmployee)
+                .rental_division(dbTestDivision.getAddress().getCity())
+                .return_division(dbTestDivision.getAddress().getCity())
                 .customer(dbTestCustomer)
                 .car(dbTestCar)
-                .reservation_start(LocalDateTime.now())
-                .reservation_end(LocalDateTime.now().plusDays(7))
+                .reservation_start(date1)
+                .reservation_end(date2)
                 .cost(new BigDecimal("20.50"))
-                .reservation_date(LocalDate.now())
                 .build();
         reservationRepository.save(dbTestReservation);
+        dbTestCustomer.addReservation(dbTestReservation);
+        dbTestCar.addReservationId(dbTestReservation);
+        dbTestCar.setStatus(Car.RentStatus.RENTED);
+        customerRepository.save(dbTestCustomer);
+        carRepository.save(dbTestCar);
 
         CarRental dbTestCarRental = CarRental.builder()
                 .rentalStatus(CarRental.RentalStatus.ONGOING)

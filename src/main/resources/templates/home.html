@@ -23,6 +23,9 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li th:text="'Witaj, ' + ${currentUser != null ? currentUser.getName() : 'Gościu'}" class="navbar-text d-inline nowrap" > </li>
             <li class="nav-item d-inline nowrap" >
+                <a class="nav-link active" aria-current="page" th:href="@{/myReservations}">Moje rezerwacje</a>
+            </li>
+            <li class="nav-item d-inline nowrap" >
                 <a class="nav-link active" aria-current="page" th:href="@{/users}">Użytkownicy</a>
             </li>
             <li class="nav-item">
@@ -32,10 +35,11 @@
     </div>
 </nav>
 <br /><br />
-<body>
+
 <div class="container">
     <div class="row">
         <img th:src="@{https://gifsec.com/wp-content/uploads/2022/09/welcome-gif-2.gif}" style="width: 50%; height: auto;">
+        <a th:href="reservation">Zarezerwuj samochdów!</a>
     </div>
 </div>
 </body>
