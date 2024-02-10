@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.sda.carrental.model.dataTransfer.CreateDivisionDTO;
-import pl.sda.carrental.model.dataTransfer.DivisionDTO;
-import pl.sda.carrental.model.dataTransfer.EmployeeDTO;
+import pl.sda.carrental.model.dataTransfer.DivisionDTOForPanel;
 import pl.sda.carrental.model.dataTransfer.mappers.DivisionMapper;
 import pl.sda.carrental.model.dataTransfer.mappers.EmployeeMapper;
 import pl.sda.carrental.model.entity.Address;
@@ -20,7 +19,6 @@ import pl.sda.carrental.model.repository.userRepositories.EmployeeRepository;
 import pl.sda.carrental.service.DivisionService;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,7 +41,7 @@ public class DivisionController {
     }
     @GetMapping("/divisions/{division_id}")
     public String editDivision(Model model, @PathVariable long division_id) {
-        DivisionDTO divisionDTO = divisionMapper.getDivisionDTO(divisionRepository.findById(division_id).get());
+        DivisionDTOForPanel divisionDTO = divisionMapper.getDivisionDTO(divisionRepository.findById(division_id).get());
 //        List<Address> addresses = new ArrayList<>();
         List<Address> addresses = new ArrayList<>();
         addresses.add(divisionDTO.getAddress());
@@ -56,14 +54,14 @@ public class DivisionController {
         return "divisionPanels/divisionEdit";
     }
     @PostMapping("/divisions/edit/save")
-    public String saveDivision(DivisionDTO divisionDTO) {
+    public String saveDivision(DivisionDTOForPanel divisionDTO) {
         divisionRepository.save(divisionMapper.getDivisionObject(divisionDTO));
         return "redirect:/divisions/" + divisionDTO.getDivision_id();
     }
     @GetMapping("/divisions")
     public String getDivisions(Model model) {
        List<Division> divisions = divisionRepository.findAll();
-       List<DivisionDTO> divisionDTOs = divisions.stream().map(divisionMapper::getDivisionDTO).toList();
+       List<DivisionDTOForPanel> divisionDTOs = divisions.stream().map(divisionMapper::getDivisionDTO).toList();
        model.addAttribute("divisions", divisionDTOs);
        return "divisionPanels/divisionPanel";
     }

@@ -1,10 +1,9 @@
 package pl.sda.carrental.model.dataTransfer.mappers;
 
 import org.springframework.stereotype.Service;
-import pl.sda.carrental.model.dataTransfer.DivisionDTO;
+import pl.sda.carrental.model.dataTransfer.DivisionDTOForPanel;
 import pl.sda.carrental.model.dataTransfer.EmployeeDTO;
 import pl.sda.carrental.model.entity.Division;
-import pl.sda.carrental.model.entity.userEntities.Employee;
 import pl.sda.carrental.model.repository.DivisionRepository;
 
 import java.util.List;
@@ -19,9 +18,9 @@ public class DivisionMapper {
         this.employeeMapper = employeeMapper;
     }
 
-    public DivisionDTO getDivisionDTO(Division division) {
+    public DivisionDTOForPanel getDivisionDTO(Division division) {
         List<EmployeeDTO> employees = division.getEmployees().stream().map(employeeMapper::getDto).toList();
-        return DivisionDTO.builder()
+        return DivisionDTOForPanel.builder()
                 .division_id(division.getDivision_id())
                 .address(division.getAddress())
                 .employees(employees)
@@ -29,7 +28,7 @@ public class DivisionMapper {
                 .build();
     }
 
-    public Division getDivisionObject(DivisionDTO divisionDTO) {
+    public Division getDivisionObject(DivisionDTOForPanel divisionDTO) {
         Division division = divisionRepository.findById(divisionDTO.getDivision_id()).get();
 
         return Division.builder()

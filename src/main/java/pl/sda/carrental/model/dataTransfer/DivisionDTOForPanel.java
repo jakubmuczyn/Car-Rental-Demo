@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DivisionDTO {
+public class DivisionDTOForPanel {
     private long division_id;
     private Address address;
     private List<EmployeeDTO> employees;
