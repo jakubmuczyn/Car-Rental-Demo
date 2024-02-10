@@ -62,9 +62,4 @@ public class UserService {
         user.setActive(!user.isActive());
         userRepository.save(user);
     }
-    
-    public void registerUser(User user) {
-        userRepository.save(user);
-    }
-
 }

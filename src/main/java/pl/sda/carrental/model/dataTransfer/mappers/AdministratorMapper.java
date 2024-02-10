@@ -12,37 +12,34 @@ import pl.sda.carrental.model.repository.userRepositories.CustomerRepository;
 @Service
 public class AdministratorMapper implements UserDtoMapper<Administrator, AdminDTO> {
     private final AdministratorRepository administratorRepository;
-
+    
     public AdministratorMapper(AdministratorRepository administratorRepository) {
         this.administratorRepository = administratorRepository;
     }
-
-
+    
     @Override
     public Administrator getUserClass(AdminDTO dto) {
-//        Set<Role> roles = roleService.deserializeRoes(dto.getRolesSerialized());
         Administrator customer = administratorRepository.findById(dto.getId()).get();
         return Administrator.builder()
-            .id(dto.getId())
-            .name(dto.getName())
-            .role(dto.getRole())
-            .email(dto.getEmail())
-            .password(customer.getPassword())
-            .isActive(dto.isActive())
-            .role(dto.getRole())
-            .build();
+                .id(dto.getId())
+                .username(dto.getUsername())
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .role(dto.getRole())
+                .password(customer.getPassword())
+                .isActive(dto.isActive())
+                .build();
     }
-
+    
     @Override
     public AdminDTO getDto(Administrator userClass) {
         return AdminDTO.builder()
-            .name(userClass.getName())
-            .role(userClass.getRole())
-            .email(userClass.getEmail())
-            .isActive(userClass.isActive())
-            .id(userClass.getId())
-            .role(userClass.getRole())
-            .build();
+                .id(userClass.getId())
+                .username(userClass.getUsername())
+                .name(userClass.getName())
+                .email(userClass.getEmail())
+                .role(userClass.getRole())
+                .isActive(userClass.isActive())
+                .build();
     }
-
 }

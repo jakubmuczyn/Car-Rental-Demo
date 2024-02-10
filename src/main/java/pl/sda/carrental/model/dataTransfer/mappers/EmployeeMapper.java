@@ -41,13 +41,13 @@ public class EmployeeMapper implements UserDtoMapper<Employee, EmployeeDTO> {
         EmployeeDTO.DivisionDTO divisionDTO = new EmployeeDTO.DivisionDTO(userClass.getDivision().getDivision_id(), userClass.getDivision().getAddress().toString());
         return EmployeeDTO.builder()
                 .id(userClass.getId())
+                .username(userClass.getUsername())
                 .name(userClass.getName())
-                .role(userClass.getRole())
                 .email(userClass.getEmail())
-                .isActive(userClass.isActive())
-                .role(userClass.getRole())
                 .position(userClass.getPosition())
+                .role(userClass.getRole())
                 .divisionDTO(divisionDTO)
+                .isActive(userClass.isActive())
                 .build();
     }
 }

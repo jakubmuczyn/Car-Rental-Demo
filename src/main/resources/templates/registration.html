@@ -1,0 +1,79 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Edit Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<div id="head" th:replace="~{home :: header}"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">Niepoprawna nazwa użytkonika lub hasło.</div>
+            </div>
+
+            <div th:if="${param.logout}">
+                <div class="alert alert-success">Zostałeś wylogowany.</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Rejestracja</h2>
+                </div>
+                <div class="card-body">
+
+                    <form method="post" role="form" th:action="@{/register}" th:object="${admin}"
+                          class="form-horizontal">
+                        <div class="form-group mb-3">
+                            <label class="control-label">Nazwa użytkownika:</label>
+                            <input type="text" id="username" name="username" class="form-control"
+                                   placeholder="Enter username" th:value="${admin.username}"/>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="control-label">Adres Email:</label>
+                            <input type="text" id="email" name="email" class="form-control" placeholder="Enter email"
+                                   th:value="${admin.email}"/>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="control-label">Imię:</label>
+                            <input type="text" id="firstName" name="firstname" class="form-control"
+                                   placeholder="Enter first name" th:value="${admin.firstName}"/>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="control-label">Nazwisko:</label>
+                            <input type="text" id="lastName" name="lastName" class="form-control"
+                                   placeholder="Enter last name" th:value="${admin.lastName}"/>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="control-label">Hasło:</label>
+                            <input type="password" id="password" name="password" class="form-control"
+                                   placeholder="Enter password" th:value="${admin.password}"/>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="control-label">Powtórz hasło:</label>
+                            <input type="password" id="repeatPassword" name="repeatPassword" class="form-control"
+                                   placeholder="Repeat password" th:value="${admin.repeatPassword}"/>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <button type="submit" class="btn btn-primary" value="Save">Zarejestruj</button>
+                            </input>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

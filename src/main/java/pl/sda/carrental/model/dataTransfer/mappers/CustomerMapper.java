@@ -22,23 +22,22 @@ public class CustomerMapper implements UserDtoMapper<Customer, CustomerDTO> {
                 .id(dto.getId())
                 .username(dto.getUsername())
                 .name(dto.getName())
-                .role(dto.getRole())
                 .email(dto.getEmail())
+                .role(dto.getRole())
                 .password(customer.getPassword())
                 .isActive(dto.isActive())
-                .role(dto.getRole())
                 .build();
     }
     
     @Override
     public CustomerDTO getDto(Customer userClass) {
         return CustomerDTO.builder()
-                .name(userClass.getName())
-                .role(userClass.getRole())
-                .email(userClass.getEmail())
-                .isActive(userClass.isActive())
                 .id(userClass.getId())
+                .username(userClass.getUsername())
+                .name(userClass.getName())
+                .email(userClass.getEmail())
                 .role(userClass.getRole())
+                .isActive(userClass.isActive())
                 .build();
     }
 }

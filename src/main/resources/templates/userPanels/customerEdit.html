@@ -37,7 +37,7 @@
 
         <input type="hidden" th:value="${customer.isActive()}" name="isActive" id="input-isActive">
 
-        <input type="hidden" th:each="role : ${customer.roles}" th:value="${role.id}" name="roles" id="input-role-${role.id}">
+        <input type="hidden" th:each="role : ${customer.role}" th:value="${role.roleId}" name="roles" id="input-role-${role.roleId}">
 
         <button type="submit" class="btn btn-primary">Save</button>
     </form>

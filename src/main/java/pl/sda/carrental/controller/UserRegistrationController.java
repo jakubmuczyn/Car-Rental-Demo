@@ -54,6 +54,6 @@ public class UserRegistrationController {
             userRegistrationService.registerCustomer(userDTO);
         }
         
-        return "registrationSuccess";
+        return "redirect:/login";
     }
 }
