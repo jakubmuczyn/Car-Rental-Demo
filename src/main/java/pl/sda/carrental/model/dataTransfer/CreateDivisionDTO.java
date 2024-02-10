@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.sda.carrental.model.entity.Address;
-
-import java.util.List;
 
 @Data
 @Builder
