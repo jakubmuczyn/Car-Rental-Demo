@@ -26,6 +26,12 @@ public class Customer extends User {
         this.reservations.add(reservation);
         this.reservation_id = reservation.getId();
     }
+    public List<Reservation> getCustomerReservations(){
+        if (this.reservations == null) {
+            this.reservations = new ArrayList<>();
+        }
+        return this.reservations;
+    }
     public Long getReservationIdFromUser(){
         return this.reservation_id;
     }

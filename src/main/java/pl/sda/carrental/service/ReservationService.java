@@ -17,6 +17,7 @@ import pl.sda.carrental.model.repository.mapper.CarMapper;
 import pl.sda.carrental.model.repository.CarRepository;
 import pl.sda.carrental.model.repository.mapper.DivisionMapper;
 import pl.sda.carrental.model.repository.mapper.ReservationMapper;
+import pl.sda.carrental.model.repository.userRepositories.CustomerRepository;
 import pl.sda.carrental.model.repository.userRepositories.UserRepository;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -32,16 +33,11 @@ public class ReservationService{
     private final ReservationRepository reservationRepository;
     private final DivisionRepository divisionRepository;
     private final UserRepository userRepository;
+    private final CustomerRepository customerRepository;
 
     public void makeReservation(ReservationDto dto, User user, CarDto carDto){
 
-        Customer customer = new Customer();
-        customer.setId(user.getId());
-        customer.setName(user.getName());
-        customer.setUsername(user.getUsername());
-        customer.setEmail(user.getEmail());
-        customer.setPassword(user.getPassword());
-
+        Customer customer = UserToCustomer(user);
         Car car = new Car();
         car = CarMapper.map(carDto);
 
@@ -83,6 +79,15 @@ public class ReservationService{
         car.setStatus(Car.RentStatus.RENTED);
         userRepository.save(customer);
         carRepository.save(car);
+    }
+    public Customer UserToCustomer(User user){
+        Customer customer = new Customer();
+        customer.setId(user.getId());
+        customer.setName(user.getName());
+        customer.setUsername(user.getUsername());
+        customer.setEmail(user.getEmail());
+        customer.setPassword(user.getPassword());
+        return customer;
     }
 
     public void deleteReservation(){

@@ -125,13 +125,42 @@ public class DbInit {
                 .division(division)
                 .build();
 
+        Car car2 = Car.builder()
+                .brand("Renault")
+                .model("Clio")
+                .production_year(Year.of(2019))
+                .body_type("Hatchback")
+                .cost_per_day(new BigDecimal("150"))
+                .mileage(50000)
+                .color("Grey")
+                .status(Car.RentStatus.AVAILABLE)
+                .division(division)
+                .build();
+
+        Car car3 = Car.builder()
+                .brand("Hyundai")
+                .model("i30")
+                .production_year(Year.of(2022))
+                .body_type("Sedan")
+                .cost_per_day(new BigDecimal("200"))
+                .mileage(1000)
+                .color("Brown")
+                .status(Car.RentStatus.AVAILABLE)
+                .division(division)
+                .build();
+
         addressRepository.save(address);
         addressRepository.save(address2);
         divisionRepository.save(division);
         divisionRepository.save(division2);
         carRepository.save(car);
         carRepository.save(car1);
+        carRepository.save(car2);
+        carRepository.save(car3);
         division.addCar(car);
+        division.addCar(car1);
+        division.addCar(car2);
+        division.addCar(car3);
         divisionRepository.save(division);
 
 
@@ -155,8 +184,11 @@ public class DbInit {
             .build();
 
         reservationRepository.save(reservation);
+        customer.addReservation(reservation);
+        car.setStatus(Car.RentStatus.RENTED);
         car.setReservation(reservation);
         carRepository.save(car);
+        userRepository.save(customer);
 
         CarRental carRental = CarRental.builder()
             .rentalStatus(CarRental.RentalStatus.ONGOING)

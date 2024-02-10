@@ -25,7 +25,7 @@ public class Reservation {
     private Car car;
     
     @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @JoinColumn(name = "USERS_ID")
     private Customer customer;
 
     private String rental_division;

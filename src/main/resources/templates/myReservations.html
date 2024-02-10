@@ -60,7 +60,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="reservation: ${reservationsList}" th:if="${currentUser.getReservation_id() == reservation.getId()}">
+                        <tr th:each="reservation: ${reservationsList}"}>
                             <td th:text="${reservation.getId()}"></td>
                             <td th:text="${reservation.getCar().getBrand()} + ' ' + ${reservation.getCar().getBrand()}"></td>
                             <td th:text="${reservation.isGoing_abroad()}"></td>
