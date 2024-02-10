@@ -37,15 +37,8 @@ public class UserRegistrationController {
     
     // POST /register
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDTO userDTO, @RequestParam("roleId") Integer roleId, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-        
-        Role selectedRole = roleRepository.findById(roleId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid role ID: " + roleId));
-        userDTO.setRole(selectedRole);
-        
+    public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDTO userDTO) {
+        Role selectedRole = userDTO.getRole();
         if (selectedRole.getRoleName().equals(PrincipalRole.ADMIN.name())) {
             userRegistrationService.registerAdmin(userDTO);
         } else if (selectedRole.getRoleName().equals(PrincipalRole.EMPLOYEE.name())) {
