@@ -25,6 +25,7 @@ public class DivisionMapper {
                 .division_id(division.getDivision_id())
                 .address(division.getAddress())
                 .employees(employees)
+                .manager(employeeMapper.getDto(division.getManager()))
                 .build();
     }
 
@@ -36,6 +37,7 @@ public class DivisionMapper {
             .address(divisionDTO.getAddress())
             .employees(division.getEmployees())
             .cars(division.getCars())
+            .manager(employeeMapper.getUserClass(divisionDTO.getManager()))
             .build();
     }
 }

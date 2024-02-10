@@ -28,6 +28,9 @@ public class Division {
     @OneToMany(mappedBy = "division")
     @ToString.Exclude
     private List<Car> cars = new ArrayList<>();
+    @OneToOne
+    @ToString.Exclude
+    private Employee manager;
 
 
     public void addEmployee(Employee employee) {

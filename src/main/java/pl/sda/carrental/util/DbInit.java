@@ -133,6 +133,9 @@ public class DbInit {
         employeeRepository.save(employee2);
         customerRepository.save(customer);
 
+        division.setManager(employee);
+        divisionRepository.save(division);
+
         Reservation reservation = Reservation.builder()
             .rental_division(division)
             .return_division(division)
