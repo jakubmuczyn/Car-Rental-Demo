@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.sda.carrental.model.dataTransfer.DivisionDTO;
 import pl.sda.carrental.model.dataTransfer.mappers.DivisionMapper;
 import pl.sda.carrental.model.entity.Division;
+import pl.sda.carrental.model.entity.userEntities.Employee;
 import pl.sda.carrental.model.repository.AddressRepository;
 import pl.sda.carrental.model.repository.DivisionRepository;
 
@@ -35,6 +36,7 @@ public class DivisionController {
 
         model.addAttribute("division", divisionDTO);
         model.addAttribute("addresses", addressRepository.findAll());
+        model.addAttribute("positions", Employee.Position.values());
         return "divisionPanels/divisionEdit";
     }
     @PostMapping("/divisions/edit/save")

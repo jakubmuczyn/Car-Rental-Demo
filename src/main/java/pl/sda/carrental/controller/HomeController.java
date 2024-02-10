@@ -12,9 +12,7 @@ public class HomeController {
     }
 
     @GetMapping("/oops")
-    public String notImplementedYet() {
-       return "toBeImplemented";
-    }
+    public String notImplementedYet() { return "toBeImplemented"; }
 
     @GetMapping("/logout")
     public String logout() {
