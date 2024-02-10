@@ -11,6 +11,9 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/oops")
+    public String notImplementedYet() { return "toBeImplemented"; }
+
     @GetMapping("/logout")
     public String logout() {
         return "redirect:/login";

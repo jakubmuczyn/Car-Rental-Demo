@@ -1,0 +1,67 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Edit Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<div id="head" th:replace="~{home :: header}"></div>
+<div class="container mt-5">
+    <h1 class="display-8">Division edit form</h1>
+    <form method="post" th:action="@{/divisions/edit/save}" th:object="${division}" class="needs-validation" novalidate>
+
+        <input type="hidden" name="division_id" th:value="*{division_id}">
+
+
+        <div class="mb-3">
+            <label for="address-input" class="form-label">Address:</label>
+            <select id="address-input" name="address" class="form-select" th:field="*{address}" required>
+                <option th:each="a : ${addresses}" th:value="${a.getAddress_id()}" th:text="${a}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="manager-input" class="form-label">Manager:</label>
+            <select id="manager-input" name="manager" class="form-select" th:field="*{manager}">
+                <option th:each="e : *{employees}" th:value="${e.id}" th:text="${e.name}"></option>
+            </select>
+        </div>
+
+        <div class="userPanel">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Mail</th>
+                    <th scope="col">Remove</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${division.employees.isEmpty()}"><td colspan="2"> No users available. Which is impossible, so something went wrong dog.</td></tr>
+                <tr th:each="user : ${division.getEmployees()}" th:with="isManager=${user.getId() == division.getManager().getId()}">
+                    <td><span th:text="${user.getName()}" > Name </span> <span th:if="${isManager}"> 💼</span> </td>
+                    <td><span th:text="${user.getEmail()}" > Mail </span> </td>
+                    <td>
+                        <a th:href="'/divisions/' + ${division.getDivision_id()} + '/edit/removeEmployee/' + ${user.getId()}" th:unless="${isManager}">Remove employee</a>
+                        <span th:if="${isManager}"> Can't remove manager</span>
+                    </td>
+<!--                    <td><span th:text="${user.getPosition()}"> Position </span> </td>-->
+                </tr>
+                <tr></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a th:href="'/employeeSelection/' + ${division_id}" class="btn btn-secondary">Add user</a>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

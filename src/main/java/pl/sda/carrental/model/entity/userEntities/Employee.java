@@ -15,7 +15,6 @@ import pl.sda.carrental.model.entity.Division;
 @Table(name = "Employees")
 public class Employee extends User {
 
-    //TODO: Why this works with enum but Car doesn't
     @Enumerated(EnumType.STRING)
     private Position position;
     

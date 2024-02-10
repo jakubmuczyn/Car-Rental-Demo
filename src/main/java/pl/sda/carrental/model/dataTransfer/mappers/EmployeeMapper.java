@@ -9,20 +9,21 @@ import pl.sda.carrental.model.repository.userRepositories.EmployeeRepository;
 
 @Service
 public class EmployeeMapper implements UserDtoMapper<Employee, EmployeeDTO> {
-    
+
     private final EmployeeRepository employeeRepository;
     private final DivisionRepository divisionRepository;
-    
+
     public EmployeeMapper(EmployeeRepository employeeRepository, DivisionRepository divisionRepository) {
         this.employeeRepository = employeeRepository;
         this.divisionRepository = divisionRepository;
     }
-    
+
+
     @Override
     public Employee getUserClass(EmployeeDTO dto) {
         Employee employee = employeeRepository.getReferenceById(dto.getId());
-        Division division = divisionRepository.findById(dto.getDivisionDTO().getDivisionId()).get();
-        
+        Division division = dto.getDivisionDTO() == null ? null : divisionRepository.findById(dto.getDivisionDTO().getDivisionId()).get();
+
         return Employee.builder()
                 .id(dto.getId())
                 .username(dto.getUsername())
@@ -35,10 +36,11 @@ public class EmployeeMapper implements UserDtoMapper<Employee, EmployeeDTO> {
                 .isActive(dto.isActive())
                 .build();
     }
-    
+
     @Override
     public EmployeeDTO getDto(Employee userClass) {
-        EmployeeDTO.DivisionDTO divisionDTO = new EmployeeDTO.DivisionDTO(userClass.getDivision().getDivision_id(), userClass.getDivision().getAddress().toString());
+        EmployeeDTO.DivisionDTO divisionDTO = userClass.getDivision() == null ? null : new EmployeeDTO.DivisionDTO(u.getDivision().getDivision_id(), u.getDivision().getAddress().toString());
+
         return EmployeeDTO.builder()
                 .id(userClass.getId())
                 .username(userClass.getUsername())
@@ -50,4 +52,5 @@ public class EmployeeMapper implements UserDtoMapper<Employee, EmployeeDTO> {
                 .isActive(userClass.isActive())
                 .build();
     }
+
 }

@@ -6,7 +6,6 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
@@ -15,7 +14,6 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long address_id;
-
     @Column(nullable = false)
     private String city;
     @Column(nullable = false)
@@ -23,5 +21,8 @@ public class Address {
     @Column(nullable = false)
     private String state;
 
+    public String toString() {
+        return city + ", " + address + " (" + state + ")";
+    }
 
 }

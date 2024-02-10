@@ -52,17 +52,29 @@ public class DbInit {
     }
 
     private void testDatabase() {
-        Address dbTestAddress = Address.builder()
+        Address address = Address.builder()
                 .address("Testowa 12")
                 .state("Łódzkie")
                 .city("Łódź")
                 .build();
-        addressRepository.save(dbTestAddress);
-
-        Division dbTestDivision = Division.builder()
-                .address(dbTestAddress)
+        Address address_2 = Address.builder()
+                .address("Pod testami 18")
+                .state("Wielkopolskie")
+                .city("Poznań")
                 .build();
-        divisionRepository.save(dbTestDivision);
+        Address address_3 = Address.builder()
+                .address("Dj'a tiestio 15")
+                .state("Kujawsko-Pomorskie")
+                .city("Bydgoszcz")
+                .build();
+
+        Division division = Division.builder()
+                .address(address)
+                .build();
+
+        Division division2 = Division.builder()
+                .address(address_2)
+                .build();
 
         Role adminRole = Role.builder().roleName(PrincipalRole.ADMIN.name()).build();
         Role employeeRole = Role.builder().roleName(PrincipalRole.EMPLOYEE.name()).build();
@@ -87,7 +99,7 @@ public class DbInit {
                 .email("wiktor.traktor@company.com")
                 .position(Employee.Position.MANAGER)
                 .role(employeeRole)
-                .division(dbTestDivision)
+                .division(division)
                 .password(passwordEncoder.encode("manager"))
                 .build();
         employeeRepository.save(dbTestManager);
@@ -98,10 +110,9 @@ public class DbInit {
                 .email("jan.kowalski@company.com")
                 .position(Employee.Position.EMPLOYEE)
                 .role(employeeRole)
-                .division(dbTestDivision)
+                .division(division)
                 .password(passwordEncoder.encode("employee"))
                 .build();
-        employeeRepository.save(dbTestEmployee);
 
         Customer dbTestCustomer = Customer.builder()
                 .username("customer")
@@ -111,7 +122,64 @@ public class DbInit {
                 .password(passwordEncoder.encode("customer"))
                 .build();
         customerRepository.save(dbTestCustomer);
+        Employee employee2 = Employee.builder()
+                .division(division)
+                .name("Maciej Nowak")
+                .position(Employee.Position.EMPLOYEE)
+                .email("maciej.nowak@company.com")
+                .password(passwordEncoder.encode("nowak"))
+                .username("nowak")
+                .role(employeeRole)
+                .build();
 
+        Employee employee3 = Employee.builder()
+                .division(division2)
+                .name("Adam Nawałka")
+                .position(Employee.Position.EMPLOYEE)
+                .email("adam.nawalka@company.com")
+                .password(passwordEncoder.encode("nawalka"))
+                .username("nawalka")
+                .role(employeeRole)
+                .build();
+
+        Employee employee4 = Employee.builder()
+                .division(division2)
+                .name("Konrad Paczko")
+                .position(Employee.Position.EMPLOYEE)
+                .email("konrad.paczko@company.com")
+                .password(passwordEncoder.encode("konrad"))
+                .username("konrad")
+                .role(employeeRole)
+                .build();
+
+        Customer customer = Customer.builder()
+            .name("Maciej Konsument")
+            .email("maciej.konsument@gmail.com")
+            .password(passwordEncoder.encode("klient"))
+            .role(customerRole)
+            .username("klient")
+            .build();
+
+        Car car = Car.builder()
+            .brand("Toyota")
+            .model("Corolla")
+            .production_year(Year.of(2020))
+            .body_type("Sedan")
+            .cost_per_day(new BigDecimal("200"))
+            .mileage(260000)
+            .color("Blue")
+            .status(Car.RentStatus.AVAILABLE)
+            .division(division)
+            .build();
+
+        addressRepository.save(address);
+        addressRepository.save(address_2);
+        addressRepository.save(address_3);
+        divisionRepository.save(division);
+        divisionRepository.save(division2);
+        carRepository.save(car);
+        division.addCar(car);
+        divisionRepository.save(division);
         Car dbTestCar = Car.builder()
                 .brand("Toyota")
                 .model("Corolla")
@@ -121,7 +189,7 @@ public class DbInit {
                 .mileage(260000)
                 .color("Blue")
                 .status(Car.RentStatus.AVAILABLE)
-                .division(dbTestDivision)
+                .division(division)
                 .build();
         carRepository.save(dbTestCar);
 
@@ -134,7 +202,7 @@ public class DbInit {
                 .mileage(12000)
                 .color("Grey")
                 .status(Car.RentStatus.AVAILABLE)
-                .division(dbTestDivision)
+                .division(division)
                 .build();
         carRepository.save(dbTestCar1);
 
@@ -147,7 +215,7 @@ public class DbInit {
                 .mileage(340000)
                 .color("Silver")
                 .status(Car.RentStatus.AVAILABLE)
-                .division(dbTestDivision)
+                .division(division)
                 .build();
         carRepository.save(dbTestCar2);
 
@@ -160,15 +228,42 @@ public class DbInit {
                 .mileage(220000)
                 .color("Brown")
                 .status(Car.RentStatus.AVAILABLE)
-                .division(dbTestDivision)
+                .division(division)
                 .build();
         carRepository.save(dbTestCar3);
 
+        division.addEmployee(dbTestEmployee);
+        division.addEmployee(employee2);
+        division2.addEmployee(employee3);
+        division2.addEmployee(employee4);
+
+        employeeRepository.save(dbTestEmployee);
+        employeeRepository.save(employee2);
+        employeeRepository.save(employee3);
+        employeeRepository.save(employee4);
+        customerRepository.save(customer);
+
+        division.setManager(employee2);
+        division2.setManager(employee3);
+        divisionRepository.save(division);
+        divisionRepository.save(division2);
+
+        Reservation reservation = Reservation.builder()
+            .rental_division(division.getAddress().getCity())
+            .return_division(division.getAddress().getCity())
+            .employee(dbTestEmployee)
+            .customer(customer)
+            .car(car)
+            .reservation_start(LocalDateTime.now())
+            .reservation_end(LocalDateTime.now().plusDays(7))
+            .cost(new BigDecimal("20.50"))
+            .reservation_date(LocalDate.now())
+            .build();
         Date date1 = new Date();
         Date date2 = new Date();
         Reservation dbTestReservation = Reservation.builder()
-                .rental_division(dbTestDivision.getAddress().getCity())
-                .return_division(dbTestDivision.getAddress().getCity())
+                .rental_division(division.getAddress().getCity())
+                .return_division(division.getAddress().getCity())
                 .customer(dbTestCustomer)
                 .car(dbTestCar)
                 .reservation_start(date1)
@@ -198,15 +293,15 @@ public class DbInit {
                 .build();
         transactionRepository.save(dbTestTransaction);
 
-        dbTestDivision.addEmployee(dbTestEmployee);
-        dbTestDivision.addCar(dbTestCar);
-        divisionRepository.save(dbTestDivision);
+        division.addEmployee(dbTestEmployee);
+        division.addCar(dbTestCar);
+        divisionRepository.save(division);
 
         dbTestCar.setReservation(dbTestReservation);
         carRepository.save(dbTestCar);
 
         testPrint();
-        System.out.println(dbTestDivision.getCars());
+        System.out.println(division.getCars());
     }
 
     private void testPrint() {

@@ -1,13 +1,9 @@
 package pl.sda.carrental.model.dataTransfer.mappers;
 
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.stereotype.Service;
 import pl.sda.carrental.model.dataTransfer.AdminDTO;
-import pl.sda.carrental.model.dataTransfer.CustomerDTO;
 import pl.sda.carrental.model.entity.userEntities.Administrator;
-import pl.sda.carrental.model.entity.userEntities.Customer;
 import pl.sda.carrental.model.repository.userRepositories.AdministratorRepository;
-import pl.sda.carrental.model.repository.userRepositories.CustomerRepository;
 
 @Service
 public class AdministratorMapper implements UserDtoMapper<Administrator, AdminDTO> {
