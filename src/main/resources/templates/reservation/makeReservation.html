@@ -1,0 +1,108 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Make reservation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <style>
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<nav th:fragment="header" class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">CAR RENTAL INC</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li th:text="'Witaj, ' + ${currentUser != null ? currentUser.getName() : 'Gościu'}" class="navbar-text d-inline nowrap" > </li>
+            <li class="nav-item d-inline nowrap" >
+                <a class="nav-link active" aria-current="page" th:href="@{/myReservations}">Moje rezerwacje</a>
+            </li>
+            <li class="nav-item d-inline nowrap" >
+                <a class="nav-link active" aria-current="page" th:href="@{/users}">Użytkownicy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/logout}">Wyloguj</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br /><br />
+<div class="container">
+    <div class="row">
+        <h1>Wybrany samochód</h1>
+        <div class="form-group mb-3">
+            <table class = "table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <td>Marka</td>
+                    <td>Model</td>
+                    <td>Rodzaj nadwozia</td>
+                    <td>Rok produkcji</td>
+                    <td>Kolor</td>
+                    <td>Przebieg</td>
+                    <td>Cena za dobe</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${car.getBrand()}"></td>
+                    <td th:text="${car.getModel()}"></td>
+                    <td th:text="${car.getBody_type()}"></td>
+                    <td th:text="${car.getProduction_year()}"></td>
+                    <td th:text="${car.getColor()}"></td>
+                    <td th:text="${car.getMileage()}"></td>
+                    <td th:text="${car.getCost_per_day()}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div th:with="insurance = ${79}, abroad = ${100}, cost = ${car.getCost_per_day()}">
+            <form method="post" th:action="@{/summary/__${car.getId()}__}" th:object="${reservation}">
+                <div class="form-group mb-3">
+                    <label class="control-label">Oddział odebrania samochodu:</label>
+                    <select class="ui fluid search dropdown" id="rental_division" name="rental_division"  th:field="*{rental_division}">
+                        <option th:each="division : ${divisionList}" th:text="${division.getAddress().getCity()}" th:value="${division.getAddress().getCity()}"></option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Oddział zwrócenie samochodu:</label>
+                    <select class="ui fluid search dropdown" id="return_division" name="return_division"  th:field="*{return_division}">
+                        <option th:each="division : ${divisionList}" th:text="${division.getAddress().getCity()}" th:value="${division.getAddress().getCity()}"></option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Data rozpoczęcia rezerwacji:</label>
+                    <input type="date" id="reservation_start" name="reservation_start" th:field="*{reservation_start}" class="form-control"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Data zakończenia rezerwacji:</label>
+                    <input type="date" id="reservation_end" name="reservation_end" th:field="*{reservation_end}" class="form-control"/>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Zaznacz dodatkowe ubezpieczenie jeśli potrzebne (79zł/dzień): </label>
+                    <input type="checkbox" id="insurance" name="insurance" th:field="*{insurance}">
+                </div>
+                <div class="form-group mb-3">
+                    <label class="control-label">Zgoda na wyjazd za granice (100zł): </label>
+                    <input type="checkbox" id="goind_abroad" name="goind_abroad" th:field="*{going_abroad}">
+                </div>
+                <div>
+                    <input type="hidden" id="cost" name="cost" th:value="${#numbers.formatDecimal(1,1,2, 'POINT')}">
+                </div>
+                <div class="form-group mb-3">
+                    <button type="submit" class="btn btn-primary">Rezerwuj!</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

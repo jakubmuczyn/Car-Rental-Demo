@@ -14,13 +14,15 @@ import java.time.Year;
 @Setter
 @Table(name = "Cars")
 public class Car {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "DIVISION_ID")
     private Division division;
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Reservation reservation;
 
@@ -34,9 +36,10 @@ public class Car {
     private RentStatus status;
     private BigDecimal cost_per_day;
 
-
     public enum RentStatus {
-        RENTED, AVAILABLE, UNAVAILABLE;
+        RENTED, AVAILABLE, UNAVAILABLE
     }
-
+    public void addReservationId(Reservation reservation) {
+        this.reservation = reservation;
+    }
 }

@@ -21,7 +21,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+//test
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -41,6 +45,7 @@ public class DbInit {
     private final TransactionRepository transactionRepository;
     private final RoleService roleService;
 
+
     @PostConstruct
     private void postConstruct() {
         testDatabase();
@@ -53,19 +58,19 @@ public class DbInit {
                 .city("Łódź")
                 .build();
         addressRepository.save(dbTestAddress);
-        
+
         Division dbTestDivision = Division.builder()
                 .address(dbTestAddress)
                 .build();
         divisionRepository.save(dbTestDivision);
-        
+
         Role adminRole = Role.builder().roleName(PrincipalRole.ADMIN.name()).build();
         Role employeeRole = Role.builder().roleName(PrincipalRole.EMPLOYEE.name()).build();
         Role customerRole = Role.builder().roleName(PrincipalRole.CUSTOMER.name()).build();
         roleRepository.save(adminRole);
         roleRepository.save(employeeRole);
         roleRepository.save(customerRole);
-        
+
         Administrator dbTestAdmin = Administrator.builder()
                 .username("admin")
                 .name("Admin Adminowy")
@@ -75,7 +80,7 @@ public class DbInit {
                         .encode("admin"))
                 .build();
         administratorRepository.save(dbTestAdmin);
-        
+
         Employee dbTestManager = Employee.builder()
                 .username("manager")
                 .name("Wiktor Traktor")
@@ -86,7 +91,7 @@ public class DbInit {
                 .password(passwordEncoder.encode("manager"))
                 .build();
         employeeRepository.save(dbTestManager);
-        
+
         Employee dbTestEmployee = Employee.builder()
                 .username("employee")
                 .name("Jan Kowalski")
@@ -97,7 +102,7 @@ public class DbInit {
                 .password(passwordEncoder.encode("employee"))
                 .build();
         employeeRepository.save(dbTestEmployee);
-        
+
         Customer dbTestCustomer = Customer.builder()
                 .username("customer")
                 .name("Maciej Konsument")
@@ -106,7 +111,7 @@ public class DbInit {
                 .password(passwordEncoder.encode("customer"))
                 .build();
         customerRepository.save(dbTestCustomer);
-        
+
         Car dbTestCar = Car.builder()
                 .brand("Toyota")
                 .model("Corolla")
@@ -119,20 +124,64 @@ public class DbInit {
                 .division(dbTestDivision)
                 .build();
         carRepository.save(dbTestCar);
-        
+
+        Car dbTestCar1 = Car.builder()
+                .brand("Audi")
+                .model("A4")
+                .production_year(Year.of(2023))
+                .body_type("Sedan")
+                .cost_per_day(new BigDecimal("1000"))
+                .mileage(12000)
+                .color("Grey")
+                .status(Car.RentStatus.AVAILABLE)
+                .division(dbTestDivision)
+                .build();
+        carRepository.save(dbTestCar1);
+
+        Car dbTestCar2 = Car.builder()
+                .brand("Renault")
+                .model("Clio")
+                .production_year(Year.of(2019))
+                .body_type("Hatchback")
+                .cost_per_day(new BigDecimal("150"))
+                .mileage(340000)
+                .color("Silver")
+                .status(Car.RentStatus.AVAILABLE)
+                .division(dbTestDivision)
+                .build();
+        carRepository.save(dbTestCar2);
+
+        Car dbTestCar3 = Car.builder()
+                .brand("Hyundai")
+                .model("i30")
+                .production_year(Year.of(2020))
+                .body_type("Sedan")
+                .cost_per_day(new BigDecimal("200"))
+                .mileage(220000)
+                .color("Brown")
+                .status(Car.RentStatus.AVAILABLE)
+                .division(dbTestDivision)
+                .build();
+        carRepository.save(dbTestCar3);
+
+        Date date1 = new Date();
+        Date date2 = new Date();
         Reservation dbTestReservation = Reservation.builder()
-                .rental_division(dbTestDivision)
-                .return_division(dbTestDivision)
-                .employee(dbTestEmployee)
+                .rental_division(dbTestDivision.getAddress().getCity())
+                .return_division(dbTestDivision.getAddress().getCity())
                 .customer(dbTestCustomer)
                 .car(dbTestCar)
-                .reservation_start(LocalDateTime.now())
-                .reservation_end(LocalDateTime.now().plusDays(7))
+                .reservation_start(date1)
+                .reservation_end(date2)
                 .cost(new BigDecimal("20.50"))
-                .reservation_date(LocalDate.now())
                 .build();
         reservationRepository.save(dbTestReservation);
-        
+        dbTestCustomer.addReservation(dbTestReservation);
+        dbTestCar.addReservationId(dbTestReservation);
+        dbTestCar.setStatus(Car.RentStatus.RENTED);
+        customerRepository.save(dbTestCustomer);
+        carRepository.save(dbTestCar);
+
         CarRental dbTestCarRental = CarRental.builder()
                 .rentalStatus(CarRental.RentalStatus.ONGOING)
                 .employee(dbTestEmployee)
@@ -141,18 +190,18 @@ public class DbInit {
                 .comment("Test comment")
                 .build();
         carRentalRepository.save(dbTestCarRental);
-        
+
         Transaction dbTestTransaction = Transaction.builder()
                 .carRental(dbTestCarRental)
                 .transactionDate(LocalDate.now())
                 .transactionAmount(dbTestCarRental.getReservation().getCost())
                 .build();
         transactionRepository.save(dbTestTransaction);
-        
+
         dbTestDivision.addEmployee(dbTestEmployee);
         dbTestDivision.addCar(dbTestCar);
         divisionRepository.save(dbTestDivision);
-        
+
         dbTestCar.setReservation(dbTestReservation);
         carRepository.save(dbTestCar);
 

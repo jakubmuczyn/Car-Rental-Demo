@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 
 @ControllerAdvice
 public class ErrorController {
-
     private static Logger logger = LoggerFactory.getLogger(ErrorController.class);
 
     @ExceptionHandler(Throwable.class)

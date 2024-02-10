@@ -2,7 +2,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Reservation</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet">
     <style>
@@ -35,11 +35,41 @@
     </div>
 </nav>
 <br /><br />
-
 <div class="container">
     <div class="row">
-        <img th:src="@{https://gifsec.com/wp-content/uploads/2022/09/welcome-gif-2.gif}" style="width: 50%; height: auto;">
-        <a th:href="reservation">Zarezerwuj samochdów!</a>
+        <h1>Zarezerwuj swój samochdów!</h1>
+        <div class="form-group mb-3">
+            <table class = "table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <td>Marka</td>
+                    <td>Model</td>
+                    <td>Rodzaj nadwozia</td>
+                    <td>Rok produkcji</td>
+                    <td>Kolor</td>
+                    <td>Przebieg</td>
+                    <td>Cena za dobe</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="car: ${carList}">
+                    <td th:text="${car.getBrand()}"></td>
+                    <td th:text="${car.getModel()}"></td>
+                    <td th:text="${car.getBody_type()}"></td>
+                    <td th:text="${car.getProduction_year()}"></td>
+                    <td th:text="${car.getColor()}"></td>
+                    <td th:text="${car.getMileage()}"></td>
+                    <td th:text="${car.getCost_per_day()}"></td>
+                    <td th:text="${car.getStatus}"></td>
+                    <td th:if="${car.status.name == 'AVAILABLE'}">
+                        <a th:href="@{/makeReservation/__${car.getId()}__}">Rezerwuj!</a>
+                    </td>
+                    <td th:unless="${car.status.name() == 'AVAILABLE'}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </body>
