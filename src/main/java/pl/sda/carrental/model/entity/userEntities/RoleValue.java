@@ -2,6 +2,7 @@ package pl.sda.carrental.model.entity.userEntities;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import pl.sda.carrental.service.RoleValueValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
