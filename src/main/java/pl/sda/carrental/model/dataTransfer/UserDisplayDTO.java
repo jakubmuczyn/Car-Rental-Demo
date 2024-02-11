@@ -18,6 +18,8 @@ public class UserDisplayDTO {
     private boolean isCustomer;
     private boolean isActive;
     private boolean isCurrentlyLoggedIn;
+    @Builder.Default
+    private boolean isManager = true;
       public static class UserDisplayDTOBuilder {
         public UserDisplayDTOBuilder principalRole(String principalRole) {
             this.principalRole = principalRole;

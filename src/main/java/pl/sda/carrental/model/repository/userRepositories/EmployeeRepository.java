@@ -1,5 +1,6 @@
 package pl.sda.carrental.model.repository.userRepositories;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,4 +17,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query("SELECT e FROM Employee e where e.isActive = True and e.id not in (select manager.id from Division)")
     List<Employee> findAllActiveNonManagers();
+
+    boolean existsById(@NotNull Long id);
 }
