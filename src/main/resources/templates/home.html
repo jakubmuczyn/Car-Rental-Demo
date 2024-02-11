@@ -29,7 +29,10 @@
                 <a class="nav-link active" aria-current="page" th:href="@{/users}">Użytkownicy</a>
             </li>
             <li class="nav-item d-inline nowrap" >
-                <a class="nav-link active" aria-current="page" th:href="@{/divisions}">Divisions</a>
+                <a class="nav-link active" aria-current="page" th:href="@{/divisions}">Oddziały</a>
+            </li>
+            <li class="nav-item d-inline nowrap" >
+                <a class="nav-link active" aria-current="page" th:href="@{/fleet}">Flota</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" th:href="@{/logout}">Wyloguj</a>
@@ -42,7 +45,8 @@
 <div class="container">
     <div class="row">
         <img th:src="@{https://gifsec.com/wp-content/uploads/2022/09/welcome-gif-2.gif}" style="width: 50%; height: auto;">
-        <a th:href="reservation">Zarezerwuj samochdów!</a>
+        <br>
+        <a th:href="reservation">Zarezerwuj samochód!</a>
     </div>
 </div>
 </body>
