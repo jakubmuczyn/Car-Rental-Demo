@@ -5,10 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import pl.sda.carrental.model.dataTransfer.CarDTO;
-import pl.sda.carrental.model.dataTransfer.mappers.CarMapper;
-import pl.sda.carrental.model.entity.Car;
-import pl.sda.carrental.model.repository.CarRepository;
+import pl.sda.carrental.model.dataTransfer.CreateDivisionDTO;
 import pl.sda.carrental.service.CarService;
 
 import java.util.List;
@@ -34,4 +33,25 @@ public class CarController {
         model.addAttribute("car", carDto);
         return "fleet/fleetPanelCar";
     }
+    
+    
+    
+    
+    
+    
+    @GetMapping("/fleet/add")
+    public String addCar(Model model) {
+        model.addAttribute("newCar", new CarDTO());
+        return "fleet/add";
+    }
+    @PostMapping("/fleet/add")
+    public String addCar(CarDTO newCar) {
+        carService.addCar(newCar);
+        return "redirect:/fleet";
+    }
+    
+    
+    
+    
+    
 }

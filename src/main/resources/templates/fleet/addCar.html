@@ -1,0 +1,43 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <style>
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<div id="head" th:replace="~{home :: header}"></div>
+<div class="userPanel">
+    <form th:action="@{/fleet/add}" method="post">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Marka</th>
+                <th scope="col">Model</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Username</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${users.isEmpty()}"><td colspan="3"> No users available. Which is impossible, so something went wrong dog.</td></tr>
+            <tr th:each="user : ${users}">
+                <td><input type="checkbox" th:name="'selectedUsers'" th:value="${user.id}" /></td>
+                <td><span th:text="*{user.getName()}"> Name </span> </td>
+                <td><span th:text="*{user.getName()}"> Name </span> </td>
+                <td><span th:text="${user.getEmail()}"> Mail </span> </td>
+                <td><span th:text="${user.getUsername()}"> Username </span> </td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="hidden" th:value="${division_id}" name="division_id">
+        <button type="submit" class="btn btn-primary" th:unless="${users.isEmpty()}">Select these employees</button>
+    </form>
+</div>
+</body>
