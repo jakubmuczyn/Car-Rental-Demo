@@ -1,5 +1,5 @@
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -22,21 +22,29 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li th:text="'Witaj, ' + ${currentUser != null ? currentUser.getName() : 'Gościu'}" class="navbar-text d-inline nowrap" > </li>
-            <li class="nav-item d-inline nowrap" >
-                <a class="nav-link active" aria-current="page" th:href="@{/myReservations}">Moje rezerwacje</a>
-            </li>
-            <li class="nav-item d-inline nowrap" >
-                <a class="nav-link active" aria-current="page" th:href="@{/users}">Użytkownicy</a>
-            </li>
-            <li class="nav-item d-inline nowrap" >
-                <a class="nav-link active" aria-current="page" th:href="@{/divisions}">Oddziały</a>
-            </li>
-            <li class="nav-item d-inline nowrap" >
-                <a class="nav-link active" aria-current="page" th:href="@{/fleet}">Flota</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" th:href="@{/logout}">Wyloguj</a>
-            </li>
+                <div sec:authorize="hasAuthority('CUSTOMER')">
+                    <li class="nav-item d-inline nowrap" >
+                        <a class="nav-link active" aria-current="page" th:href="@{/myReservations}">Moje rezerwacje</a>
+                    </li>
+                </div>
+                <span sec:authorize="hasAuthority('ADMIN') or hasAuthority('EMPLOYEE')">
+                    <li class="nav-item d-inline nowrap" >
+                        <a class="nav-link active" aria-current="page" th:href="@{/users}">Użytkownicy</a>
+                    </li>
+                </span>
+                <span sec:authorize="hasAuthority('ADMIN') or hasAuthority('EMPLOYEE')">
+                    <li class="nav-item d-inline nowrap" >
+                        <a class="nav-link active" aria-current="page" th:href="@{/divisions}">Oddziały</a>
+                    </li>
+                </span>
+                <span sec:authorize="hasAuthority('ADMIN') or hasAuthority('EMPLOYEE')">
+                    <li class="nav-item d-inline nowrap" >
+                        <a class="nav-link active" aria-current="page" th:href="@{/fleet}">Flota</a>
+                    </li>
+                </span>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Wyloguj</a>
+                </li>
         </ul>
     </div>
 </nav>
@@ -45,8 +53,9 @@
 <div class="container">
     <div class="row">
         <img th:src="@{https://gifsec.com/wp-content/uploads/2022/09/welcome-gif-2.gif}" style="width: 50%; height: auto;">
-        <br>
-        <a th:href="reservation">Zarezerwuj samochód!</a>
+        <span sec:authorize="hasAuthority('CUSTOMER')">
+            <a th:href="reservation">Zarezerwuj samochód!</a>
+        </span>
     </div>
 </div>
 </body>
