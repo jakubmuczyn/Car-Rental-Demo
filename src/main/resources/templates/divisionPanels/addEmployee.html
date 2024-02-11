@@ -26,7 +26,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${users.isEmpty()}"><td colspan="3"> No users available. Which is impossible, so something went wrong dog.</td></tr>
+            <tr th:if="${users.isEmpty()}"><td colspan="4"> No users available. Which is impossible, so something went wrong dog.</td></tr>
             <tr th:each="user : ${users}">
                 <td><input type="checkbox" th:name="'selectedUsers'" th:value="${user.id}" /></td>
                 <td><span th:text="*{user.getName()}"> Name </span> </td>

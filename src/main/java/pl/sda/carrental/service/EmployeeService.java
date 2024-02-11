@@ -10,8 +10,7 @@ import pl.sda.carrental.model.repository.userRepositories.UserRepository;
 
 @Service
 public class EmployeeService extends UserService {
-    public EmployeeService(UserRepository<User> userRepository, AdministratorRepository adminRepository, EmployeeRepository employeeRepository, CustomerRepository customerRepository, EmployeeRepository employeeRepository1, AdministratorRepository administratorRepository, UserRepository userRepository1) {
-        super(userRepository, adminRepository, employeeRepository, customerRepository, employeeRepository1, administratorRepository, userRepository1);
+    public EmployeeService(UserRepository<User> userRepository, AdministratorRepository adminRepository, EmployeeRepository employeeRepository, CustomerRepository customerRepository, EmployeeRepository employeeRepository1, AdministratorRepository administratorRepository, UserRepository userRepository1, DivisionService divisionService) {
+        super(userRepository, adminRepository, employeeRepository, customerRepository, employeeRepository1, administratorRepository, userRepository1, divisionService);
     }
-
 }
