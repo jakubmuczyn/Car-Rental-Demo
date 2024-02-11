@@ -3,6 +3,7 @@ package pl.sda.carrental.model.dataTransfer;
 import lombok.Getter;
 import lombok.Setter;
 import pl.sda.carrental.model.entity.userEntities.Role;
+import pl.sda.carrental.model.entity.userEntities.RoleValue;
 
 @Getter
 @Setter
@@ -17,6 +18,7 @@ public class UserRegistrationDTO {
     // @Email(message = "Adres e-mail jest nieprawidłowy")
     private String email;
     
+    @RoleValue
     private Role role;
     
     private String password;
