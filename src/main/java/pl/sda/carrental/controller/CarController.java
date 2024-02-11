@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.sda.carrental.model.dataTransfer.CarDTO;
 import pl.sda.carrental.model.dataTransfer.CreateDivisionDTO;
+import pl.sda.carrental.model.repository.DivisionRepository;
+import pl.sda.carrental.model.repository.userRepositories.RoleRepository;
 import pl.sda.carrental.service.CarService;
 
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.List;
 public class CarController {
     
     private final CarService carService;
+    private final DivisionRepository divisionRepository;
     
     @GetMapping("/fleet")
     public String getListOfCars(Model model) {
@@ -37,6 +40,7 @@ public class CarController {
     @GetMapping("/fleet/add")
     public String addCar(Model model) {
         model.addAttribute("newCar", new CarDTO());
+        model.addAttribute("divisions", divisionRepository.findAll());
         return "fleet/addCar";
     }
     @PostMapping("/fleet/add")

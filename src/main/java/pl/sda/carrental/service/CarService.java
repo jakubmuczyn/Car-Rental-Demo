@@ -42,7 +42,7 @@ public class CarService {
     public void addCar(CarDTO newCar) {
         
         Car car = Car.builder()
-                .division(null)
+                .division(newCar.getDivision())
                 .reservation(null)
                 .brand(newCar.getBrand())
                 .model(newCar.getModel())

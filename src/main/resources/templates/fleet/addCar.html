@@ -52,6 +52,21 @@
                             <input type="text" id="mileage" name="mileage" class="form-control"
                                    placeholder="Enter mileage" th:value="${newCar.mileage}"/>
                         </div>
+
+
+
+
+                        <div class="form-group mb-3">
+                            <label class="control-label">Wybierz oddział:</label>
+                            <select name="division" th:field="*{division}" class="form-control">
+                                <option th:each="division : ${divisions}" th:value="${division.getDivision_id()}" th:text="${division.getAddress()}"></option>
+                            </select>
+                        </div>
+
+
+
+
+
                         <div class="form-group mb-3">
                             <a th:href="@{/fleet}">
                                 <button type="submit" class="btn btn-primary">Dodaj</button>
