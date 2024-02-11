@@ -32,7 +32,7 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "roleId")
     @NotNull
-    @Valid
+    @RoleValue
     private Role role;
 
     @Column(nullable = false)

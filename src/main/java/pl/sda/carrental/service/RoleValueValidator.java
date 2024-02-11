@@ -13,6 +13,6 @@ public class RoleValueValidator implements ConstraintValidator<RoleValue, Role> 
     
     @Override
     public boolean isValid(Role value, ConstraintValidatorContext context) {
-        return value != null && (value.getRoleName().equals("Admin") || value.getRoleName().equals("Employee") || value.getRoleName().equals("Customer"));
+        return value != null && (value.getRoleName().equals("ADMIN") || value.getRoleName().equals("EMPLOYEE") || value.getRoleName().equals("CUSTOMER"));
     }
 }
