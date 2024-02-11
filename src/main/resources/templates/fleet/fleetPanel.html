@@ -26,7 +26,6 @@
                 <div class="card-nav">
                     <a th:href="@{/fleet/add}" class="btn btn-primary">Dodaj auto</a>
                     <button type="button" class="btn btn-primary">Usuń auto</button>
-                    <button type="button" class="btn btn-primary">Wylistuj auta</button>
                 </div>
                 <div class="card-body">
                 </div>
@@ -34,11 +33,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 <table class="table">
     <thead>
     <tr>
@@ -63,16 +57,9 @@
         <td><span th:text="${car.getColor()}"></span></td>
         <td><span th:text="${car.getMileage()}"></span></td>
         <td><span th:text="${car.getStatus()}"></span></td>
-<!--        <td><a th:text="Zarządzaj" th:href="${'/divisions/' + division.getDivision_id()}"></a> </td>-->
+<!--        <td><a th:text="Zarządzaj" th:href="${'/fleet/' + division.getFleet_id()}"></a> </td>-->
     </tr>
     </tbody>
 </table>
-
-
-
-
-
-
-
 </body>
 </html>

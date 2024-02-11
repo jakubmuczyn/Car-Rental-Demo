@@ -26,23 +26,18 @@ public class CarController {
         return "fleet/fleetPanel";
     }
     
-    @GetMapping("/fleet/{id}")
-    public String getCarById(@PathVariable Long id, Model model) {
-        CarDTO carDto = carService.getById(id);
-        
-        model.addAttribute("car", carDto);
-        return "fleet/fleetPanelCar";
-    }
-    
-    
-    
-    
-    
+    // @GetMapping("/fleet/{id}")
+    // public String getCarById(@PathVariable Long id, Model model) {
+    //     CarDTO carDto = carService.getById(id);
+    //
+    //     model.addAttribute("car", carDto);
+    //     return "fleet/fleetPanelCar";
+    // }
     
     @GetMapping("/fleet/add")
     public String addCar(Model model) {
         model.addAttribute("newCar", new CarDTO());
-        return "fleet/add";
+        return "fleet/addCar";
     }
     @PostMapping("/fleet/add")
     public String addCar(CarDTO newCar) {
