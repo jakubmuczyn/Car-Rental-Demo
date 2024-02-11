@@ -36,8 +36,8 @@
                     <td th:if="${user.isEmployee()}"><a  th:href="@{/users/employee/} + ${user.getId()}">Edit</a></td>
                     <td th:if="${user.isCustomer()}"><a  th:href="@{/users/customer/} + ${user.getId()}">Edit</a></td>
                     <td th:if="${user.isAdministrator()}"><a  th:href="@{/users/administrator/} + ${user.getId()}">Edit</a></td>
-<!--                    TODO: It shouldn't be possible to disable a user, that is a manager -->
-                    <td th:if="${user.isEmployee()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}"></a></td>
+                    <td th:if="${!user.isManager() && user.isEmployee()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}"></a></td>
+                    <td th:if="${user.isManager()}">Cannot deactivate division managers</td>
                     <td th:if="${user.isCustomer()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}">Delete</a></td>
                     <td th:if="${user.isAdministrator()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}">Delete</a></td>
                 </div>
