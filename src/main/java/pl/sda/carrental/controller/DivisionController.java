@@ -56,7 +56,7 @@ public class DivisionController {
     @PostMapping("/divisions/edit/save")
     public String saveDivision(DivisionDTOForPanel divisionDTO) {
         divisionRepository.save(divisionMapper.getDivisionObject(divisionDTO));
-        return "redirect:/divisions/" + divisionDTO.getDivision_id();
+        return "redirect:/divisions/" + divisionDTO.getDivisionId();
     }
     @GetMapping("/divisions")
     public String getDivisions(Model model) {

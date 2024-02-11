@@ -29,7 +29,7 @@
         <td><span th:text="${division.toString()}"></span> </td>
         <td><span th:text="${division.getAddress()}"></span> </td>
         <td><span th:text="${division.getManager().getName()}"></span> </td>
-        <td><a th:text="Manage" th:href="${'/divisions/' + division.getDivision_id()}"></a> </td>
+        <td><a th:text="Manage" th:href="${'/divisions/' + division.getDivisionId()}"></a> </td>
         <!--        TODO: Add a button to deactivate division - frees up all the workers in it and changes isActive flag on division -->
 <!--        <div th:if="${user.getId() ne currentUser.getId()}">-->
 <!--            <td th:if="${user.isEmployee()}"><a  th:href="@{/users/employee/} + ${user.getId()}">Edit</a></td>-->
