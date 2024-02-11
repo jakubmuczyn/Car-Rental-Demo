@@ -167,7 +167,7 @@ public class DbInit {
 //            .role(customerRole)
 //            .username("klient")
 //            .build();
-
+        /*
         Car car = Car.builder()
             .brand("Toyota")
             .model("Corolla")
@@ -179,10 +179,10 @@ public class DbInit {
             .status(Car.RentStatus.AVAILABLE)
             .division(division)
             .build();
-
-
         carRepository.save(car);
         division.addCar(car);
+        */
+
         divisionRepository.save(division);
         Car dbTestCar = Car.builder()
                 .brand("Toyota")

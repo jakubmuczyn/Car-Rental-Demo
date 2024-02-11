@@ -17,10 +17,8 @@ import pl.sda.carrental.model.dataTransfer.mappers.CarMapper;
 import pl.sda.carrental.model.repository.CarRepository;
 import pl.sda.carrental.model.dataTransfer.mappers.DivisionMapper;
 import pl.sda.carrental.model.dataTransfer.mappers.ReservationMapper;
-import pl.sda.carrental.model.repository.userRepositories.CustomerRepository;
 import pl.sda.carrental.model.repository.userRepositories.RoleRepository;
 import pl.sda.carrental.model.repository.userRepositories.UserRepository;
-import pl.sda.carrental.security.PrincipalRole;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -96,10 +94,10 @@ public class ReservationService{
     public void deleteReservation(){
         List<ReservationDTO> reservationsList = getListOfReservations();
         Date todayDate = new Date();
-        for(int i = 0; i < reservationsList.size(); i++){
-            if(todayDate == reservationsList.get(i).getReservation_end()){
-                reservationsList.get(i).getCar().setStatus(Car.RentStatus.AVAILABLE);
-                reservationRepository.deleteById(reservationsList.get(i).getId());
+        for (ReservationDTO reservationDTO : reservationsList) {
+            if (todayDate == reservationDTO.getReservation_end()) {
+                reservationDTO.getCar().setStatus(Car.RentStatus.AVAILABLE);
+                reservationRepository.deleteById(reservationDTO.getId());
             }
         }
     }
