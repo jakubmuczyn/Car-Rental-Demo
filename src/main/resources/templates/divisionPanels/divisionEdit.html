@@ -16,7 +16,7 @@
     <h1 class="display-8">Division edit form</h1>
     <form method="post" th:action="@{/divisions/edit/save}" th:object="${division}" class="needs-validation" novalidate>
 
-        <input type="hidden" name="division_id" th:value="*{division_id}">
+        <input type="hidden" name="division_id" th:value="*{getDivisionId}">
 
 
         <div class="mb-3">
@@ -48,7 +48,7 @@
                     <td><span th:text="${user.getName()}" > Name </span> <span th:if="${isManager}"> 💼</span> </td>
                     <td><span th:text="${user.getEmail()}" > Mail </span> </td>
                     <td>
-                        <a th:href="'/divisions/' + ${division.getDivision_id()} + '/edit/removeEmployee/' + ${user.getId()}" th:unless="${isManager}">Remove employee</a>
+                        <a th:href="'/divisions/' + ${division.getDivisionId()} + '/edit/removeEmployee/' + ${user.getId()}" th:unless="${isManager}">Remove employee</a>
                         <span th:if="${isManager}"> Can't remove manager</span>
                     </td>
 <!--                    <td><span th:text="${user.getPosition()}"> Position </span> </td>-->

@@ -11,5 +11,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addViewControllers(final ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/springsecuritytest").setViewName("springsecuritytest");
+        registry.addViewController("/fleet").setViewName("fleet/fleetPanel");
     }
 }

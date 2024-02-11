@@ -15,12 +15,12 @@ public class CarMapper {
         carDto.setReservation(car.getReservation());
         carDto.setBrand(car.getBrand());
         carDto.setModel(car.getModel());
-        carDto.setBody_type(car.getBody_type());
-        carDto.setProduction_year(car.getProduction_year());
+        carDto.setBodyType(car.getBody_type());
+        carDto.setProductionYear(car.getProduction_year());
         carDto.setColor(car.getColor());
         carDto.setMileage(car.getMileage());
         carDto.setStatus(car.getStatus());
-        carDto.setCost_per_day(car.getCost_per_day());
+        carDto.setCostPerDay(car.getCost_per_day());
         return carDto;
     }
 
@@ -31,12 +31,12 @@ public class CarMapper {
         car.setReservation(carDto.getReservation());
         car.setBrand(carDto.getBrand());
         car.setModel(carDto.getModel());
-        car.setBody_type(carDto.getBody_type());
-        car.setProduction_year(carDto.getProduction_year());
+        car.setBody_type(carDto.getBodyType());
+        car.setProduction_year(carDto.getProductionYear());
         car.setColor(carDto.getColor());
         car.setMileage(carDto.getMileage());
         car.setStatus(carDto.getStatus());
-        car.setCost_per_day(carDto.getCost_per_day());
+        car.setCost_per_day(carDto.getCostPerDay());
         return car;
     }
 

@@ -13,13 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DivisionDTOForPanel {
-    private long division_id;
+    private long divisionId;
     private Address address;
     private List<EmployeeDTO> employees;
     private EmployeeDTO manager;
 
     public String toString() {
-        return "Division_" + (division_id < 10 ? "0" + division_id : String.valueOf(division_id));
+        return "Division_" + (divisionId < 10 ? "0" + divisionId : String.valueOf(divisionId));
     }
 
 }

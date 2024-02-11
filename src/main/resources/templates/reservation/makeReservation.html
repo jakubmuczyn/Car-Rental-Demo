@@ -34,15 +34,15 @@
                 <tr>
                     <td th:text="${car.getBrand()}"></td>
                     <td th:text="${car.getModel()}"></td>
-                    <td th:text="${car.getBody_type()}"></td>
-                    <td th:text="${car.getProduction_year()}"></td>
+                    <td th:text="${car.getBodyType()}"></td>
+                    <td th:text="${car.getProductionYear()}"></td>
                     <td th:text="${car.getColor()}"></td>
                     <td th:text="${car.getMileage()}"></td>
-                    <td th:text="${car.getCost_per_day()}"></td>
+                    <td th:text="${car.getCostPerDay()}"></td>
                 </tr>
                 </tbody>
             </table>
-            <div th:with="insurance = ${79}, abroad = ${100}, cost = ${car.getCost_per_day()}">
+            <div th:with="insurance = ${79}, abroad = ${100}, cost = ${car.getCostPerDay()}">
             <form method="post" th:action="@{/summary/__${car.getId()}__}" th:object="${reservation}">
                 <div class="form-group mb-3">
                     <label class="control-label">Oddział odebrania samochodu:</label>

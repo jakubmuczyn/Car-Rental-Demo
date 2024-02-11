@@ -34,7 +34,12 @@
                 </span>
                 <span sec:authorize="hasAuthority('ADMIN') or hasAuthority('EMPLOYEE')">
                     <li class="nav-item d-inline nowrap" >
-                        <a class="nav-link active" aria-current="page" th:href="@{/divisions}">Divisions</a>
+                        <a class="nav-link active" aria-current="page" th:href="@{/divisions}">Oddziały</a>
+                    </li>
+                </span>
+                <span sec:authorize="hasAuthority('ADMIN') or hasAuthority('EMPLOYEE')">
+                    <li class="nav-item d-inline nowrap" >
+                        <a class="nav-link active" aria-current="page" th:href="@{/fleet}">Flota</a>
                     </li>
                 </span>
                 <li class="nav-item">
@@ -49,7 +54,7 @@
     <div class="row">
         <img th:src="@{https://gifsec.com/wp-content/uploads/2022/09/welcome-gif-2.gif}" style="width: 50%; height: auto;">
         <span sec:authorize="hasAuthority('CUSTOMER')">
-            <a th:href="reservation">Zarezerwuj samochdów!</a>
+            <a th:href="reservation">Zarezerwuj samochód!</a>
         </span>
     </div>
 </div>

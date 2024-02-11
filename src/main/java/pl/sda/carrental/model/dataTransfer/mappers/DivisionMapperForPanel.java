@@ -21,7 +21,7 @@ public class DivisionMapperForPanel {
     public DivisionDTOForPanel getDivisionDTO(Division division) {
         List<EmployeeDTO> employees = division.getEmployees().stream().map(employeeMapper::getDto).toList();
         return DivisionDTOForPanel.builder()
-                .division_id(division.getDivision_id())
+                .divisionId(division.getDivision_id())
                 .address(division.getAddress())
                 .employees(employees)
                 .manager(employeeMapper.getDto(division.getManager()))
@@ -29,10 +29,10 @@ public class DivisionMapperForPanel {
     }
 
     public Division getDivisionObject(DivisionDTOForPanel divisionDTO) {
-        Division division = divisionRepository.findById(divisionDTO.getDivision_id()).get();
+        Division division = divisionRepository.findById(divisionDTO.getDivisionId()).get();
 
         return Division.builder()
-            .division_id(divisionDTO.getDivision_id())
+            .division_id(divisionDTO.getDivisionId())
             .address(divisionDTO.getAddress())
             .employees(division.getEmployees())
             .cars(division.getCars())

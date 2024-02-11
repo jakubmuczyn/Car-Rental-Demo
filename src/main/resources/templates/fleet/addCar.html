@@ -1,0 +1,73 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <style>
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<div id="head" th:replace="~{home :: header}"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Dodawanie nowego auta</h2>
+                </div>
+                <div class="card-body">
+                    <form role="form" th:action="@{/fleet/add}" th:object="${newCar}" method="post" class="form-horizontal">
+                        <div class="form-group mb-3">
+                            <label class="control-label">Marka:</label>
+                            <input type="text" id="brand" name="brand" class="form-control"
+                                   placeholder="Enter brand" th:value="${newCar.brand}"/>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label">Model:</label>
+                            <input type="text" id="model" name="model" class="form-control"
+                                   placeholder="Enter model" th:value="${newCar.model}"/>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label">Typ nadwozia:</label>
+                            <input type="text" id="bodyType" name="bodyType" class="form-control"
+                                   placeholder="Enter body type" th:value="${newCar.bodyType}"/>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label">Rok produkcji:</label>
+                            <input type="text" id="productionYear" name="productionYear" class="form-control"
+                                   placeholder="Enter year of production" th:value="${newCar.productionYear}"/>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label">Kolor:</label>
+                            <input type="text" id="color" name="color" class="form-control"
+                                   placeholder="Enter color" th:value="${newCar.color}"/>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label">Przebieg:</label>
+                            <input type="text" id="mileage" name="mileage" class="form-control"
+                                   placeholder="Enter mileage" th:value="${newCar.mileage}"/>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label">Wybierz oddział:</label>
+                            <select name="division" th:field="*{division}" class="form-control">
+                                <option th:each="division : ${divisions}" th:value="${division.getDivision_id()}" th:text="${division.getAddress()}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <a th:href="@{/fleet}">
+                                <button type="submit" class="btn btn-primary">Dodaj</button>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

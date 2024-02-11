@@ -35,11 +35,11 @@
                 <tr th:each="car: ${carList}">
                     <td th:text="${car.getBrand()}"></td>
                     <td th:text="${car.getModel()}"></td>
-                    <td th:text="${car.getBody_type()}"></td>
-                    <td th:text="${car.getProduction_year()}"></td>
+                    <td th:text="${car.getBodyType()}"></td>
+                    <td th:text="${car.getProductionYear()}"></td>
                     <td th:text="${car.getColor()}"></td>
                     <td th:text="${car.getMileage()}"></td>
-                    <td th:text="${car.getCost_per_day()}"></td>
+                    <td th:text="${car.getCostPerDay()}"></td>
                     <td th:text="${car.getStatus}"></td>
                     <td th:if="${car.status.name == 'AVAILABLE'}">
                         <a th:href="@{/makeReservation/__${car.getId()}__}">Rezerwuj!</a>
