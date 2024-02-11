@@ -22,8 +22,7 @@ public class CarService {
     public List<CarDTO> getList() {
         final User authenticatedUser = customUserDetailsService.getAuthenticatedUser().orElseThrow(() -> new RuntimeException("Could not acces logged user"));
         List<Car> cars = carRepository.findAll();
-        List<CarDTO> dtos = CarMapper.mapEntityListToDtoList(cars);
-        return dtos;
+        return CarMapper.mapEntityListToDtoList(cars);
     }
     
     public CarDTO getById(Long id) {
