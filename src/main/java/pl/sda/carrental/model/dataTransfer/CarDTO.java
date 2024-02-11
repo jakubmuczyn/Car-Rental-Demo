@@ -21,9 +21,9 @@ public class CarDTO {
 
     private String model;
 
-    private String body_type;
+    private String bodyType;
 
-    private Year production_year;
+    private Year productionYear;
 
     private String color;
 
@@ -32,5 +32,5 @@ public class CarDTO {
     @Enumerated(EnumType.STRING)
     private Car.RentStatus status;
 
-    private BigDecimal cost_per_day;
+    private BigDecimal costPerDay;
 }
