@@ -4,6 +4,8 @@ import ch.qos.logback.core.net.server.Client;
 import org.aspectj.lang.annotation.DeclareWarning;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import pl.sda.carrental.model.dataTransfer.mappers.EmployeeMapper;
+import pl.sda.carrental.model.entity.Division;
 import pl.sda.carrental.model.entity.userEntities.*;
 import pl.sda.carrental.model.repository.userRepositories.AdministratorRepository;
 import pl.sda.carrental.model.repository.userRepositories.CustomerRepository;
@@ -20,12 +22,14 @@ public class UserService {
     private final EmployeeRepository employeeRepository;
     private final AdministratorRepository administratorRepository;
     private final UserRepository<User> userRepository;
+    private final DivisionService divisionService;
 
-    public UserService(UserRepository<User> userRepository, AdministratorRepository adminRepository, EmployeeRepository employeeRepository, CustomerRepository customerRepository, EmployeeRepository employeeRepository1, AdministratorRepository administratorRepository, UserRepository userRepository1) {
+    public UserService(UserRepository<User> userRepository, AdministratorRepository adminRepository, EmployeeRepository employeeRepository, CustomerRepository customerRepository, EmployeeRepository employeeRepository1, AdministratorRepository administratorRepository, UserRepository userRepository1, DivisionService divisionService) {
         this.customerRepository = customerRepository;
         this.employeeRepository = employeeRepository1;
         this.administratorRepository = administratorRepository;
         this.userRepository = userRepository;
+        this.divisionService = divisionService;
     }
 
     public List<User> getAllUsers() {
@@ -60,5 +64,13 @@ public class UserService {
         User user = userRepository.findById(userId).get();
         user.setActive(!user.isActive());
         userRepository.save(user);
+
+        if (employeeRepository.existsById(userId)) {
+            Employee employee = employeeRepository.findById(userId).get();
+            Division division = employee.getDivision();
+            if (division != null) {
+               divisionService.removeEmployee(division, employee);
+            }
+        }
     }
 }

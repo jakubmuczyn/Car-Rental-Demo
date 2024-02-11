@@ -24,7 +24,7 @@ public class UserMapper {
     public <T extends User> UserDisplayDTO getUserDisplayDto(T user) {
         List<Employee> activeNonManagers = employeeRepository.findAllActiveNonManagers();
         boolean isEmployee = employeeRepository.existsById(user.getId());
-        boolean isManager = isEmployee ? employeeRepository.findAllActiveNonManagers().stream().noneMatch(e -> Objects.equals(e.getId(), user.getId())) : false;
+        boolean isManager = isEmployee && user.isActive() ? employeeRepository.findAllActiveNonManagers().stream().noneMatch(e -> Objects.equals(e.getId(), user.getId())) : false;
 
         return UserDisplayDTO.builder()
                 .id(user.getId())
