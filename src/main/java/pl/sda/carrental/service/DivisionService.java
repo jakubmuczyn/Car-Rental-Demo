@@ -19,13 +19,11 @@ import java.util.List;
 public class DivisionService {
     private final DivisionRepository divisionRepository;
     private final EmployeeRepository employeeRepository;
-    private final EmployeeMapper employeeMapper;
     private final AddressRepository addressRepository;
 
-    public DivisionService(DivisionRepository divisionRepository, EmployeeRepository employeeRepository, EmployeeMapper employeeMapper, AddressRepository addressRepository) {
+    public DivisionService(DivisionRepository divisionRepository, EmployeeRepository employeeRepository, AddressRepository addressRepository) {
         this.divisionRepository = divisionRepository;
         this.employeeRepository = employeeRepository;
-        this.employeeMapper = employeeMapper;
         this.addressRepository = addressRepository;
     }
 
