@@ -14,6 +14,7 @@ public class UserRegistrationDTO {
     
     private String lastName;
     
+    // @Email(message = "Adres e-mail jest nieprawidłowy")
     private String email;
     
     private Role role;
@@ -21,4 +22,17 @@ public class UserRegistrationDTO {
     private String password;
     
     private String repeatPassword;
+    
+    public void setEmail(String email) {
+        if (isValidEmail(email)) {
+            this.email = email;
+        } else {
+            throw new IllegalArgumentException("Adres e-mail jest nieprawidłowy");
+        }
+    }
+    
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_-]+(?:\\.[a-zA-Z0-9_-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; //?: - grupa niezachowująca
+        return email.matches(emailRegex);
+    }
 }
