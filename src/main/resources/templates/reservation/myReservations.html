@@ -33,7 +33,7 @@
     <div class="row">
         <span th:if="${currentUser.getReservation_id() == null}">
             <h1>Nie masz jeszcze żadnych rezerwacji :(</h1>
-            <a th:href="@{/templates/reservation}">Zarezerwuj samochód!</a>
+            <a th:href="@{/reservation}">Zarezerwuj samochód!</a>
         </span>
         <span th:if="${currentUser.getReservation_id() != null}">
             <h1>Twoje rezerwacje:</h1>
@@ -53,7 +53,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="reservation: ${reservationsList}"}>
+                        <tr th:each="reservation: ${reservationsList}">
                             <td th:text="${reservation.getId()}"></td>
                             <td th:text="${reservation.getCar().getBrand()} + ' ' + ${reservation.getCar().getBrand()}"></td>
                             <td th:text="${reservation.isGoing_abroad()}"></td>
@@ -69,7 +69,6 @@
             </div>
         </span>
     </div>
-</div>
 </div>
 </body>
 </html>
