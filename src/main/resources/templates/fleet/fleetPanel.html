@@ -53,24 +53,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${divisions.isEmpty()}"><td colspan="3"> No divisions available. Which is impossible, so something went wrong dog.</td></tr>
-    <tr th:each="division : ${divisions}">
-        <td><span th:text="${division.toString()}"></span> </td>
-        <td><span th:text="${division.getAddress()}"></span> </td>
-        <td><span th:text="${division.getManager().getName()}"></span> </td>
-        <td><a th:text="Manage" th:href="${'/divisions/' + division.getDivision_id()}"></a> </td>
-        <!--        TODO: Add a button to deactivate division - frees up all the workers in it and changes isActive flag on division -->
-        <!--        <div th:if="${user.getId() ne currentUser.getId()}">-->
-        <!--            <td th:if="${user.isEmployee()}"><a  th:href="@{/users/employee/} + ${user.getId()}">Edit</a></td>-->
-        <!--            <td th:if="${user.isCustomer()}"><a  th:href="@{/users/customer/} + ${user.getId()}">Edit</a></td>-->
-        <!--            <td th:if="${user.isAdministrator()}"><a  th:href="@{/users/administrator/} + ${user.getId()}">Edit</a></td>-->
-        <!--            <td th:if="${user.isEmployee()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}"></a></td>-->
-        <!--            <td th:if="${user.isCustomer()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}">Delete</a></td>-->
-        <!--            <td th:if="${user.isAdministrator()}"><a  th:href="@{/users/user/toggle/} + ${user.getId()}" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}">Delete</a></td>-->
-        <!--        </div>-->
-        <!--        <div th:if="${!(user.getId() ne currentUser.getId())}">-->
-        <!--            <td colspan="2">Cannot edit current user</td>-->
-        <!--        </div>-->
+    <tr th:if="${cars.isEmpty()}"><td colspan="3"> No cars available. Which is impossible, so something went wrong dog.</td></tr>
+    <tr th:each="car : ${cars}">
+        <td><span th:text="${car.getId()}"></span></td>
+        <td><span th:text="${car.getBrand()}"></span></td>
+        <td><span th:text="${car.getModel()}"></span></td>
+        <td><span th:text="${car.getBody_type()}"></span></td>
+        <td><span th:text="${car.getProduction_year()}"></span></td>
+        <td><span th:text="${car.getColor()}"></span></td>
+        <td><span th:text="${car.getMileage()}"></span></td>
+        <td><span th:text="${car.getStatus()}"></span></td>
+<!--        <td><a th:text="Zarządzaj" th:href="${'/divisions/' + division.getDivision_id()}"></a> </td>-->
     </tr>
     </tbody>
 </table>
